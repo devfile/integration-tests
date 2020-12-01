@@ -1,0 +1,54 @@
+schemaVersion: 2.0.0
+metadata:
+  name: nodejs
+starterProjects:
+  - name: nodejs-starter
+    git:
+      remotes:
+        origin: "https://github.com/che-samples/web-nodejs-sample.git"
+components:
+  - name: runtime
+    container:
+      image: quay.io/eclipse/che-nodejs10-ubi:nightly
+      memoryLimit: 1024Mi
+      env:
+        - name: FOO
+          value: "bar"
+      endpoints:
+        - name: "3000/tcp"
+          targetPort: 3000
+      mountSources: true
+      volumeMounts:
+        - name: myvol
+          path: /data
+  - name: runtime2
+    container:
+      image: quay.io/eclipse/che-nodejs10-ubi:nightly
+      memoryLimit: 1024Mi
+      mountSources: false
+      volumeMounts:
+        - name: myvol
+        - name: myvol2
+          path: /data2
+  - name: myvol
+    volume:
+      size: 3Gi
+  - name: myvol2
+    volume: {}
+commands:
+  - id: devbuild
+    exec:
+      component: runtime
+      commandLine: "echo hello >> myfile.log"
+      workingDir: /data
+      group:
+        kind: build
+        isDefault: true
+  - id: devrun
+    exec:
+      component: runtime2
+      commandLine: "cat myfile.log"
+      workingDir: /myvol
+      group:
+        kind: run
+        isDefault: true

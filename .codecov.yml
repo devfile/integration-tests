@@ -1,0 +1,10 @@
+comment:
+  behavior: default
+
+
+coverage:
+  status:
+    project:
+      default: off
+    patch:
+      default: off

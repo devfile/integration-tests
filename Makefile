@@ -1,4 +1,4 @@
-PROJECT := github.com/devfile/integration-tests
+PROJECT := github.com/openshift/odo
 ifdef GITCOMMIT
         GITCOMMIT := $(GITCOMMIT)
 else
@@ -8,7 +8,7 @@ PKGS := $(shell go list  ./... | grep -v $(PROJECT)/vendor | grep -v $(PROJECT)/
 COMMON_LDFLAGS := -X $(PROJECT)/pkg/version.GITCOMMIT=$(GITCOMMIT)
 BUILD_FLAGS := -mod=vendor -ldflags="$(COMMON_LDFLAGS)"
 CROSS_BUILD_FLAGS := -mod=vendor -ldflags="-s -w $(COMMON_LDFLAGS)"
-FILES := integration-tests
+FILES := odo dist
 TIMEOUT ?= 7200s
 
 # Env variable TEST_EXEC_NODES is used to pass spec execution type
@@ -126,6 +126,13 @@ generate-cli-structure:
 generate-cli-reference:
 	go run cmd/cli-doc/cli-doc.go reference > docs/cli-reference.adoc
 
+# create gzipped binaries in ./dist/release/
+# for uploading to GitHub release page
+# run make cross before this!
+.PHONY: prepare-release
+prepare-release: cross
+	./scripts/prepare-release.sh
+
 .PHONY: configure-installer-tests-cluster
 configure-installer-tests-cluster:
 	. ./scripts/configure-installer-tests-cluster.sh
@@ -139,6 +146,10 @@ configure-installer-tests-cluster-s390x:
 .PHONY: configure-installer-tests-cluster-ppc64le
 configure-installer-tests-cluster-ppc64le:
 	. ./scripts/configure-installer-tests-cluster-ppc64le.sh
+
+.PHONY: configure-supported-311-is
+configure-supported-311-is:
+	. ./scripts/supported-311-is.sh
 
 .PHONY: test
 test:
@@ -158,6 +169,51 @@ test-cmd-login-logout:
 .PHONY: test-cmd-link-unlink-4-cluster
 test-cmd-link-unlink-4-cluster:
 	ginkgo $(GINKGO_FLAGS) -focus="odo link and unlink commnad tests" tests/integration/
+
+# Run link and unlink command tests against 3.11 cluster
+.PHONY: test-cmd-link-unlink-311-cluster
+test-cmd-link-unlink-311-cluster:
+	ginkgo $(GINKGO_FLAGS) -focus="odo link and unlink command tests" tests/integration/servicecatalog/
+
+# Run odo service command tests
+.PHONY: test-cmd-service
+test-cmd-service:
+	ginkgo $(GINKGO_FLAGS) -focus="odo service command tests" tests/integration/servicecatalog/
+
+# Run odo project command tests
+.PHONY: test-cmd-project
+test-cmd-project:
+	ginkgo $(GINKGO_FLAGS_SERIAL) -focus="odo project command tests" tests/integration/project/
+
+# Run odo app command tests
+.PHONY: test-cmd-app
+test-cmd-app:
+	ginkgo $(GINKGO_FLAGS) -focus="odo app command tests" tests/integration/
+
+# Run odo component command tests
+.PHONY: test-cmd-cmp
+test-cmd-cmp:
+	ginkgo $(GINKGO_FLAGS) -focus="odo component command tests" tests/integration/
+
+# Run odo component subcommands tests
+.PHONY: test-cmd-cmp-sub
+test-cmd-cmp-sub:
+	ginkgo $(GINKGO_FLAGS) -focus="odo sub component command tests" tests/integration/
+
+# Run odo preference and config command tests
+.PHONY: test-cmd-pref-config
+test-cmd-pref-config:
+	ginkgo $(GINKGO_FLAGS) -focus="odo preference and config command tests" tests/integration/
+
+# Run odo push command tests
+.PHONY: test-cmd-push
+test-cmd-push:
+	ginkgo $(GINKGO_FLAGS) -focus="odo push command tests" tests/integration/
+
+# Run odo plugin handler tests
+.PHONY: test-plugin-handler
+test-plugin-handler:
+	ginkgo $(GINKGO_FLAGS) -focus="odo plugin functionality" tests/integration/
 
 # Run odo catalog devfile command tests
 .PHONY: test-cmd-devfile-catalog
@@ -214,6 +270,16 @@ test-cmd-devfile-registry:
 test-cmd-devfile-test:
 	ginkgo $(GINKGO_FLAGS) -focus="odo devfile test command tests" tests/integration/devfile/
 	
+# Run odo storage command tests
+.PHONY: test-cmd-storage
+test-cmd-storage:
+	ginkgo $(GINKGO_FLAGS) -focus="odo storage command tests" tests/integration/
+
+# Run odo url command tests
+.PHONY: test-cmd-url
+test-cmd-url:
+	ginkgo $(GINKGO_FLAGS) -focus="odo url command tests" tests/integration/
+
 # Run odo url devfile command tests
 .PHONY: test-cmd-devfile-url
 test-cmd-devfile-url:
@@ -286,15 +352,91 @@ test-cmd-devfile-config:
 # test-cmd-docker-devfile-test:
 # 	ginkgo $(GINKGO_FLAGS) -focus="odo docker devfile test command tests" tests/integration/devfile/docker/
 
+# Run odo watch command tests
+.PHONY: test-cmd-watch
+test-cmd-watch:
+	ginkgo $(GINKGO_FLAGS) -focus="odo watch command tests" tests/integration/
+
+# Run odo debug command tests
+.PHONY: test-cmd-debug
+test-cmd-debug:
+	ginkgo $(GINKGO_FLAGS) -focus="odo debug command tests" tests/integration/
+	ginkgo $(GINKGO_FLAGS_SERIAL) -focus="odo debug command serial tests" tests/integration/debug/
+
+# Run command's integration tests irrespective of service catalog status in the cluster.
+# Service, link and login/logout command tests are not the part of this test run
+.PHONY: test-integration
+test-integration:
+	ginkgo $(GINKGO_FLAGS) tests/integration/
+	ginkgo $(GINKGO_FLAGS_SERIAL) tests/integration/debug/
+
 # Run devfile integration tests
 .PHONY: test-integration-devfile
 test-integration-devfile:
 	ginkgo $(GINKGO_FLAGS) tests/integration/devfile/
 	ginkgo $(GINKGO_FLAGS_SERIAL) tests/integration/devfile/debug/
 
+# Run command's integration tests which are depend on service catalog enabled cluster.
+# Only service and link command tests are the part of this test run
+.PHONY: test-integration-service-catalog
+test-integration-service-catalog:
+	ginkgo $(GINKGO_FLAGS) tests/integration/servicecatalog/
+
+# Run core beta flow e2e tests
+.PHONY: test-e2e-beta
+test-e2e-beta:
+	ginkgo $(GINKGO_FLAGS) -focus="odo core beta flow" tests/e2escenarios/
+
+# Run java e2e tests
+.PHONY: test-e2e-java
+test-e2e-java:
+	ginkgo $(GINKGO_FLAGS) -focus="odo java e2e tests" tests/e2escenarios/
+
+# Run source e2e tests
+.PHONY: test-e2e-source
+test-e2e-source:
+	ginkgo $(GINKGO_FLAGS) -focus="odo source e2e tests" tests/e2escenarios/
+
+# Run supported images e2e tests
+.PHONY: test-e2e-images
+test-e2e-images:
+	ginkgo $(GINKGO_FLAGS) -focus="odo supported images e2e tests" tests/e2escenarios/
+
+# Run devfile e2e tests: odo devfile supported tests
+.PHONY: test-e2e-devfile
+test-e2e-devfile:
+	ginkgo $(GINKGO_FLAGS) -focus="odo devfile supported tests" tests/e2escenarios/
+
+# Run all e2e test scenarios
+.PHONY: test-e2e-all
+test-e2e-all:
+	ginkgo $(GINKGO_FLAGS) tests/e2escenarios/
+
+# create deb and rpm packages using fpm in ./dist/pkgs/
+# run make cross before this!
+.PHONY: packages
+packages:
+	./scripts/create-packages.sh
+
+# upload packages greated by 'make packages' to bintray repositories
+# run 'make cross' and 'make packages' before this!
+.PHONY: upload-packages
+upload-packages:
+	./scripts/upload-packages.sh
+
+# Update vendoring
+.PHONY: vendor-update
+vendor-update:
+	go mod vendor
+
 .PHONY: openshiftci-presubmit-unittests
 openshiftci-presubmit-unittests:
 	./scripts/openshiftci-presubmit-unittests.sh
+
+# Run OperatorHub tests
+.PHONY: test-operator-hub
+test-operator-hub:
+	ginkgo $(GINKGO_FLAGS_SERIAL) -focus="odo service command tests" tests/integration/operatorhub/
 
 .PHONY: test-cmd-devfile-describe
 test-cmd-devfile-describe:

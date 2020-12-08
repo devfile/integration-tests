@@ -1,0 +1,90 @@
+#
+# ODO SPECIFIC
+#
+
+# Ignore compiled files
+odo
+dist
+bin
+
+# Un-ignore odo directories
+!odo/
+
+# Ignore coverage report
+coverage.txt
+
+# Ignore test reports
+reports/
+
+#
+# GO SPECIFIC
+#
+
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+
+# Folders
+_obj
+_test
+
+# Architecture specific extensions/prefixes
+*.[568vq]
+[568vq].out
+
+*.cgo1.go
+*.cgo2.c
+_cgo_defun.c
+_cgo_gotypes.go
+_cgo_export.*
+
+_testmain.go
+
+*.exe
+*.test
+*.prof
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Site specific
+site/_site
+site/docs
+
+#
+# VIM SPECIFIC
+#
+
+# swap
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+
+# session
+Session.vim
+
+# temporary
+.netrwhist
+*~
+
+# auto-generated tag files
+tags
+
+# IntelliJ IDE specific
+.idea
+
+# VSCode specific
+.vscode
+
+#
+# MAC OS SPECIFIC
+#
+
+# Finder Desktop Service
+.DS_Store
+
+# Jekyll / site specific
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata

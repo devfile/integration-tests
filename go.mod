@@ -1,24 +1,28 @@
-module github.com/devfile/integration-tests
+module github.com/openshift/odo
 
 go 1.13
 
 require (
 	github.com/Azure/go-autorest/autorest v0.11.4 // indirect
-	github.com/Microsoft/go-winio v0.4.15-0.20200113171025-3fe6c5262873 // indirect
+	github.com/Microsoft/go-winio v0.4.15 // indirect
 	github.com/Netflix/go-expect v0.0.0-20200312175327-da48e75238e2
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/containerd/containerd v1.3.3 // indirect
+	github.com/devfile/api v0.0.0-20201103130402-29b8738e196e
+	github.com/devfile/library v0.0.0-20201125155652-6eabeab3ee52
 	github.com/docker/docker v17.12.0-ce-rc1.0.20200309214505-aa6a9891b09c+incompatible
 	github.com/docker/go-connections v0.4.1-0.20200120150455-7dc0a2d6ddce
 	github.com/fatih/color v1.7.0
 	github.com/fsnotify/fsnotify v1.4.9
 	github.com/ghodss/yaml v1.0.1-0.20190212211648-25d852aebe32
-	github.com/go-git/go-git/v5 v5.1.0
+	github.com/go-git/go-git/v5 v5.2.0
 	github.com/gobwas/glob v0.2.4-0.20181002190808-e7a84e9525fe
 	github.com/golang/mock v1.4.4
 	github.com/gregjones/httpcache v0.0.0-20190611155906-901d90724c79
 	github.com/hinshun/vt10x v0.0.0-20180809195222-d55458df857c
+	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
+	github.com/kevinburke/ssh_config v0.0.0-20201106050909-4977a11b4351 // indirect
 	github.com/kubernetes-sigs/service-catalog v0.2.2
 	github.com/kylelemons/godebug v1.1.1-0.20190824192725-fa7b53cdfc91
 	github.com/mattn/go-colorable v0.1.2
@@ -37,14 +41,17 @@ require (
 	github.com/operator-framework/operator-lifecycle-manager v0.0.0-20200422144016-a6acf50218ed
 	github.com/pkg/errors v0.8.1
 	github.com/posener/complete v1.1.2
-	github.com/redhat-developer/service-binding-operator v0.1.1
+	github.com/redhat-developer/service-binding-operator v0.3.0
 	github.com/spf13/afero v1.2.2
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.6.1
-	github.com/xeipuuv/gojsonschema v1.2.0
+	github.com/xanzy/ssh-agent v0.3.0 // indirect
 	github.com/zalando/go-keyring v0.1.0
-	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
+	golang.org/x/crypto v0.0.0-20201124201722-c8d3bf9c5392 // indirect
+	golang.org/x/net v0.0.0-20201110031124-69a78807bb2b // indirect
+	golang.org/x/sys v0.0.0-20201119102817-f84b799fce68 // indirect
+	golang.org/x/term v0.0.0-20201117132131-f5c789dd3221
 	gopkg.in/AlecAivazis/survey.v1 v1.8.0
 	gopkg.in/yaml.v2 v2.3.0
 	k8s.io/api v0.18.2
@@ -53,7 +60,6 @@ require (
 	k8s.io/client-go v12.0.0+incompatible
 	k8s.io/klog v1.0.0
 	k8s.io/kubectl v0.0.0
-	sigs.k8s.io/controller-runtime v0.6.0 // indirect
 	sigs.k8s.io/yaml v1.2.0
 )
 

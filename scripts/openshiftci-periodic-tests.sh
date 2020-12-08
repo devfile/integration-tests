@@ -22,18 +22,12 @@ chmod 640 $TMP_DIR/kubeconfig
 export KUBECONFIG=$TMP_DIR/kubeconfig
 
 # Login as developer
-odo login -u developer -p developer
+odo login -u developer -p password@123
 
 # Check login user name for debugging purpose
 oc whoami
 
-if [ "${ARCH}" == "s390x" ]; then
-    echo "No integration tests for ${ARCH}"
-elif  [ "${ARCH}" == "ppc64le" ]; then
-    echo "No integration tests for ${ARCH}"
-else
-    # Integration tests
-    make test-integration-devfile
-fi
+# Integration tests
+make test-integration-devfile
 
 odo logout

@@ -1,0 +1,41 @@
+---
+blacklist:
+  # https://www.apache.org/licenses/GPL-compatibility.html
+  - GPL-2.0
+
+whitelist:
+  - Apache-2.0
+  - MIT
+  - NewBSD
+  - FreeBSD
+  - ISC
+  - MPL-2.0
+  - BSD-3-Clause
+  - BSD-2-Clause
+  - MPL-2.0-no-copyleft-exception
+  - EPL-2.0
+
+exceptions:
+  # wwhrd currently does not detect ISC which is compatible with Odo so, add it under exceptions to avoid errors due to it being not recognised
+  - github.com/davecgh/go-spew/spew/...
+  # wwhrd currently does not detect ISC which is compatible with Odo so, add it under exceptions to avoid errors due to it being not recognised
+  # we use this file in cli documentation
+  - github.com/olekukonko/tablewriter
+  # gocertifi contains CA bundle and SSL certs which is required for OpenShift
+  # This is OpenShift dependency, ODO do not use this directly
+  - github.com/certifi/gocertifi
+  # go-digest contains common digest package used across the container ecosystem
+  # This is OpenShift dependency, ODO do not use this directly
+  - github.com/opencontainers/go-digest
+  # MIT licence - wwhrd is not detecting it correctly
+  - github.com/ghodss/yaml
+  # Apache License 2.0 - wwhrd is not detecting it correctly
+  - github.com/prometheus/common/...
+  # Apache License 2.0 - wwhrd is not detecting it correctly
+  - github.com/docker/spdystream/...
+  # BSD licence - wwhrd is not detecting it correctly
+  - github.com/gogo/protobuf/...
+  # BSD licence - wwhrd is not detecting it correctly
+  - github.com/golang/protobuf/...
+  # MIT licence - wwhrd is not detecting it correctly
+  - sigs.k8s.io/yaml/...

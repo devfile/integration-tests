@@ -615,27 +615,25 @@ var _ = Describe("odo devfile push command tests", func() {
 			Expect(volumesMatched).To(Equal(true))
 		})
 
-		// Disabled failed validations temporarily
+		It("Ensure that push -f correctly removes local deleted files from the remote target sync folder", func() {
 
-		// It("Ensure that push -f correctly removes local deleted files from the remote target sync folder", func() {
+			// 1) Push a generic Java project
+			helper.CmdShouldPass("odo", "create", "java-springboot", "--project", commonVar.Project, cmpName)
+			helper.CopyExample(filepath.Join("source", "devfiles", "springboot", "project"), commonVar.Context)
+			helper.CopyExampleDevFile(filepath.Join("source", "devfiles", "springboot", "devfile.yaml"), filepath.Join(commonVar.Context, "devfile.yaml"))
 
-		// 	// 1) Push a generic Java project
-		// 	helper.CmdShouldPass("odo", "create", "java-springboot", "--project", commonVar.Project, cmpName)
-		// 	helper.CopyExample(filepath.Join("source", "devfiles", "springboot", "project"), commonVar.Context)
-		// 	helper.CopyExampleDevFile(filepath.Join("source", "devfiles", "springboot", "devfile.yaml"), filepath.Join(commonVar.Context, "devfile.yaml"))
+			output := helper.CmdShouldPass("odo", "push", "--project", commonVar.Project)
+			Expect(output).To(ContainSubstring("Changes successfully pushed to component"))
 
-		// 	output := helper.CmdShouldPass("odo", "push", "--project", commonVar.Project)
-		// 	Expect(output).To(ContainSubstring("Changes successfully pushed to component"))
+			// 2) Rename the pom.xml, which should cause the build to fail if sync is working as expected
+			err := os.Rename(filepath.Join(commonVar.Context, "pom.xml"), filepath.Join(commonVar.Context, "pom.xml.renamed"))
+			Expect(err).NotTo(HaveOccurred())
 
-		// 	// 2) Rename the pom.xml, which should cause the build to fail if sync is working as expected
-		// 	err := os.Rename(filepath.Join(commonVar.Context, "pom.xml"), filepath.Join(commonVar.Context, "pom.xml.renamed"))
-		// 	Expect(err).NotTo(HaveOccurred())
-
-		// 	// 3) Ensure that the build fails due to missing 'pom.xml', which ensures that the sync operation
-		// 	// correctly renamed pom.xml to pom.xml.renamed.
-		// 	output = helper.CmdShouldFail("odo", "push", "-f", "--project", commonVar.Project)
-		// 	helper.MatchAllInOutput(output, []string{"no POM in this directory"})
-		// })
+			// 3) Ensure that the build fails due to missing 'pom.xml', which ensures that the sync operation
+			// correctly renamed pom.xml to pom.xml.renamed.
+			output = helper.CmdShouldFail("odo", "push", "-f", "--project", commonVar.Project)
+			helper.MatchAllInOutput(output, []string{"no POM in this directory"})
+		})
 
 	})
 
@@ -788,7 +786,7 @@ var _ = Describe("odo devfile push command tests", func() {
 
 			// Verify odo push failed
 			output := helper.CmdShouldFail("odo", "push", "--context", commonVar.Context)
-			Expect(output).To(ContainSubstring("this Devfile version is not supported"))
+			Expect(output).To(ContainSubstring("unable to find schema for version \"1.0.0\""))
 		})
 
 	})
@@ -809,12 +807,12 @@ var _ = Describe("odo devfile push command tests", func() {
 			helper.CmdShouldPass("odo", "create", "nodejs", "--project", commonVar.Project, cmpName)
 			helper.CopyExample(filepath.Join("source", "devfiles", "nodejs", "project"), commonVar.Context)
 			helper.CopyExampleDevFile(filepath.Join("source", "devfiles", "nodejs", "devfile-with-multiple-defaults.yaml"), filepath.Join(commonVar.Context, "devfile.yaml"))
-			output := helper.CmdShouldPass("odo", "push", "--build-command", "firstbuild", "--run-command", "singleenv", "--context", commonVar.Context)
-			Expect(output).To(ContainSubstring("mkdir $ENV1"))
+			output := helper.CmdShouldPass("odo", "push", "--build-command", "buildWithEnv", "--run-command", "singleenv", "--context", commonVar.Context)
+			helper.MatchAllInOutput(output, []string{"mkdir $ENV1", "mkdir $BUILD_ENV1"})
 
 			podName := commonVar.CliRunner.GetRunningPodNameByComponent(cmpName, commonVar.Project)
 			output = commonVar.CliRunner.ExecListDir(podName, commonVar.Project, sourcePath)
-			Expect(output).To(ContainSubstring("test_env_variable"))
+			helper.MatchAllInOutput(output, []string{"test_env_variable", "test_build_env_variable"})
 
 		})
 
@@ -822,12 +820,12 @@ var _ = Describe("odo devfile push command tests", func() {
 			helper.CmdShouldPass("odo", "create", "nodejs", "--project", commonVar.Project, cmpName)
 			helper.CopyExample(filepath.Join("source", "devfiles", "nodejs", "project"), commonVar.Context)
 			helper.CopyExampleDevFile(filepath.Join("source", "devfiles", "nodejs", "devfile-with-multiple-defaults.yaml"), filepath.Join(commonVar.Context, "devfile.yaml"))
-			output := helper.CmdShouldPass("odo", "push", "--build-command", "firstbuild", "--run-command", "multipleenv", "--context", commonVar.Context)
-			Expect(output).To(ContainSubstring("mkdir $ENV1 $ENV2"))
+			output := helper.CmdShouldPass("odo", "push", "--build-command", "buildWithMultipleEnv", "--run-command", "multipleenv", "--context", commonVar.Context)
+			helper.MatchAllInOutput(output, []string{"mkdir $ENV1 $ENV2", "mkdir $BUILD_ENV1 $BUILD_ENV2"})
 
 			podName := commonVar.CliRunner.GetRunningPodNameByComponent(cmpName, commonVar.Project)
 			output = commonVar.CliRunner.ExecListDir(podName, commonVar.Project, sourcePath)
-			helper.MatchAllInOutput(output, []string{"test_env_variable1", "test_env_variable2"})
+			helper.MatchAllInOutput(output, []string{"test_build_env_variable1", "test_build_env_variable2", "test_env_variable1", "test_env_variable2"})
 
 		})
 
@@ -835,12 +833,12 @@ var _ = Describe("odo devfile push command tests", func() {
 			helper.CmdShouldPass("odo", "create", "nodejs", "--project", commonVar.Project, cmpName)
 			helper.CopyExample(filepath.Join("source", "devfiles", "nodejs", "project"), commonVar.Context)
 			helper.CopyExampleDevFile(filepath.Join("source", "devfiles", "nodejs", "devfile-with-multiple-defaults.yaml"), filepath.Join(commonVar.Context, "devfile.yaml"))
-			output := helper.CmdShouldPass("odo", "push", "--build-command", "firstbuild", "--run-command", "envwithspace", "--context", commonVar.Context)
-			Expect(output).To(ContainSubstring("mkdir \\\"$ENV1\\\""))
+			output := helper.CmdShouldPass("odo", "push", "--build-command", "buildEnvWithSpace", "--run-command", "envwithspace", "--context", commonVar.Context)
+			helper.MatchAllInOutput(output, []string{"mkdir \\\"$ENV1\\\"", "mkdir \\\"$BUILD_ENV1\\\""})
 
 			podName := commonVar.CliRunner.GetRunningPodNameByComponent(cmpName, commonVar.Project)
 			output = commonVar.CliRunner.ExecListDir(podName, commonVar.Project, sourcePath)
-			helper.MatchAllInOutput(output, []string{"env with space"})
+			helper.MatchAllInOutput(output, []string{"build env variable with space", "env with space"})
 
 		})
 	})
@@ -948,8 +946,12 @@ var _ = Describe("odo devfile push command tests", func() {
 			Expect(output2).To(ContainSubstring("Changes successfully pushed to component"))
 
 			output = helper.CmdShouldPass("odo", "list", "--project", commonVar.Project)
-			Expect(output).To(ContainSubstring(cmpName))
-			Expect(output).ToNot(ContainSubstring(cmpName2))
+			// this test makes sure that a devfile component doesn't show up as an s2i component as well
+			Expect(helper.Suffocate(output)).To(Equal(helper.Suffocate(fmt.Sprintf(`
+			Devfile Components: 
+			APP        NAME       PROJECT        TYPE       STATE
+			app        %[1]s     %[2]s           nodejs     Pushed
+			`, cmpName, commonVar.Project))))
 
 			output = helper.CmdShouldPass("odo", "list", "--all-apps", "--project", commonVar.Project)
 

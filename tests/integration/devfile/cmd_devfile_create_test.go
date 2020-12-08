@@ -187,6 +187,32 @@ var _ = Describe("odo devfile create command tests", func() {
 		})
 	})
 
+	Context("When executing odo create with git tag or git branch specified in starter project", func() {
+		JustBeforeEach(func() {
+			contextDevfile = helper.CreateNewContext()
+			helper.Chdir(contextDevfile)
+			helper.CopyExampleDevFile(filepath.Join("source", "devfiles", "nodejs", "devfile-with-branch.yaml"), filepath.Join(contextDevfile, "devfile.yaml"))
+		})
+
+		JustAfterEach(func() {
+			helper.DeleteDir(contextDevfile)
+			helper.Chdir(commonVar.Context)
+		})
+
+		It("should successfully create the component and download the source from the specified branch", func() {
+			helper.CmdShouldPass("odo", "create", "nodejs", "--starter")
+			expectedFiles := []string{"package.json", "package-lock.json", "README.md", devfile}
+			Expect(helper.VerifyFilesExist(contextDevfile, expectedFiles)).To(Equal(true))
+		})
+
+		It("should successfully create the component and download the source from the specified tag", func() {
+			helper.ReplaceString(filepath.Join(contextDevfile, "devfile.yaml"), "revision: test-branch", "revision: 0.0.1")
+			helper.CmdShouldPass("odo", "create", "nodejs", "--starter")
+			expectedFiles := []string{"package.json", "package-lock.json", "README.md", devfile}
+			Expect(helper.VerifyFilesExist(contextDevfile, expectedFiles)).To(Equal(true))
+		})
+	})
+
 	Context("When executing odo create with component with no devBuild command", func() {
 		It("should successfully create the devfile component", func() {
 			// Quarkus devfile has no devBuild command
@@ -331,10 +357,11 @@ var _ = Describe("odo devfile create command tests", func() {
 			helper.CmdShouldPass("odo", "create", cmpName, "--project", commonVar.Project, "--starter")
 
 			pathsToValidate := map[string]bool{
-				filepath.Join(contextDevfile, "java", "application", "rest"):                       true,
-				filepath.Join(contextDevfile, "java", "application", "Info.java"):                  true,
-				filepath.Join(contextDevfile, "java", "application", "rest", "v1", "Example.java"): true,
-				filepath.Join(contextDevfile, "resources", "public", "index.html"):                 true,
+				filepath.Join(contextDevfile, "java", "com"):                                            true,
+				filepath.Join(contextDevfile, "java", "com", "example"):                                 true,
+				filepath.Join(contextDevfile, "java", "com", "example", "demo"):                         true,
+				filepath.Join(contextDevfile, "java", "com", "example", "demo", "DemoApplication.java"): true,
+				filepath.Join(contextDevfile, "resources", "application.properties"):                    true,
 			}
 
 			pathsNotToBePresent := map[string]bool{
@@ -361,9 +388,8 @@ var _ = Describe("odo devfile create command tests", func() {
 
 			Expect(err).To(BeNil())
 
-			// Disabled failed validations temporarily
-			//Expect(found).To(Equal(len(pathsToValidate)))
-			//Expect(notToBeFound).To(Equal(0))
+			Expect(found).To(Equal(len(pathsToValidate)))
+			Expect(notToBeFound).To(Equal(0))
 
 			helper.DeleteDir(contextDevfile)
 		})

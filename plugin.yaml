@@ -1,4 +1,0 @@
-name: "dev" 
-shortDesc: "odo plugin"
-longDesc: "odo plugin to use odo as a plugin in OpenShift"
-command: "odo"

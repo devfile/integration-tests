@@ -4,7 +4,8 @@ RUN mkdir -p /go/src/github.com/openshift/console \
     cd /go/src/github.com/openshift \
     git clone https://github.com/openshift/console.git
 WORKDIR /go/src/github.com/openshift/console
-RUN ./build.sh
+
+RUN /go/src/github.com/openshift/console/build.sh
 
 FROM openshift/origin-base
 

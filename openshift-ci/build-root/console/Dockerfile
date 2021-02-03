@@ -3,11 +3,7 @@ FROM quay.io/coreos/tectonic-console-builder:v21 AS build
 RUN mkdir -p /go/src/github.com/openshift
 RUN cd /go/src/github.com/openshift && git clone https://github.com/openshift/console.git
 WORKDIR /go/src/github.com/openshift/console
-# test file list
-RUN ls -la
-RUN cd /go/src/github.com/openshift/console  && ./build.sh
-# test file list
-RUN ls -la
+RUN ./build.sh
 
 FROM openshift/origin-base
 

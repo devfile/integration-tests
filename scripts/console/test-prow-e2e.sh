@@ -43,6 +43,4 @@ SCENARIO="${1:-e2e}"
 export NO_COLOR=1
 if [ "$SCENARIO" == "e2e" ] || [ "$SCENARIO" == "release" ]; then
   ./test-cypress.sh -h true
-elif [ "$SCENARIO" == "kubevirt-gating" ]; then
-  ./test-cypress.sh -p kubevirt -h true
 fi

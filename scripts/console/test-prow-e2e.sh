@@ -43,4 +43,12 @@ SCENARIO="${1:-e2e}"
 export NO_COLOR=1
 if [ "$SCENARIO" == "e2e" ] || [ "$SCENARIO" == "release" ]; then
   ./test-cypress.sh -h true
+#elif [ "$SCENARIO" == "login" ]; then
+#  ./test-cypress.sh -p console -s 'tests/app/auth-multiuser-login.spec.ts' -h true
+#elif [ "$SCENARIO" == "olmFull" ]; then
+#  ./test-cypress.sh -p olm -h true
+#elif [ "$SCENARIO" == "ceph" ]; then
+#  ./test-cypress.sh -p ceph -h true
+elif [ "$SCENARIO" == "kubevirt-gating" ]; then
+  ./test-cypress.sh -p kubevirt -h true
 fi

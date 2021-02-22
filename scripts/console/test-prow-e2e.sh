@@ -32,23 +32,8 @@ oc patch oauths cluster --patch "$(cat ./frontend/integration-tests/data/patch-h
 DBUS_SESSION_BUS_ADDRESS=/dev/null
 export DBUS_SESSION_BUS_ADDRESS
 
-SCENARIO="${1:-e2e}"
-
-#if [ "$SCENARIO" != "login" ] && [ "$SCENARIO" != "olmFull" ] && [ "$SCENARIO" != "ceph" ]; then
-#  CHROME_VERSION=$(google-chrome --version) ./test-protractor.sh "$SCENARIO"
-#fi
-
 # Disable color codes in Cypress since they do not render well CI test logs.
 # https://docs.cypress.io/guides/guides/continuous-integration.html#Colors
 export NO_COLOR=1
-if [ "$SCENARIO" == "e2e" ] || [ "$SCENARIO" == "release" ]; then
-  ./test-cypress.sh -h true
-#elif [ "$SCENARIO" == "login" ]; then
-#  ./test-cypress.sh -p console -s 'tests/app/auth-multiuser-login.spec.ts' -h true
-#elif [ "$SCENARIO" == "olmFull" ]; then
-#  ./test-cypress.sh -p olm -h true
-#elif [ "$SCENARIO" == "ceph" ]; then
-#  ./test-cypress.sh -p ceph -h true
-elif [ "$SCENARIO" == "kubevirt-gating" ]; then
-  ./test-cypress.sh -p kubevirt -h true
-fi
+
+./test-cypress.sh -h true

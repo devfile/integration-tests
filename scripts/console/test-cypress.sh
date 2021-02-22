@@ -39,22 +39,22 @@ if [ $# -eq 0 ]; then
 fi
 
 if [ -n "${headless-}" ] && [ -z "${pkg-}" ]; then
-  yarn run test-cypress-devconsole-headless
+  yarn run test-cypress-devconsole-headless-create-from-devfile
   exit;
 fi
 
-yarn_script="test-cypress"
-
-if [ -n "${pkg-}" ]; then
-    yarn_script="$yarn_script-$pkg"
-fi
-
-if [ -n "${headless-}" ]; then
-  yarn_script="$yarn_script-headless"
-fi
-
-if [ -n "${spec-}" ]; then
-  yarn_script="$yarn_script --spec '$spec'"
-fi
-
-yarn run $yarn_script
+#yarn_script="test-cypress"
+#
+#if [ -n "${pkg-}" ]; then
+#    yarn_script="$yarn_script-$pkg"
+#fi
+#
+#if [ -n "${headless-}" ]; then
+#  yarn_script="$yarn_script-headless"
+#fi
+#
+#if [ -n "${spec-}" ]; then
+#  yarn_script="$yarn_script --spec '$spec'"
+#fi
+#
+#yarn run $yarn_script

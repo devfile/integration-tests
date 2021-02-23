@@ -11,17 +11,5 @@ function generateReport {
 }
 trap generateReport EXIT
 
-while getopts p:s:h:l: flag
-do
-  case "${flag}" in
-    p) pkg=${OPTARG};;
-    s) spec=${OPTARG};;
-    h) headless=${OPTARG};;
-  esac
-done
-
-if [ -n "${headless-}" ] && [ -z "${pkg-}" ]; then
-  yarn run test-cypress-devconsole-headless-create-from-devfile
-  exit;
-fi
+yarn run test-cypress-devconsole-headless-create-from-devfile
 

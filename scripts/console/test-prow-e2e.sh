@@ -36,4 +36,4 @@ export DBUS_SESSION_BUS_ADDRESS
 # https://docs.cypress.io/guides/guides/continuous-integration.html#Colors
 export NO_COLOR=1
 
-./test-cypress.sh -h true
+./test-cypress.sh

@@ -3,6 +3,7 @@ FROM quay.io/coreos/tectonic-console-builder:v21 AS build
 RUN mkdir -p /go/src/github.com/openshift
 RUN cd /go/src/github.com/openshift && git clone https://github.com/openshift/console.git
 WORKDIR /go/src/github.com/openshift/console
+RUN yarn config set ignore-engines true
 RUN ./build.sh
 
 FROM openshift/origin-base

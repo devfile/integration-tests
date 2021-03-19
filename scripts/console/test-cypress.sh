@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd frontend
-yarn config set ignore-engines true
+# yarn config set ignore-engines true
+rm -rf node_modules/ package-lock.json yarn.lock
 yarn install
 
 function generateReport {

@@ -1,2 +1,14 @@
-.idea/**
+# IntelliJ IDE specific
+.idea
+
+# VSCode specific
+.vscode
+
+#
+# MAC OS SPECIFIC
+#
+
+# Finder Desktop Service
+.DS_Store
+
 

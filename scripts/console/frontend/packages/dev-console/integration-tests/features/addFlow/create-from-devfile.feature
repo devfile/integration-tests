@@ -6,9 +6,9 @@ Feature: Create Application from git form
         Background:
             Given user is at developer perspective
               And user has created or selected namespace "aut-addflow-devfile"
-
-
-        @smoke
+  
+  
+        @regression
         Scenario: Deploy git workload with devfile from topology page
             Given user has created workload "nodejs-ex-git" with resource type "Deployment"
               And user is at the Topology page

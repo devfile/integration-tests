@@ -6,7 +6,7 @@ set -e
 set -x
 
 git clone https://github.com/openshift/odo $GOPATH/src/github.com/openshift/odo
-cp scripts/openshiftci-presubmit-devfiles-tests.sh $GOPATH/src/github.com/openshift/odo/scripts/
+cp scripts/openshiftci-presubmit-devfiles-odo-tests.sh $GOPATH/src/github.com/openshift/odo/scripts/
 cd $GOPATH/src/github.com/openshift/odo
 
 export CI="openshift"

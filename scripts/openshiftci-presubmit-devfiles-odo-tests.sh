@@ -32,6 +32,6 @@ oc whoami
 
 make test-integration-devfile
 
-cp -r reports $ARTIFACT_DIR
+cp -r $GOPATH/src/github.com/openshift/odo/tests/integration/reports $ARTIFACT_DIR
 
 oc logout

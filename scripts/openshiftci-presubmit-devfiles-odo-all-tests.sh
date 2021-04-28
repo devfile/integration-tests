@@ -8,9 +8,6 @@ set -x
 git clone https://github.com/openshift/odo $GOPATH/src/github.com/openshift/odo
 cp scripts/openshiftci-presubmit-devfiles-odo-all-tests.sh $GOPATH/src/github.com/openshift/odo/scripts/
 sed -i 's/-randomizeAllSpecs//g' $GOPATH/src/github.com/openshift/odo/Makefile
-
-$GOPATH/src/github.com/openshift/odo/scripts/openshiftci-presubmit-devfiles-odo-all-tests.sh
-
 cd $GOPATH/src/github.com/openshift/odo
 
 export CI="openshift"

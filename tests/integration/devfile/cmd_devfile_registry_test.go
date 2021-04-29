@@ -8,6 +8,8 @@ import (
 var _ = Describe("odo devfile registry command tests", func() {
 	const registryName string = "RegistryName"
 	const addRegistryURL string = "https://github.com/odo-devfiles/registry"
+
+	const ociRegistryName string = "OCIRegistryName"
 	const addOCIRegistryURL string = "https://registry.stage.devfile.io"
 
 	const updateRegistryURL string = "http://www.example.com/update"
@@ -43,7 +45,7 @@ var _ = Describe("odo devfile registry command tests", func() {
 		})
 	})
 
-	Context("When executing registry commands with the registry is not present", func() {
+	Context("When executing registry commands with the registry is not present - Git-based repository", func() {
 		It("Should successfully add the registry", func() {
 			helper.CmdShouldPass("odo", "registry", "add", registryName, addRegistryURL)
 			output := helper.CmdShouldPass("odo", "registry", "list")
@@ -61,7 +63,25 @@ var _ = Describe("odo devfile registry command tests", func() {
 		})
 	})
 
-	Context("When executing registry commands with the registry is present", func() {
+	Context("When executing registry commands with the registry is not present - OCI-based repository", func() {
+		It("Should successfully add the registry", func() {
+			helper.CmdShouldPass("odo", "registry", "add", ociRegistryName, addOCIRegistryURL)
+			output := helper.CmdShouldPass("odo", "registry", "list")
+			helper.MatchAllInOutput(output, []string{ociRegistryName, addOCIRegistryURL})
+			helper.CmdShouldPass("odo", "create", "nodejs", "--registry", ociRegistryName)
+			helper.CmdShouldPass("odo", "registry", "delete", ociRegistryName, "-f")
+		})
+
+		It("Should fail to update the registry", func() {
+			helper.CmdShouldFail("odo", "registry", "update", ociRegistryName, updateRegistryURL, "-f")
+		})
+
+		It("Should fail to delete the registry", func() {
+			helper.CmdShouldFail("odo", "registry", "delete", ociRegistryName, "-f")
+		})
+	})
+
+	Context("When executing registry commands with the Git-based registry is present", func() {
 		It("Should fail to add the registry", func() {
 			helper.CmdShouldPass("odo", "registry", "add", registryName, addRegistryURL)
 			helper.CmdShouldFail("odo", "registry", "add", registryName, addRegistryURL)
@@ -80,6 +100,29 @@ var _ = Describe("odo devfile registry command tests", func() {
 			helper.CmdShouldPass("odo", "registry", "add", registryName, addRegistryURL)
 			helper.CmdShouldPass("odo", "registry", "delete", registryName, "-f")
 			helper.CmdShouldFail("odo", "create", "java-maven", "--registry", registryName)
+		})
+
+	})
+
+	Context("When executing registry commands with the OCI-based registry is present", func() {
+		It("Should fail to add the registry", func() {
+			helper.CmdShouldPass("odo", "registry", "add", ociRegistryName, addOCIRegistryURL)
+			helper.CmdShouldFail("odo", "registry", "add", ociRegistryName, addOCIRegistryURL)
+			helper.CmdShouldPass("odo", "registry", "delete", ociRegistryName, "-f")
+		})
+
+		It("Should successfully update the registry", func() {
+			helper.CmdShouldPass("odo", "registry", "add", ociRegistryName, addOCIRegistryURL)
+			helper.CmdShouldPass("odo", "registry", "update", ociRegistryName, updateRegistryURL, "-f")
+			output := helper.CmdShouldPass("odo", "registry", "list")
+			helper.MatchAllInOutput(output, []string{ociRegistryName, updateRegistryURL})
+			helper.CmdShouldPass("odo", "registry", "delete", ociRegistryName, "-f")
+		})
+
+		It("Should successfully delete the registry", func() {
+			helper.CmdShouldPass("odo", "registry", "add", ociRegistryName, addOCIRegistryURL)
+			helper.CmdShouldPass("odo", "registry", "delete", ociRegistryName, "-f")
+			helper.CmdShouldFail("odo", "create", "java-maven", "--registry", ociRegistryName)
 		})
 
 	})

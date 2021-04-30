@@ -10,7 +10,7 @@ var _ = Describe("odo devfile registry command tests", func() {
 	const addRegistryURL string = "https://github.com/odo-devfiles/registry"
 
 	const ociRegistryName string = "OCIRegistryName"
-	const addOCIRegistryURL string = "https://registry.stage.devfile.io"
+	const addOCIRegistryURL string = "https://registry.devfile.io"
 
 	const updateRegistryURL string = "http://www.example.com/update"
 	var commonVar helper.CommonVar

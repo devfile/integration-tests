@@ -93,19 +93,19 @@ var _ = Describe("odo devfile catalog command tests", func() {
 		})
 	})
 
-	Context("When executing catalog describe component with a component name with multiple components - Git-based repository", func() {
-		It("should print multiple devfiles from different registries - Git-based repository", func() {
+	Context("When executing catalog describe component with a component name with multiple components", func() {
+		It("should print multiple devfiles from Git-based repository", func() {
 			helper.CmdShouldPass("odo", "registry", "add", registryName, addRegistryURL)
 			output := helper.CmdShouldPass("odo", "catalog", "describe", "component", "nodejs")
 			helper.MatchAllInOutput(output, []string{"name: nodejs-starter", "Registry: " + registryName})
+			helper.CmdShouldPass("odo", "registry", "delete", registryName, "-f")
 		})
-	})
 
-	Context("When executing catalog describe component with a component name with multiple components - OCI-based repository", func() {
-		It("should print multiple devfiles from different registries - OCI-based repository", func() {
+		It("should print multiple devfiles from OCI-based repository", func() {
 			helper.CmdShouldPass("odo", "registry", "add", ociRegistryName, addOCIRegistryURL)
 			output := helper.CmdShouldPass("odo", "catalog", "describe", "component", "nodejs")
 			helper.MatchAllInOutput(output, []string{"name: nodejs-starter", "Registry: " + ociRegistryName})
+			helper.CmdShouldPass("odo", "registry", "delete", ociRegistryName, "-f")
 		})
 	})
 

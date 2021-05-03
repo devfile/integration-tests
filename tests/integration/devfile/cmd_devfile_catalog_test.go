@@ -6,6 +6,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"github.com/openshift/odo/tests/helper"
+	"time"
 )
 
 var _ = Describe("odo devfile catalog command tests", func() {
@@ -46,6 +47,27 @@ var _ = Describe("odo devfile catalog command tests", func() {
 			}
 			helper.MatchAllInOutput(output, wantOutput)
 		})
+
+		Measure("The benchmark performance of ", func(b Benchmarker) {
+			runtime := b.Time("odo catalog list command run", func() {
+				output := helper.CmdShouldPass("odo", "catalog", "list", "components")
+				wantOutput := []string{
+					"Odo Devfile Components",
+					"NAME",
+					"java-springboot",
+					"java-openliberty",
+					"java-quarkus",
+					"DESCRIPTION",
+					"REGISTRY",
+					"DefaultDevfileRegistry",
+				}
+				helper.MatchAllInOutput(output, wantOutput)
+			})
+
+			//Expect(runtime.Nanoseconds()).Should(BeNumerically("<", (100 * time.Millisecond).Nanoseconds()))
+			Expect(runtime.Seconds()).Should(BeNumerically("<", 100), "odo catalog list command shouldn't take too long.")
+			b.RecordValue("Execution time in microseconds", float64(runtime.Nanoseconds()/1000))
+		}, 10)
 	})
 
 	Context("When executing catalog list components with -o json flag", func() {

@@ -63,9 +63,8 @@ var _ = Describe("odo devfile catalog command tests", func() {
 				helper.MatchAllInOutput(output, wantOutput)
 			})
 
-			//Expect(runtime.Nanoseconds()).Should(BeNumerically("<", (100 * time.Millisecond).Nanoseconds()))
-			Expect(runtime.Seconds()).Should(BeNumerically("<", 100), "odo catalog list command shouldn't take too long.")
-			b.RecordValue("Execution time in microseconds", float64(runtime.Nanoseconds()/1000))
+			Expect(runtime.Millisecond()).Should(BeNumerically("<", 200), "odo catalog list command should take less than 200 ms.")
+			b.RecordValue("Execution time in ms", float64(runtime.Millisecond()))
 		}, 10)
 	})
 

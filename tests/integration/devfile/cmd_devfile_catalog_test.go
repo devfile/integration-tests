@@ -48,7 +48,7 @@ var _ = Describe("odo devfile catalog command tests", func() {
 		})
 
 		Measure("The benchmark performance of ", func(b Benchmarker) {
-			runtime := b.Time("odo catalog list command run", func() {
+			runtime := b.Time("==================== odo catalog list command run ====================", func() {
 				output := helper.CmdShouldPass("odo", "catalog", "list", "components")
 				wantOutput := []string{
 					"Odo Devfile Components",
@@ -64,7 +64,7 @@ var _ = Describe("odo devfile catalog command tests", func() {
 			})
 
 			Expect(runtime.Millisecond()).Should(BeNumerically("<", 200), "odo catalog list command should take less than 200 ms.")
-			b.RecordValue("Execution time in ms", float64(runtime.Millisecond()))
+			b.RecordValueWithPrecision("==================== Execution time in ms ====================", float64(runtime.Milliseconds()), "ms", 2)
 		}, 10)
 	})
 

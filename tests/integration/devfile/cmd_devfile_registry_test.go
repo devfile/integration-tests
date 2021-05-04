@@ -31,13 +31,13 @@ var _ = Describe("odo devfile registry command tests", func() {
 		})
 
 		Measure("The benchmark performance of ", func(b Benchmarker) {
-			runtime := b.Time("odo registry list command run", func() {
+			runtime := b.Time("==================== odo registry list command run ====================", func() {
 				output := helper.CmdShouldPass("odo", "registry", "list")
 				helper.MatchAllInOutput(output, []string{"DefaultDevfileRegistry"})
 			})
 
 			Expect(runtime.Millisecond()).Should(BeNumerically("<", 200), "odo registry list command should take less than 200 ms.")
-			b.RecordValue("Execution time in ms", float64(runtime.Millisecond()))
+			b.RecordValueWithPrecision("==================== Execution time in ms ====================", float64(runtime.Milliseconds()), "ms", 2)
 		}, 10)
 
 		It("Should list all default registries with json", func() {

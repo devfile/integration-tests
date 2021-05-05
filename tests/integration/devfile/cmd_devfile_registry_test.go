@@ -36,7 +36,7 @@ var _ = Describe("odo devfile registry command tests", func() {
 				helper.MatchAllInOutput(output, []string{"DefaultDevfileRegistry"})
 			})
 
-			Expect(runtime.Millisecond()).Should(BeNumerically("<", 200), "odo registry list command should take less than 200 ms.")
+			Expect(runtime.Milliseconds()).Should(BeNumerically("<", 200), "odo registry list command should take less than 200 ms.")
 			b.RecordValueWithPrecision("==================== Execution time in ms ====================", float64(runtime.Milliseconds()), "ms", 2)
 		}, 10)
 

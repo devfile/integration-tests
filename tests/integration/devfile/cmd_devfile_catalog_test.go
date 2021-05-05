@@ -32,7 +32,7 @@ var _ = Describe("odo devfile catalog command tests", func() {
 	})
 
 	Context("When executing catalog list components", func() {
-		It("should list all supported devfile components", func() {
+		PIt("should list all supported devfile components", func() {
 			output := helper.CmdShouldPass("odo", "catalog", "list", "components")
 			wantOutput := []string{
 				"Odo Devfile Components",
@@ -47,8 +47,8 @@ var _ = Describe("odo devfile catalog command tests", func() {
 			helper.MatchAllInOutput(output, wantOutput)
 		})
 
-		Measure("The benchmark performance of ", func(b Benchmarker) {
-			runtime := b.Time("==================== odo catalog list command run ====================", func() {
+		Measure("should list all supported devfile components", func(b Benchmarker) {
+			runtime := b.Time("========== Command: odo catalog list components  ==========", func() {
 				output := helper.CmdShouldPass("odo", "catalog", "list", "components")
 				wantOutput := []string{
 					"Odo Devfile Components",
@@ -63,13 +63,13 @@ var _ = Describe("odo devfile catalog command tests", func() {
 				helper.MatchAllInOutput(output, wantOutput)
 			})
 
-			Expect(runtime.Milliseconds()).Should(BeNumerically("<", 200), "odo catalog list command should take less than 200 ms.")
-			b.RecordValueWithPrecision("==================== Execution time in ms ====================", float64(runtime.Milliseconds()), "ms", 2)
+			//Expect(runtime.Milliseconds()).Should(BeNumerically("<", 1200), "odo catalog list components should take less than 1200 ms.")
+			b.RecordValueWithPrecision("========== Execution time in ms ==========", float64(runtime.Milliseconds()), "ms", 2)
 		}, 10)
 	})
 
 	Context("When executing catalog list components with -o json flag", func() {
-		It("should list devfile components in json format", func() {
+		PIt("should list devfile components in json format", func() {
 			output := helper.CmdShouldPass("odo", "catalog", "list", "components", "-o", "json")
 
 			var outputData interface{}
@@ -87,15 +87,50 @@ var _ = Describe("odo devfile catalog command tests", func() {
 			}
 			helper.MatchAllInOutput(output, wantOutput)
 		})
+
+		Measure("should list devfile components in json format", func(b Benchmarker) {
+			runtime := b.Time("========== Command: odo catalog list components -o json ==========", func() {
+				output := helper.CmdShouldPass("odo", "catalog", "list", "components", "-o", "json")
+
+				var outputData interface{}
+				unmarshalErr := json.Unmarshal([]byte(output), &outputData)
+				Expect(unmarshalErr).NotTo(HaveOccurred(), "Output is not a valid JSON")
+
+				wantOutput := []string{
+					"odo.dev/v1alpha1",
+					"devfileItems",
+					"java-openliberty",
+					"java-springboot",
+					"nodejs",
+					"java-quarkus",
+					"java-maven",
+				}
+				helper.MatchAllInOutput(output, wantOutput)
+			})
+			//Expect(runtime.Milliseconds()).Should(BeNumerically("<", 1200), "odo catalog list components -o json command should take less than 1200 ms.")
+			b.RecordValueWithPrecision("========== Execution time in ms ==========", float64(runtime.Milliseconds()), "ms", 2)
+		}, 10)
 	})
 
 	Context("When executing catalog describe component with -o json", func() {
-		It("should display a valid JSON", func() {
+		PIt("should display a valid JSON", func() {
 			output := helper.CmdShouldPass("odo", "catalog", "describe", "component", "nodejs", "-o", "json")
 			var outputData interface{}
 			unmarshalErr := json.Unmarshal([]byte(output), &outputData)
 			Expect(unmarshalErr).NotTo(HaveOccurred(), "Output is not a valid JSON")
 		})
+
+		Measure("should display a valid JSON", func(b Benchmarker) {
+			runtime := b.Time("========== Command: odo catalog describe component nodejs -o json  ==========", func() {
+				output := helper.CmdShouldPass("odo", "catalog", "describe", "component", "nodejs", "-o", "json")
+				var outputData interface{}
+				unmarshalErr := json.Unmarshal([]byte(output), &outputData)
+				Expect(unmarshalErr).NotTo(HaveOccurred(), "Output is not a valid JSON")
+			})
+
+			//Expect(runtime.Milliseconds()).Should(BeNumerically("<", 1200), "odo catalog describe component nodejs -o json should take less than 1200 ms.")
+			b.RecordValueWithPrecision("========== Execution time in ms ==========", float64(runtime.Milliseconds()), "ms", 2)
+		}, 10)
 	})
 
 	Context("When executing catalog list components with registry that is not set up properly", func() {

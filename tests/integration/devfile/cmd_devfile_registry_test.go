@@ -8,7 +8,8 @@ import (
 
 var _ = Describe("odo devfile registry command tests", func() {
 	const registryName string = "RegistryName"
-	const addRegistryURL string = "https://registry.devfile.io"
+	// Use staging OCI-based registry for tests to avoid overload
+	const addRegistryURL string = "https://registry.stage.devfile.io"
 
 	const updateRegistryURL string = "http://www.example.com/update"
 	var commonVar helper.CommonVar
@@ -25,31 +26,40 @@ var _ = Describe("odo devfile registry command tests", func() {
 	})
 
 	Context("When executing registry list", func() {
-		It("Should list all default registries", func() {
+		PIt("Should list all default registries", func() {
 			output := helper.CmdShouldPass("odo", "registry", "list")
 			helper.MatchAllInOutput(output, []string{"DefaultDevfileRegistry"})
 		})
 
-		Measure("The benchmark performance of ", func(b Benchmarker) {
-			runtime := b.Time("==================== odo registry list command run ====================", func() {
+		Measure("Should list all default registries", func(b Benchmarker) {
+			runtime := b.Time("========== Command: odo registry list ==========", func() {
 				output := helper.CmdShouldPass("odo", "registry", "list")
 				helper.MatchAllInOutput(output, []string{"DefaultDevfileRegistry"})
 			})
 
 			Expect(runtime.Milliseconds()).Should(BeNumerically("<", 200), "odo registry list command should take less than 200 ms.")
-			b.RecordValueWithPrecision("==================== Execution time in ms ====================", float64(runtime.Milliseconds()), "ms", 2)
+			b.RecordValueWithPrecision("========== Execution time in ms ==========", float64(runtime.Milliseconds()), "ms", 2)
 		}, 10)
 
-		It("Should list all default registries with json", func() {
+		PIt("Should list all default registries with json", func() {
 			output := helper.CmdShouldPass("odo", "registry", "list", "-o", "json")
 			helper.MatchAllInOutput(output, []string{"DefaultDevfileRegistry"})
 		})
+
+		Measure("Should list all default registries with json", func(b Benchmarker) {
+			runtime := b.Time("========== Command: odo registry list -o json ==========", func() {
+				output := helper.CmdShouldPass("odo", "registry", "list", "-o", "json")
+				helper.MatchAllInOutput(output, []string{"DefaultDevfileRegistry"})
+			})
+
+			Expect(runtime.Milliseconds()).Should(BeNumerically("<", 200), "odo registry list -o json command should take less than 200 ms.")
+			b.RecordValueWithPrecision("========== Execution time in ms ==========", float64(runtime.Milliseconds()), "ms", 2)
+		}, 10)
 
 		It("Should fail with an error with no registries", func() {
 			helper.CmdShouldPass("odo", "registry", "delete", "DefaultDevfileRegistry", "-f")
 			output := helper.CmdShouldFail("odo", "registry", "list")
 			helper.MatchAllInOutput(output, []string{"No devfile registries added to the configuration. Refer `odo registry add -h` to add one"})
-
 		})
 	})
 

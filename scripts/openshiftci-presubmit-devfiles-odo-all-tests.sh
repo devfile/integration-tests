@@ -8,7 +8,7 @@ set -x
 git clone https://github.com/openshift/odo $GOPATH/src/github.com/openshift/odo
 cp scripts/openshiftci-presubmit-devfiles-odo-all-tests.sh $GOPATH/src/github.com/openshift/odo/scripts/
 
-rm $GOPATH/src/github.com/openshift/odo/tests/integration/devfile/*
+rm $GOPATH/src/github.com/openshift/odo/tests/integration/devfile/*_test.go
 cp tests/integration/devfile/* $GOPATH/src/github.com/openshift/odo/tests/integration/devfile/
 
 sed -i 's/-randomizeAllSpecs/--noisyPendings=false/g' $GOPATH/src/github.com/openshift/odo/Makefile

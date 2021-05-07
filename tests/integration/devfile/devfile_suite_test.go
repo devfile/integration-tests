@@ -13,9 +13,8 @@ func TestDevfiles(t *testing.T) {
 
 var _ = BeforeSuite(func() {
 	const registryName string = "DefaultDevfileRegistry"
-	// Use staging OCI-based registry for tests to avoid a potential overload
 	const addRegistryURL string = "https://registry.stage.devfile.io"
 
-	helper.CmdShouldPass("odo", "registry", "delete", "DefaultDevfileRegistry", "-f")
-	helper.CmdShouldPass("odo", "registry", "add", registryName, addRegistryURL)
+	// Use staging OCI-based registry for tests to avoid a potential overload
+	helper.CmdShouldPass("odo", "registry", "update", registryName, addRegistryURL)
 })

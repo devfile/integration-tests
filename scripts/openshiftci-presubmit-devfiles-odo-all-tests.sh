@@ -10,6 +10,7 @@ cp scripts/openshiftci-presubmit-devfiles-odo-all-tests.sh $GOPATH/src/github.co
 sed -i 's/-randomizeAllSpecs//g' $GOPATH/src/github.com/openshift/odo/Makefile
 cd $GOPATH/src/github.com/openshift/odo
 
+
 export CI="openshift"
 make configure-installer-tests-cluster
 make bin

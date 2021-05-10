@@ -10,7 +10,7 @@ import (
 
 var _ = Describe("odo devfile catalog command tests", func() {
 	const registryName string = "TestDevfileRegistry"
-	// Use staging OCI-based registry for tests to avoid a potential overload
+	// Use staging OCI-based registry for tests to avoid overload
 	const addRegistryURL string = "https://registry.stage.devfile.io"
 
 	var commonVar helper.CommonVar

@@ -31,7 +31,7 @@ oc login -u developer -p password@123
 # Check login user name for debugging purpose
 oc whoami
 
-make test-integration-devfile
+make test-integration-devfile TEST_EXEC_NODES=1
 
 cp -r $GOPATH/src/github.com/openshift/odo/tests/integration/reports $ARTIFACT_DIR
 

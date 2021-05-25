@@ -7,7 +7,7 @@ set -x
 
 git clone https://github.com/openshift/odo $GOPATH/src/github.com/openshift/odo
 cp scripts/openshiftci-presubmit-devfiles-odo-all-tests.sh $GOPATH/src/github.com/openshift/odo/scripts/
-cp tests/integration/devfile/* $GOPATH/src/github.com/openshift/odo/tests/integration/devfile/
+cp tests/integration/devfile/* $GOPATH/src/github.com/openshift/odo/tests/integration/devfile/debug/
 
 # Run performance tests on top of integration tests
 sed -i 's/-randomizeAllSpecs/--noisyPendings=false/g' $GOPATH/src/github.com/openshift/odo/Makefile
@@ -34,7 +34,7 @@ oc login -u developer -p password@123
 # Check login user name for debugging purpose
 oc whoami
 
-make test-integration-devfile TEST_EXEC_NODES=1
+make test-integration-devfile
 
 cp -r $GOPATH/src/github.com/openshift/odo/tests/integration/reports $ARTIFACT_DIR
 

@@ -104,3 +104,7 @@ var _ = Describe("odo devfile registry command tests", func() {
 
 	})
 })
+
+func Measure(s string, f func(b interface{}), i int) {
+	
+}

@@ -101,10 +101,32 @@ var _ = Describe("odo devfile registry command tests", func() {
 			helper.CmdShouldPass("odo", "registry", "delete", registryName, "-f")
 			helper.CmdShouldFail("odo", "create", "java-maven", "--registry", registryName)
 		})
+	})
 
+	Context("when working with git based registries", func() {
+		var deprecated, docLink string
+		JustBeforeEach(func() {
+			deprecated = "Deprecated"
+			docLink = "https://github.com/openshift/odo/tree/main/docs/public/git-registry-deprecation.adoc"
+		})
+		It("should show deprecation warning when the git based registry is used", func() {
+
+			outstr, errstr := helper.CmdShouldPassIncludeErrStream("odo", "registry", "add", "RegistryFromGitHub", "https://github.com/odo-devfiles/registry")
+			co := fmt.Sprintln(outstr, errstr)
+			helper.MatchAllInOutput(co, []string{deprecated, docLink})
+			outstr, errstr = helper.CmdShouldPassIncludeErrStream("odo", "registry", "list")
+			co = fmt.Sprintln(outstr, errstr)
+			helper.MatchAllInOutput(co, []string{deprecated, docLink})
+			outstr, errstr = helper.CmdShouldPassIncludeErrStream("odo", "create", "nodejs", "--registry", "RegistryFromGitHub")
+			co = fmt.Sprintln(outstr, errstr)
+			helper.MatchAllInOutput(co, []string{deprecated, docLink})
+		})
+		It("should not show deprecation warning if non-git-based registry is used", func() {
+			out, err := helper.CmdShouldPassIncludeErrStream("odo", "registry", "list")
+			helper.DontMatchAllInOutput(fmt.Sprintln(out, err), []string{deprecated, docLink})
+			helper.CmdShouldPass("odo", "registry", "add", "RegistryFromGitHub", "https://github.com/odo-devfiles/registry")
+			out, err = helper.CmdShouldPassIncludeErrStream("odo", "create", "nodejs", "--registry", "DefaultDevfileRegistry")
+			helper.DontMatchAllInOutput(fmt.Sprintln(out, err), []string{deprecated, docLink})
+		})
 	})
 })
-
-func Measure(s string, f func(b interface{}), i int) {
-	
-}

@@ -1,4 +1,4 @@
-FROM quay.io/coreos/tectonic-console-builder:v22 AS build
+FROM quay.io/coreos/tectonic-console-builder:v21 AS build
 
 RUN mkdir -p /go/src/github.com/openshift
 RUN cd /go/src/github.com/openshift && git clone https://github.com/openshift/console.git

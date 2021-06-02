@@ -2,6 +2,7 @@ package devfile
 
 import (
 	"encoding/json"
+	"os"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

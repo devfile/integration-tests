@@ -32,7 +32,7 @@ Feature: Create Application from Devfile
               And user is able to see workload "node-bulletin-board" in topology page
 
 
-        @regression
+        @smoke
         Scenario: Create the sample workload from dev file: A-04-TC03
             Given user is at Import from Devfile page
              When user selects Try sample link

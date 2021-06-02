@@ -66,6 +66,18 @@ var _ = Describe("odo devfile catalog command tests", func() {
 			//Expect(runtime.Milliseconds()).Should(BeNumerically("<", 1200), "odo catalog list components should take less than 1200 ms.")
 			b.RecordValueWithPrecision("========== Execution time in ms ==========", float64(runtime.Milliseconds()), "ms", 2)
 		}, 10)
+
+		It("should list components successfully even with an invalid kubeconfig path or path points to existing directory", func() {
+			originalKC := os.Getenv("KUBECONFIG")
+			err := os.Setenv("KUBECONFIG", "/idonotexist")
+			Expect(err).ToNot(HaveOccurred())
+			helper.CmdShouldPass("odo", "catalog", "list", "components")
+			err = os.Setenv("KUBECONFIG", commonVar.Context)
+			Expect(err).ToNot(HaveOccurred())
+			helper.CmdShouldPass("odo", "catalog", "list", "components")
+			err = os.Setenv("KUBECONFIG", originalKC)
+			Expect(err).ToNot(HaveOccurred())
+		})
 	})
 
 	Context("When executing catalog list components with -o json flag", func() {

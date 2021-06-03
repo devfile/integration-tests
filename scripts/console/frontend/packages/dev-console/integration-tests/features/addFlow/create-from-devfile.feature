@@ -9,7 +9,7 @@ Feature: Create Application from Devfile
               And user is at Add page
 
 
-        @regression
+        @smoke
         Scenario: Deploy git workload with devfile from topology page: A-04-TC01
             Given user has created workload "nodejs-ex-git" with resource type "Deployment"
               And user is at the Topology page

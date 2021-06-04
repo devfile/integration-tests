@@ -36,6 +36,12 @@ oc whoami
 
 make test-integration-devfile
 
+npm i -g xunit-viewer
+xunit-viewer -r $GOPATH/src/github.com/openshift/odo/tests/integration/reports/junit_*.xml \
+    -c \
+    -b https://raw.githubusercontent.com/josephca/devfile-icon/main/docs/icons/2021_Devfile_logo_DevLoop_Icon.png \
+    -t "ODO  command runtime with Devfile v2.0"
+
 cp -r $GOPATH/src/github.com/openshift/odo/tests/integration/reports $ARTIFACT_DIR
 
 oc logout

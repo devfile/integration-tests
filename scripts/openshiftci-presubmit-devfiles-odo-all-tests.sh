@@ -36,9 +36,8 @@ oc whoami
 
 make test-integration-devfile
 
-yum module list nodejs
-sudo yum module install nodejs
-node --version
+dnf module install npm
+npm --version
 npm i -g xunit-viewer
 
 xunit-viewer -r $GOPATH/src/github.com/openshift/odo/tests/integration/reports/junit_*.xml \

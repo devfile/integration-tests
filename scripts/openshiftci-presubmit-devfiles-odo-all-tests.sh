@@ -36,8 +36,8 @@ oc whoami
 
 make test-integration-devfile
 
-sudo yum install dnf -y
-sudo dnf module install npm
+yum install dnf -y
+dnf module install npm
 npm --version
 npm i -g xunit-viewer
 

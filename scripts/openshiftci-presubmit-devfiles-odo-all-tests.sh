@@ -35,11 +35,8 @@ oc login -u developer -p password@123
 oc whoami
 
 make test-integration-devfile
-
-xunit-viewer -r $GOPATH/src/github.com/openshift/odo/tests/integration/reports/junit_*.xml \
-    -c \
-    -b https://raw.githubusercontent.com/josephca/devfile-icon/main/docs/icons/2021_Devfile_logo_DevLoop_Icon.png \
-    -t "ODO  command runtime with Devfile v2.0"
+xunit-viewer --version
+xunit-viewer -r $GOPATH/src/github.com/openshift/odo/tests/integration/reports/junit_*.xml -o $GOPATH/src/github.com/openshift/odo/tests/integration/reports/junit.html -b https://raw.githubusercontent.com/josephca/devfile-icon/main/docs/icons/2021_Devfile_logo_DevLoop_Icon.png
 
 cp -r $GOPATH/src/github.com/openshift/odo/tests/integration/reports $ARTIFACT_DIR
 

@@ -12,17 +12,17 @@ Periodic integration tests are configured with [OpenShift CI system](https://doc
 
 | OCP version   |      Prow Test Status    |
 |----------|:-------------:|
-| 4.8 | https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-main-v4.8.odo-integration-devfile-odo-periodic |
-| 4.7 | https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-master-v4.7.odo-integration-devfile-odo-periodic |
-| 4.6 | https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-master-v4.6.odo-integration-devfile-odo-periodic |
+| 4.8 | [devfile-integration-tests-main-v4.8.odo](https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-main-v4.8.odo-integration-devfile-odo-periodic) |
+| 4.7 | [devfile-integration-tests-main-v4.7.odo](https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-main-v4.7.odo-integration-devfile-odo-periodic) |
+| 4.6 | [devfile-integration-tests-main-v4.6.odo](https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-main-v4.6.odo-integration-devfile-odo-periodic) |
 
 ## ODC CI tests
 [ODC integration test cases](./scripts/console/frontend/packages/dev-console/integration-tests/features/addFlow/create-from-devfile.feature)
 
 | OCP version   |      Prow Test Status    |
 |----------|:-------------:|
-| 4.8 | https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-main-v4.8.console-e2e-gcp-console-periodic |
-| 4.7 | https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-master-v4.7.console-e2e-gcp-console-periodic |
+| 4.8 | [devfile-integration-tests-main-v4.8.console](https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-main-v4.8.console-e2e-gcp-console-periodic) |
+| 4.7 | [devfile-integration-tests-main-v4.7.console](https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-main-v4.7.console-e2e-gcp-console-periodic) |
 
 # Local integration tests
 **NOTE**: This document covers setup for macOS specifically however the similar steps can be used for other OSes.

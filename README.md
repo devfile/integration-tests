@@ -39,7 +39,7 @@ Tests in this repository are based on [ODO integration tests](https://github.com
 
 ### Run tests
 1. cd `local/odo/tests`
-1. run `./odo-integration-tests.sh`  : it runs `odo catlog command` test by default. In order to run other test cases, open `./odo-integration-tests.sh` and uncomment other test options. e.g. `make test-cmd-devfile-create`
+1. run `./odo-integration-tests.sh`  : it runs `odo catlog command` test by default. In order to run other test cases, modify `./odo-integration-tests.sh` by enabling other test options. e.g. `make test-cmd-devfile-create`
 
 ### Performance tests for ODO
 1. Open `Makefile` and remove `--skipMeasurements` option from `GINKGO_FLAGS_ALL` flag.
@@ -56,4 +56,9 @@ Tests in this repository are based on [ODO integration tests](https://github.com
    ![alt text](./docs/images/perf_html_sample.png "Performance test result")
 
 ## ODC Tests
-Refer to https://github.com/openshift/console#integration-tests
+Tests in this repository are based on [ODC integration tests](https://github.com/openshift/console#integration-tests). 
+
+### Prerequisites
+- Cypress integration tests are implemented in [Cypress.io](https://www.cypress.io/).
+
+See https://github.com/openshift/console#integration-tests for more detail on how to run devfile test with ODC. 

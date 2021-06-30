@@ -8,7 +8,7 @@ All related issues are being tracked under the main devfile API repo https://git
 Periodic integration tests are configured with [OpenShift CI system](https://docs.ci.openshift.org/docs/how-tos/onboarding-a-new-component/) and runs ODO and ODC tests with devfile.
 
 ## ODO CI tests
-[ODO integration test cases](https://github.com/devfile/integration-tests/blob/main/scripts/odo/features/odo-devfile.feature)
+[ODO integration test cases](./scripts/odo/features/odo-devfile.feature)
 
 | OCP version   |      Prow Test Status    |
 |----------|:-------------:|
@@ -17,7 +17,7 @@ Periodic integration tests are configured with [OpenShift CI system](https://doc
 | 4.6 | https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-master-v4.6.odo-integration-devfile-odo-periodic |
 
 ## ODC CI tests
-[ODC integration test cases](https://github.com/devfile/integration-tests/blob/main/scripts/console/frontend/packages/dev-console/integration-tests/features/addFlow/create-from-devfile.feature)
+[ODC integration test cases](./scripts/console/frontend/packages/dev-console/integration-tests/features/addFlow/create-from-devfile.feature)
 
 | OCP version   |      Prow Test Status    |
 |----------|:-------------:|

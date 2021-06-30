@@ -49,11 +49,11 @@ Tests in this repository are based on [ODO integration tests](https://github.com
    
     A sample performance test output in console.
    
-    ![alt text](https://github.com/sample.png "Performance test result")
+    ![alt text](./docs/images/perf_measure_sample.png "Performance test result")
 
     A sample test output in html format
 
-   ![alt text](https://github.com/sample.png "Performance test result")
+   ![alt text](./docs/images/perf_html_sample.png "Performance test result")
 
 ## ODC Tests
 Refer to https://github.com/openshift/console#integration-tests

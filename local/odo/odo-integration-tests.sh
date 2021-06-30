@@ -76,8 +76,8 @@ make test-cmd-devfile-catalog
 
 ### Optional:
 # merge multiple number(depending on TEST_EXEC_NODES in Makefile) of junit_*.xml into a single file.
-jrm $REPORTS_DIR/junit_combined.xml "$REPORTS_DIR/junit*.xml"
+# jrm $REPORTS_DIR/junit_combined.xml "$REPORTS_DIR/junit*.xml"
 # convert test results from junit*.xml into HTML format
-xunit-viewer -r $REPORTS_DIR/junit_combined.xml -o $REPORTS_DIR/junit_combined.html -b https://raw.githubusercontent.com/josephca/devfile-icon/main/docs/icons/2021_Devfile_logo_DevLoop_Icon.png -t "Devfile performance test"
+# xunit-viewer -r $REPORTS_DIR/junit_combined.xml -o $REPORTS_DIR/junit_combined.html -b https://raw.githubusercontent.com/josephca/devfile-icon/main/docs/icons/2021_Devfile_logo_DevLoop_Icon.png -t "Devfile performance test"
 
 oc logout

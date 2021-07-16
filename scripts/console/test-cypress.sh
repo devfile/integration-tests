@@ -12,5 +12,5 @@ function generateReport {
 }
 trap generateReport EXIT
 
-yarn run test-cypress-devconsole-headless-create-from-devfile
+yarn run test-cypress-dev-console-headless-create-from-devfile
 

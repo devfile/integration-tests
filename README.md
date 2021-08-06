@@ -38,7 +38,7 @@ Tests in this repository are based on [ODO integration tests](https://github.com
   and [jrm](https://www.npmjs.com/package/junit-report-merger?activeTab=readme) : required to get performance test results in a merged html format in addition to `junit*.xml`.
 
 ### Run tests
-1. cd `local/odo/tests`
+1. cd `local/odo`
 1. run `./odo-integration-tests.sh`  : it runs `odo catlog command` test by default. In order to run other test cases, modify `./odo-integration-tests.sh` by enabling other test options. e.g. `make test-cmd-devfile-create`
 
 ### Performance tests for ODO

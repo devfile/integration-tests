@@ -34,6 +34,17 @@ var _ = Describe("odo devfile create command tests", func() {
 		helper.CommonAfterEach(commonVar)
 	})
 
+	Context("when .gitignore file exists", func() {
+		It("checks that .odo/env exists in gitignore", func() {
+			helper.Cmd("odo", "create", "nodejs", "--project", commonVar.Project, cmpName).ShouldPass()
+
+			ignoreFilePath := filepath.Join(commonVar.Context, ".gitignore")
+
+			helper.FileShouldContainSubstring(ignoreFilePath, filepath.Join(".odo", "env"))
+
+		})
+	})
+
 	Context("When executing odo create with devfile component type argument", func() {
 		It("should successfully create the devfile component with valid component name", func() {
 			helper.Cmd("odo", "create", "java-openliberty", cmpName).ShouldPass()
@@ -98,7 +109,7 @@ var _ = Describe("odo devfile create command tests", func() {
 	Context("When executing odo create with devfile component type argument and --context flag", func() {
 		var newContext, envFilePath string
 		JustBeforeEach(func() {
-			newContext = path.Join(commonVar.Context, "newContext")
+			newContext = filepath.Join(commonVar.Context, "newContext")
 			devfilePath = filepath.Join(newContext, devfile)
 			helper.MakeDir(newContext)
 		})
@@ -293,7 +304,7 @@ var _ = Describe("odo devfile create command tests", func() {
 			helper.CopyExampleDevFile(filepath.Join("source", "devfiles", "nodejs", "devfile.yaml"), filepath.Join(commonVar.Context, "devfile.yaml"))
 			output := helper.Cmd("odo", "create", "nodejs", "--starter=invalid-project-name").ShouldFail().Err()
 			expectedString := "the project: " + invalidProjectName + " specified in --starter does not exist"
-			helper.MatchAllInOutput(output, []string{expectedString})
+			helper.MatchAllInOutput(output, []string{expectedString, "available projects", "nodejs-starter"})
 		})
 	})
 

@@ -5,14 +5,7 @@ set -e
 # show commands
 set -x
 
-# git clone --depth=1 https://github.com/openshift/odo $GOPATH/src/github.com/openshift/odo
-git clone https://github.com/openshift/odo $GOPATH/src/github.com/openshift/odo
-CWD=$(pwd)
-echo $CWD
-cd $GOPATH/src/github.com/openshift/odo
-git checkout 613fc506ead846ca7acff32a06b242e81844fd48
-cd $CWD
-
+git clone --depth=1 https://github.com/openshift/odo $GOPATH/src/github.com/openshift/odo
 cp scripts/openshiftci-presubmit-devfiles-odo-tests.sh $GOPATH/src/github.com/openshift/odo/scripts/
 cd $GOPATH/src/github.com/openshift/odo
 

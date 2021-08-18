@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd frontend
-yarn config set ignore-engines true
 yarn install
 
 function generateReport {

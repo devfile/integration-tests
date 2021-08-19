@@ -86,7 +86,7 @@ Tests in this repository are based on [ODC integration tests](https://github.com
 1. Launch Cypress test runner
    ```
    cd console/frontend
-   yarn run test-cypress-devconsole
+   yarn run test-cypress-dev-console
    ```
 1. click `create-from-devfile.feature` to run test
    ![alt text](./docs/images/cypress_console.png "Cypress test")

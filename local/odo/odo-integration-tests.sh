@@ -16,7 +16,6 @@ git clone --depth=1 https://github.com/openshift/odo $GOPATH/src/github.com/open
 cp ./Makefile $GOPATH/src/github.com/openshift/odo/Makefile
 
 # overwrite with devfile/integration-tests/*
-# rm -rf $GOPATH/src/github.com/openshift/odo/tests/integration/devfile/*
 cp -r tests/integration/devfile/* $GOPATH/src/github.com/openshift/odo/tests/integration/devfile/
 
 cd $GOPATH/src/github.com/openshift/odo
@@ -54,7 +53,9 @@ oc whoami
 
 # 2. run individual integration test for ODO commands
 # make test-cmd-devfile-app
+
 make test-cmd-devfile-catalog
+
 # make test-cmd-devfile-config
 # make test-cmd-devfile-create
 # make test-cmd-devfile-debug
@@ -62,6 +63,7 @@ make test-cmd-devfile-catalog
 # make test-cmd-devfile-describe
 # make test-cmd-devfile-env
 # make test-cmd-devfile-exec
+# make test-cmd-devfile-list
 # make test-cmd-devfile-log
 # make test-cmd-devfile-push
 # make test-cmd-devfile-registry

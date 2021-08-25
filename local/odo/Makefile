@@ -143,6 +143,10 @@ test-cmd-devfile-env: ## Run odo env devfile command tests
 test-cmd-devfile-exec: ## Run odo exec devfile command tests
 	$(RUN_GINKGO) $(GINKGO_FLAGS) -focus="odo devfile exec command tests" tests/integration/devfile/
 
+.PHONY: test-cmd-devfile-list
+test-cmd-devfile-list: ## Run odo list devfile command tests
+	$(RUN_GINKGO) $(GINKGO_FLAGS) -focus="odo list with devfile" tests/integration/devfile/
+
 .PHONY: test-cmd-devfile-log
 test-cmd-devfile-log: ## Run odo log devfile command tests
 	$(RUN_GINKGO) $(GINKGO_FLAGS) -focus="odo devfile log command tests" tests/integration/devfile/

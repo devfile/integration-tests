@@ -304,7 +304,7 @@ var _ = Describe("odo devfile create command tests", func() {
 			helper.CopyExampleDevFile(filepath.Join("source", "devfiles", "nodejs", "devfile.yaml"), filepath.Join(commonVar.Context, "devfile.yaml"))
 			output := helper.Cmd("odo", "create", "nodejs", "--starter=invalid-project-name").ShouldFail().Err()
 			expectedString := "the project: " + invalidProjectName + " specified in --starter does not exist"
-			helper.MatchAllInOutput(output, []string{expectedString, "available projects", "nodejs-starter"})
+			helper.MatchAllInOutput(output, []string{expectedString})
 		})
 	})
 

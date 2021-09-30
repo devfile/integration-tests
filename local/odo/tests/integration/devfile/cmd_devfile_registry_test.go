@@ -4,8 +4,6 @@ import (
 	"fmt"
 
 	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
-
 	"github.com/openshift/odo/tests/helper"
 )
 
@@ -21,7 +19,6 @@ var _ = Describe("odo devfile registry command tests", func() {
 	var _ = BeforeEach(func() {
 		commonVar = helper.CommonBeforeEach()
 		helper.Chdir(commonVar.Context)
-		helper.SetDefaultDevfileRegistryAsStaging()
 	})
 
 	// This is run after every Spec (It)

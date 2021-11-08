@@ -60,11 +60,11 @@ Tests in this repository are based on [ODC integration tests](https://github.com
 
 ### Prerequisites
 1. [node.js](https://nodejs.org/) >= 14 & [yarn](https://yarnpkg.com/en/docs/install) >= 1.20
-1. [go](https://golang.org/) >= 1.13+
-1. [oc](https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.4/) or [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) and an OpenShift or Kubernetes cluster. In this document, [CRC](https://cloud.redhat.com/openshift/create/local) is used.
-1. [jq](https://stedolan.github.io/jq/download/) (for `contrib/environment.sh`)
-1. Google Chrome/Chromium or Firefox for integration tests
-1. Cypress - integration tests are implemented in [Cypress.io](https://www.cypress.io/).
+2. [go](https://golang.org/) >= 1.16+
+3. [oc](https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.4/) or [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) and an OpenShift or Kubernetes cluster. In this document, [CRC](https://cloud.redhat.com/openshift/create/local) is used.
+4. [jq](https://stedolan.github.io/jq/download/) (for `contrib/environment.sh`)
+5. Google Chrome/Chromium or Firefox for integration tests
+6. Cypress - integration tests are implemented in [Cypress.io](https://www.cypress.io/).
 
 ### Run tests
 1. install [CRC](https://cloud.redhat.com/openshift/create/local) 

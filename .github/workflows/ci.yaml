@@ -1,0 +1,39 @@
+#
+# Copyright (c) 2021 Red Hat, Inc.
+# This program and the accompanying materials are made
+# available under the terms of the Eclipse Public License 2.0
+# which is available at https://www.eclipse.org/legal/epl-2.0/
+#
+# SPDX-License-Identifier: EPL-2.0
+#
+name: Devfile Integration tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  test_minikube:
+    name: Test Minikube
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Minikube
+        uses: manusa/actions-setup-minikube@v2.4.2
+        with:
+          minikube version: 'v1.21.0'
+          kubernetes version: 'v1.21.0'
+          driver: 'docker'
+          github token: ${{ secrets.GITHUB_TOKEN }}
+          start args: '--addons=ingress'
+      - name: Install CLI tools
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          # Installs the latest release of odo
+          odo: "latest"
+#      - name: Validate the devfile stacks
+#        run: tests/test.sh odo

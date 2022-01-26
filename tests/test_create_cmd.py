@@ -95,15 +95,18 @@ class TestCreateCmd:
 
         print('Test case : should successfully create the devfile component and download the source in the context when used with --starter flag')
 
-        devfile_path = os.path.join(os.path.dirname(__file__), '../stacks/java-openliberty/devfile.yaml')
-        devfile_path = os.path.abspath(devfile_path)
+        # example devfile path
+        source_devfile_path = os.path.join(os.path.dirname(__file__),
+                                           'examples/source/devfiles/java-openliberty/devfile.yaml')
+
+        source_devfile_path = os.path.abspath(source_devfile_path)
 
         with tempfile.TemporaryDirectory() as tmp_workspace:
             os.chdir(tmp_workspace)
 
-            starter_project = get_starter_project(devfile_path)
+            starter_project = get_starter_project(source_devfile_path)
             print('starter project extracted from devfile:', starter_project)
-            subprocess.check_call(["odo", "create", "--devfile", devfile_path, "--starter", starter_project])
+            subprocess.check_call(["odo", "create", "--devfile", source_devfile_path, "--starter", starter_project])
 
     def test_create_component_with_context_starter_project(self):
 

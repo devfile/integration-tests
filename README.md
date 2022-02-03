@@ -92,3 +92,5 @@ Tests in this repository are based on [ODC integration tests](https://github.com
    ![alt text](./docs/images/cypress_console.png "Cypress test")
    
 For more detail, see https://github.com/openshift/console#integration-tests. 
+
+![Tests](https://github.com/devfile/integration-tests/actions/workflows/pytest.yaml/badge.svg)

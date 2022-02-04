@@ -42,12 +42,12 @@ class TestDescribeCmd:
             print('created temporary workspace', tmp_workspace)
             os.chdir(tmp_workspace)
 
-            subprocess.check_call(["odo", "create", "python-django", self.COMP_NAME, "--project", self.tmp_project_name,
+            subprocess.run(["odo", "create", "python-django", self.COMP_NAME, "--project", self.tmp_project_name,
                             "--context", self.CONTEXT, "--app", self.APP_NAME])
 
-            subprocess.check_call(["odo", "url", "create", self.URL_1, "--port", self.PORT_1, "--context", self.CONTEXT])
-            subprocess.check_call(["odo", "url", "create", self.URL_2, "--port", self.PORT_2, "--context", self.CONTEXT])
-            subprocess.check_call(["odo", "storage", "create", self.STORAGE_1, "--size", self.SIZE, "--path", self.STORAGE_PATH,
+            subprocess.run(["odo", "url", "create", self.URL_1, "--port", self.PORT_1, "--context", self.CONTEXT])
+            subprocess.run(["odo", "url", "create", self.URL_2, "--port", self.PORT_2, "--context", self.CONTEXT])
+            subprocess.run(["odo", "storage", "create", self.STORAGE_1, "--size", self.SIZE, "--path", self.STORAGE_PATH,
                             "--context", self.CONTEXT])
 
             result = subprocess.run(["odo", "describe", "--context", self.CONTEXT],

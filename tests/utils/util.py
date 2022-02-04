@@ -13,6 +13,8 @@ def get_starter_project(devfile_path: str):
 
 # True if str contains s
 def contains(str, s):
+    if str is None:
+        return False
     return str.__contains__(s)
 
 # match_all ensures all expected strings are found in input

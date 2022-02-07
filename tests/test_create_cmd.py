@@ -35,7 +35,7 @@ class TestCreateCmd:
         with tempfile.TemporaryDirectory() as tmp_workspace:
             os.chdir(tmp_workspace)
             component_name = random_string()
-            subprocess.check_call(["odo", "create", "java-openliberty", component_name])
+            subprocess.run(["odo", "create", "java-openliberty", component_name])
 
             devfile_path = os.path.abspath(os.path.join(tmp_workspace, 'devfile.yaml'))
             assert query_yaml(devfile_path, param_1, param_2, param_3) == value, 'validate yaml contents'
@@ -48,7 +48,7 @@ class TestCreateCmd:
         with tempfile.TemporaryDirectory() as tmp_workspace:
             os.chdir(tmp_workspace)
             component_name = random_string()
-            subprocess.check_call(["odo", "create", "java-openliberty", component_name])
+            subprocess.run(["odo", "create", "java-openliberty", component_name])
 
             devfile_path = os.path.abspath(os.path.join(tmp_workspace, 'devfile.yaml'))
             assert query_yaml(devfile_path, "metadata", "name", -1) == component_name
@@ -61,7 +61,7 @@ class TestCreateCmd:
         with tempfile.TemporaryDirectory() as tmp_workspace:
             os.chdir(tmp_workspace)
             component_namespace = random_string()
-            subprocess.check_call(["odo", "create", "java-openliberty", "--project", component_namespace])
+            subprocess.run(["odo", "create", "java-openliberty", "--project", component_namespace])
 
             envfile_path = os.path.abspath(os.path.join(tmp_workspace, '.odo/env/env.yaml'))
             assert query_yaml(envfile_path, "ComponentSettings", "Project", -1) == component_namespace
@@ -74,7 +74,7 @@ class TestCreateCmd:
             os.chdir(tmp_workspace)
             context_name = random_string()
 
-            subprocess.check_call(["odo", "create", "nodejs", "--context", context_name])
+            subprocess.run(["odo", "create", "nodejs", "--context", context_name])
             devfile_path = os.path.abspath(os.path.join(tmp_workspace, context_name, 'devfile.yaml'))
             envfile_path = os.path.abspath(os.path.join(tmp_workspace, context_name, '.odo/env/env.yaml'))
 
@@ -106,7 +106,7 @@ class TestCreateCmd:
 
             starter_project = get_starter_project(source_devfile_path)
             print('starter project extracted from devfile:', starter_project)
-            subprocess.check_call(["odo", "create", "--devfile", source_devfile_path, "--starter", starter_project])
+            subprocess.run(["odo", "create", "--devfile", source_devfile_path, "--starter", starter_project])
 
     def test_create_component_with_context_starter_project(self):
 
@@ -115,7 +115,7 @@ class TestCreateCmd:
         with tempfile.TemporaryDirectory() as tmp_workspace:
             os.chdir(tmp_workspace)
             context = os.path.join(tmp_workspace, 'newcontext')
-            subprocess.check_call(["odo", "create", "nodejs", "--starter", "nodejs-starter", "--context", context])
+            subprocess.run(["odo", "create", "nodejs", "--starter", "nodejs-starter", "--context", context])
 
             list_files: list[str] = [
                 "package.json",
@@ -137,7 +137,7 @@ class TestCreateCmd:
             source_devfile_path = os.path.join(os.path.dirname(__file__),
                                                'examples/source/devfiles/nodejs/devfile-with-branch.yaml')
             copy_example_devfile(source_devfile_path, tmp_workspace)
-            subprocess.check_call(["odo", "create", "nodejs", "--starter", "nodejs-starter"])
+            subprocess.run(["odo", "create", "nodejs", "--starter", "nodejs-starter"])
 
             # Todo: this check is flacky in git actions
             # list_files: list[str] = [
@@ -160,7 +160,7 @@ class TestCreateCmd:
                                                'examples/source/devfiles/nodejs/devfile.yaml')
             copy_example_devfile(source_devfile_path, tmp_workspace)
 
-            subprocess.check_call(["odo", "create", "nodejs", "--devfile", "./devfile.yaml"])
+            subprocess.run(["odo", "create", "nodejs", "--devfile", "./devfile.yaml"])
 
 
     def test_create_component_with_context_json_output(self):
@@ -190,5 +190,5 @@ class TestCreateCmd:
         with tempfile.TemporaryDirectory() as tmp_workspace:
             os.chdir(tmp_workspace)
 
-            subprocess.check_call(
+            subprocess.run(
                 ["odo", "create", "nodejs", "--devfile", "https://raw.githubusercontent.com/odo-devfiles/registry/master/devfiles/nodejs/devfile.yaml"])

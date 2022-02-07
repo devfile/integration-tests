@@ -51,5 +51,6 @@ jobs:
       - name: Run test with pipenv and pytest
         run: |
           odo version
+          minikube addons enable ingress
           pipenv install --dev
           pipenv run pytest tests -v

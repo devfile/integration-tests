@@ -29,7 +29,7 @@ jobs:
         with:
             minikube version: 'v1.21.0'
             kubernetes version: 'v1.21.0'
-            driver: 'docker'
+            driver: 'hyperkit'
             github token: ${{ secrets.GITHUB_TOKEN }}
             start args: '--addons=ingress'
 
@@ -51,6 +51,5 @@ jobs:
       - name: Run test with pipenv and pytest
         run: |
           odo version
-          minikube addons enable ingress
           pipenv install --dev
           pipenv run pytest tests -v

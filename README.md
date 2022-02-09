@@ -5,33 +5,51 @@ This repository contains files related to integration tests for devfile.
 All related issues are being tracked under the main devfile API repo https://github.com/devfile/api with the label `area/integration-tests`
 
 # CI integration tests
-Periodic integration tests are configured with [OpenShift CI system](https://docs.ci.openshift.org/docs/how-tos/onboarding-a-new-component/) and runs ODO and ODC tests with devfile.
 
-## ODO CI tests
+- A Github actions workflow is configured to run integration tests (using Pytest) when a PR is opened
+
+- Daily integration tests are configured with [OpenShift CI system](https://docs.ci.openshift.org/docs/how-tos/onboarding-a-new-component/) and runs ODO and ODC tests with devfile.
+
+## Daily ODO CI tests
 [ODO integration test cases](./scripts/odo/features/odo-devfile.feature)
 
 | OCP version   |      Prow Test Status    |
 |----------|:-------------:|
-| 4.8 | [devfile-integration-tests-main-v4.8.odo](https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-main-v4.8.odo-integration-devfile-odo-periodic) |
-| 4.7 | [devfile-integration-tests-main-v4.7.odo](https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-main-v4.7.odo-integration-devfile-odo-periodic) |
-| 4.6 | [devfile-integration-tests-main-v4.6.odo](https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-main-v4.6.odo-integration-devfile-odo-periodic) |
+| 4.10 | [devfile-integration-tests-main-v4.10.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.10.odo-integration-devfile-odo-periodic) |
+| 4.9 | [devfile-integration-tests-main-v4.9.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.9.odo-integration-devfile-odo-periodic) |
+| 4.8 | [devfile-integration-tests-main-v4.8.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.8.odo-integration-devfile-odo-periodic) |
 
-## ODC CI tests
+## Daily ODC CI tests
 [ODC integration test cases](./scripts/console/frontend/packages/dev-console/integration-tests/features/addFlow/create-from-devfile.feature)
 
 | OCP version   |      Prow Test Status    |
 |----------|:-------------:|
-| 4.8 | [devfile-integration-tests-main-v4.8.console](https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-main-v4.8.console-e2e-gcp-console-periodic) |
-| 4.7 | [devfile-integration-tests-main-v4.7.console](https://prow.ci.openshift.org/?job=periodic-ci-devfile-integration-tests-main-v4.7.console-e2e-gcp-console-periodic) |
+| 4.10 | [devfile-integration-tests-main-v4.10.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.10.console-e2e-gcp-console-periodic) |
+| 4.9 | [devfile-integration-tests-main-v4.9.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.9.console-e2e-gcp-console-periodic) |
+| 4.8 | [devfile-integration-tests-main-v4.8.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.8.console-e2e-gcp-console-periodic) |
 
 # Local integration tests
-**NOTE**: This document covers setup for macOS specifically however the similar steps can be used for other OSes.
+**NOTE**: This section covers the required test environment for macOS specifically, however the similar steps can be used for other OSes.
 
-## ODO Tests
+## Pytest for ODO
+### Prerequisites
+- Python 3.9.9
+- pipenv : run `pip install --user pipenv`
+- Minikube or OpenShift
+- odo
+
+### Run Pytest
+1. clone the repository 
+2. cd integration-tests
+3. run `pipenv install --dev`
+4. Start Minikube or OpenShift (e.g. crc)
+5. run `pipenv run pytest tests -v` to test all, or `pipenv run pytest tests/<target test>.py -v` to test the target test cases.
+
+## Daily ODO Tests
 Tests in this repository are based on [ODO integration tests](https://github.com/openshift/odo/blob/main/docs/dev/test-architecture.adoc#integration-and-e2e-tests) and it mainly focuses on custom test cases with devfile service.
 
 ### Prerequisites
-- Go 1.13 and Ginkgo latest version
+- Go 1.16 and Ginkgo latest version
 - git
 - [OpenShift Cluster](https://github.com/openshift/odo/blob/main/docs/dev/test-architecture.adoc#integration-and-e2e-tests).  e.g. crc environment for 4.* local cluster 
 - [Optional] [xunit-viewer](https://www.npmjs.com/package/xunit-viewer)
@@ -39,7 +57,7 @@ Tests in this repository are based on [ODO integration tests](https://github.com
 
 ### Run tests
 1. cd `local/odo`
-1. run `./odo-integration-tests.sh`  : it runs `odo catlog command` test by default. In order to run other test cases, modify `./odo-integration-tests.sh` by enabling other test options. e.g. `make test-cmd-devfile-create`
+1. run `./odo-integration-tests.sh`  : it runs `odo catalog command` test by default. In order to run other test cases, modify `./odo-integration-tests.sh` by enabling other test options. e.g. `make test-cmd-devfile-create`
 
 ### Performance tests for ODO
 1. Open `Makefile` and remove `--skipMeasurements` option from `GINKGO_FLAGS_ALL` flag.
@@ -55,7 +73,7 @@ Tests in this repository are based on [ODO integration tests](https://github.com
 
    ![alt text](./docs/images/perf_html_sample.png "Performance test result")
 
-## ODC Tests
+## Daily ODC Tests
 Tests in this repository are based on [ODC integration tests](https://github.com/openshift/console#integration-tests). 
 
 ### Prerequisites

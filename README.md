@@ -1,4 +1,8 @@
 # integration-tests
+===============================
+
+[<img src="https://github.com/devfile/integration-tests/actions/workflows/pytest.yaml/badge.svg"/>](https://github.com/devfile/integration-tests/actions/workflows/pytest.yaml)
+
 This repository contains files related to integration tests for devfile.  
 
 **NOTE:**  
@@ -110,5 +114,3 @@ Tests in this repository are based on [ODC integration tests](https://github.com
    ![alt text](./docs/images/cypress_console.png "Cypress test")
    
 For more detail, see https://github.com/openshift/console#integration-tests. 
-
-![Tests](https://github.com/devfile/integration-tests/actions/workflows/pytest.yaml/badge.svg)

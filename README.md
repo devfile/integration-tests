@@ -1,5 +1,4 @@
 # integration-tests
-===============================
 
 [<img src="https://github.com/devfile/integration-tests/actions/workflows/pytest.yaml/badge.svg"/>](https://github.com/devfile/integration-tests/actions/workflows/pytest.yaml)
 

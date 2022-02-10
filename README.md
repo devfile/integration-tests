@@ -1,6 +1,5 @@
 # integration-tests
-
-[<img src="https://github.com/devfile/integration-tests/actions/workflows/pytest.yaml/badge.svg"/>](https://github.com/devfile/integration-tests/actions/workflows/pytest.yaml)
+[![Devfile integration tests](https://github.com/devfile/integration-tests/actions/workflows/pytest.yaml/badge.svg)](https://github.com/devfile/integration-tests/actions/workflows/pytest.yaml)
 
 This repository contains files related to integration tests for devfile.  
 

@@ -1,7 +1,4 @@
-import os
 import tempfile
-import subprocess
-import pytest
 import jmespath
 
 from utils.config import *

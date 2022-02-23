@@ -1,7 +1,3 @@
-import subprocess
-import pytest
-
-from typing import List
 from utils.config import *
 from utils.util import *
 

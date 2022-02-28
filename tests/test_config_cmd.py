@@ -1,9 +1,4 @@
-import os
 import tempfile
-import subprocess
-import pytest
-import jmespath
-import shutil
 
 from utils.config import *
 from utils.util import *

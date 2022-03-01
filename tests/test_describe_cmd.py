@@ -16,8 +16,8 @@ class TestDescribeCmd:
     SIZE = "1Gi"
     STORAGE_PATH = "/data1"
     STORAGE_1 = "storage-1"
-    URL_1 = "url-1"
-    URL_2 = "url-2"
+    ENDPOINT_1 = "url-1"
+    ENDPOINT_2 = "url-2"
     HOST = "test.host.com"
 
     tmp_project_name = None
@@ -42,8 +42,8 @@ class TestDescribeCmd:
             subprocess.run(["odo", "create", "python-django", self.COMP_NAME, "--project", self.tmp_project_name,
                             "--context", self.CONTEXT, "--app", self.APP_NAME])
 
-            subprocess.run(["odo", "url", "create", self.URL_1, "--port", self.PORT_1, "--host", self.HOST, "--context", self.CONTEXT])
-            subprocess.run(["odo", "url", "create", self.URL_2, "--port", self.PORT_2, "--host", self.HOST, "--context", self.CONTEXT])
+            subprocess.run(["odo", "url", "create", self.ENDPOINT_1, "--port", self.PORT_1, "--host", self.HOST, "--context", self.CONTEXT])
+            subprocess.run(["odo", "url", "create", self.ENDPOINT_2, "--port", self.PORT_2, "--host", self.HOST, "--context", self.CONTEXT])
             subprocess.run(["odo", "storage", "create", self.STORAGE_1, "--size", self.SIZE, "--path", self.STORAGE_PATH,
                             "--context", self.CONTEXT])
 
@@ -53,8 +53,8 @@ class TestDescribeCmd:
             list_components = [
                 self.COMP_NAME,
                 self.COMP_TYPE,
-                self.URL_1,
-                self.URL_2,
+                self.ENDPOINT_1,
+                self.ENDPOINT_2,
                 self.STORAGE_1,
             ]
 
@@ -84,13 +84,13 @@ class TestDescribeCmd:
             assert contains(path, self.COMP_TYPE)
 
             path = jmespath.search('spec.urls.items[0].metadata.name', dict)
-            assert contains(path, self.URL_1)
+            assert contains(path, self.ENDPOINT_1)
 
             path = jmespath.search('spec.urls.items[0].spec.port', dict)
             assert contains(str(path), self.PORT_1)
 
             path = jmespath.search('spec.urls.items[1].metadata.name', dict)
-            assert contains(path, self.URL_2)
+            assert contains(path, self.ENDPOINT_2)
 
             path = jmespath.search('spec.urls.items[1].spec.port', dict)
             assert contains(str(path), self.PORT_2)

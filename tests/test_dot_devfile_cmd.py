@@ -18,7 +18,6 @@ class TestDotDevfile:
         # Runs once per class
         cls.tmp_project_name = create_test_project()
 
-
     @classmethod
     def teardown_class(cls):
         '''Runs at end of class'''
@@ -40,7 +39,7 @@ class TestDotDevfile:
 
             os.chdir(self.CONTEXT)
 
-            subprocess.run(["mv", "devfile.yaml", ".devfile.yaml"])
+            # subprocess.run(["mv", "devfile.yaml", ".devfile.yaml"])
             subprocess.run(["odo", "url", "create", self.ENDPOINT_1, "--port", self.PORT_1,
                             "--host", self.HOST, "--secure", "--ingress"])
 

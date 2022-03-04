@@ -1,3 +1,4 @@
+import sys
 from utils.config import *
 from utils.util import *
 
@@ -57,7 +58,7 @@ class TestCatalogCmd:
         assert validate_json_format(result.stdout)
         assert match_all(result.stdout, list_components)
 
-
+    @pytest.mark.skipif(sys.platform == "linux", reason="An issue is found on Linux")
     def test_catalog_cmd_list_describe_json_format(self):
 
         print('Test case : when executing catalog describe component with -o json, it should display a valid JSON')

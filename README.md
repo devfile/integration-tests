@@ -35,7 +35,7 @@ All related issues are being tracked under the main devfile API repo https://git
 
 ## Pytest for ODO
 ### Prerequisites
-- Python 3.9.9
+- Python 3.9.10
 - pipenv : run `pip install --user pipenv`
 - Minikube or OpenShift
 - odo

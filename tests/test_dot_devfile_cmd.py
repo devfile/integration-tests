@@ -40,7 +40,7 @@ class TestDotDevfile:
             os.chdir(self.CONTEXT)
 
             # Todo: compatibility test with .devfile.yaml is working with odo version higher than v2.5.0.
-            #       Decomment the line when odo mirror site issue is fixed. 
+            #       Uncomment the line when odo mirror site issue is fixed.
             # subprocess.run(["mv", "devfile.yaml", ".devfile.yaml"])
             subprocess.run(["odo", "url", "create", self.ENDPOINT_1, "--port", self.PORT_1,
                             "--host", self.HOST, "--secure", "--ingress"])

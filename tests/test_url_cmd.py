@@ -53,9 +53,9 @@ class TestUrlCmd:
                             "url {} already exist in devfile endpoint entry under container runtime".format(self.ENDPOINT))
 
             # should not allow to create URL with duplicate port
-            # result = subprocess.run(["odo", "url", "create", self.ENDPOINT_1, "--port", self.PORT_1,
-            #                          "--host", self.HOST, "--secure", "--ingress"],
-            #                         capture_output=True, text=True, check=False)
+            result = subprocess.run(["odo", "url", "create", self.ENDPOINT_1, "--port", self.PORT_1,
+                                     "--host", self.HOST, "--secure", "--ingress"],
+                                    capture_output=True, text=True, check=False)
 
             # Todo: it's not blocked by the odo used in the test. Need to verify if it's fixed in more recent release
             # assert contains(result.stdout, "port 3000 already exists in devfile endpoint entry")

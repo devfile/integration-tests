@@ -136,14 +136,13 @@ class TestCreateCmd:
             copy_example_devfile(source_devfile_path, tmp_workspace)
             subprocess.run(["odo", "create", "nodejs", "--starter", "nodejs-starter"])
 
-            # Todo: this check is flacky in git actions
-            # list_files: list[str] = [
-            #     "package.json",
-            #     "package-lock.json",
-            #     "README.md",
-            #     "devfile.yaml"
-            # ]
-            # assert check_files_exist(tmp_workspace, list_files)
+            list_files: list[str] = [
+                "package.json",
+                "package-lock.json",
+                "README.md",
+                "devfile.yaml"
+            ]
+            assert check_files_exist(tmp_workspace, list_files)
 
 
     def test_create_component_with_devfile_flag(self):

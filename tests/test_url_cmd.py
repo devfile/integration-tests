@@ -57,7 +57,7 @@ class TestUrlCmd:
                                      "--host", self.HOST, "--secure", "--ingress"],
                                     capture_output=True, text=True, check=False)
 
-            # Todo: it's not blocked by the odo used in the test. Need to verify if it's fixed in more recent release
+            # Todo: potential bug - it's not blocked by the odo used in the test. Need to verify if it's fixed in more recent release
             # assert contains(result.stdout, "port 3000 already exists in devfile endpoint entry")
 
     def test_url_invalid_container(self):

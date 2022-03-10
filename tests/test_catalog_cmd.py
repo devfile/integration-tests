@@ -1,4 +1,5 @@
 import sys
+import tempfile
 from utils.config import *
 from utils.util import *
 
@@ -58,18 +59,20 @@ class TestCatalogCmd:
         assert validate_json_format(result.stdout)
         assert match_all(result.stdout, list_components)
 
-    @pytest.mark.skipif(sys.platform == "linux", reason="An issue is found on Linux")
     def test_catalog_cmd_list_describe_json_format(self):
 
         print('Test case : when executing catalog describe component with -o json, it should display a valid JSON')
 
-        result = subprocess.run(["odo", "catalog", "describe", "component", "nodejs", "-o", "json"],
-                                capture_output=True, text=True, check=True)
+        with tempfile.TemporaryDirectory() as tmp_workspace:
+            os.chdir(tmp_workspace)
 
-        list_descriptions: list[str] = [
-            "Node.js Runtime",
-            "Stack with Node.js",
-        ]
+            result = subprocess.run(["odo", "catalog", "describe", "component", "nodejs", "-o", "json"],
+                                    capture_output=True, text=True, check=True)
 
-        assert validate_json_format(result.stdout)
-        assert match_all(result.stdout, list_descriptions)
+            list_descriptions: list[str] = [
+                "Node.js Runtime",
+                "Stack with Node.js",
+            ]
+
+            assert validate_json_format(result.stdout)
+            assert match_all(result.stdout, list_descriptions)

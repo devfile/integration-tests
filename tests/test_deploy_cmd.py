@@ -21,7 +21,6 @@ class TestDeployCmd:
         '''Runs at end of class'''
         subprocess.run(["odo", "project", "delete", cls.tmp_project_name, "-f", "-w"])
 
-    @pytest.mark.skipif(sys.platform == "darwin", reason="does not run on macOS at the moment")
     def test_deploy(self):
 
         print("Test case : should run odo deploy by using a devfile.yaml containing a deploy command")
@@ -45,7 +44,8 @@ class TestDeployCmd:
                             + os.path.abspath(self.CONTEXT))
             assert contains(result.stdout, "push quay.io/unknown-account/myimage")
 
-            result = subprocess.run(["kubectl", "get", "deployment", "my-component", "-n", "intg-test-project",
+            # use kubectl insdie minikube for MacOS
+            result = subprocess.run(["minikube", "kubectl", "--", "get", "deployment", "my-component", "-n", "intg-test-project",
                                      "-o", "jsonpath='{.spec.template.spec.containers[0].image}'"],
                                     capture_output=True, text=True, check=True)
             assert contains(result.stdout, "quay.io/unknown-account/myimage")

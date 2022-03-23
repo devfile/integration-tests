@@ -44,7 +44,7 @@ class TestDeployCmd:
                             + os.path.abspath(self.CONTEXT))
             assert contains(result.stdout, "push quay.io/unknown-account/myimage")
 
-            # use kubectl insdie minikube for MacOS
+            # MacOS: reuse the existing kubectl inside minikube
             result = subprocess.run(["minikube", "kubectl", "--", "get", "deployment", "my-component", "-n", "intg-test-project",
                                      "-o", "jsonpath='{.spec.template.spec.containers[0].image}'"],
                                     capture_output=True, text=True, check=True)

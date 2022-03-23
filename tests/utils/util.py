@@ -115,6 +115,16 @@ def check_files_exist(context, list_files):
 #         time.sleep(1)
 #         attempts += 1
 
+# replace_string_in_a_file replaces old_string with new_string in text file
+def replace_string_in_a_file(filename, old_string, new_string):
+    fin = open(filename, "rt")
+    data = fin.read()
+    data = data.replace(old_string, new_string)
+    fin.close()
+    fin = open(filename, "wt")
+    fin.write(data)
+    fin.close()
+
 # Copy example files to context directory
 def copy_example(example_name, workspace_dir, context_dir = '.'):
     example_path = os.path.join(os.path.dirname(__file__), '../',

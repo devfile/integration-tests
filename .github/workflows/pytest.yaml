@@ -24,7 +24,7 @@ jobs:
         os: [ ubuntu-latest, macos-10.15 ]
     runs-on: ${{ matrix.os }}
     continue-on-error: true
-    timeout-minutes: 10
+    timeout-minutes: 20
 
     steps:
       - name: Check out repository code

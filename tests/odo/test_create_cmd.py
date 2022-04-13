@@ -94,7 +94,7 @@ class TestCreateCmd:
 
         # example devfile path
         source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                           'examples/source/devfiles/java-openliberty/devfile.yaml')
+                                           '../examples/source/devfiles/java-openliberty/devfile.yaml')
 
         source_devfile_path = os.path.abspath(source_devfile_path)
 
@@ -132,7 +132,7 @@ class TestCreateCmd:
             os.chdir(tmp_workspace)
 
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/nodejs/devfile-with-branch.yaml')
+                                               '../examples/source/devfiles/nodejs/devfile-with-branch.yaml')
             copy_example_devfile(source_devfile_path, tmp_workspace)
             subprocess.run(["odo", "create", "nodejs", "--starter", "nodejs-starter"])
 
@@ -153,7 +153,7 @@ class TestCreateCmd:
             os.chdir(tmp_workspace)
 
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/nodejs/devfile.yaml')
+                                               '../examples/source/devfiles/nodejs/devfile.yaml')
             copy_example_devfile(source_devfile_path, tmp_workspace)
 
             subprocess.run(["odo", "create", "nodejs", "--devfile", "./devfile.yaml"])

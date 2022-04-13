@@ -31,6 +31,23 @@ def unmatch_all(input, list_not_expected):
             return False
     return True
 
+# check if multiple strings in list_expected are found in a file
+def match_strings_in_file(file_name, list_expected):
+    for search_string in list_expected:
+        if not match_string_in_file(file_name, search_string):
+            return False
+
+    return True
+
+# check if a single search_string is found in a file
+def match_string_in_file(file_name, search_string):
+    with open(file_name, 'r') as read_file:
+        for line in read_file:
+            if contains(line, search_string):
+                return True
+
+    return False
+
 # This function loads the given devfile
 def get_devfile(devfile_path = 'devfile.yaml'):
     with open(devfile_path, 'r') as file:
@@ -100,6 +117,10 @@ def check_files_exist(context, list_files):
             continue
         return False
     return True
+
+# check if file exist in the context
+def check_file_exist(context, a_file):
+    return os.path.exists(os.path.join(context, a_file))
 
 # wait until the file exists
 # def wait_for_file(source_dir, filename, timeout = 20):

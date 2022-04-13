@@ -124,7 +124,7 @@ class TestDescribeCmd:
 
             # example devfile path
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/springboot/devfile-with-missing-projectType-metadata.yaml')
+                                               '../examples/source/devfiles/springboot/devfile-with-missing-projectType-metadata.yaml')
 
             copy_and_create(source_devfile_path, "springboot/project", tmp_workspace, self.CONTEXT)
 
@@ -145,7 +145,7 @@ class TestDescribeCmd:
 
             # example devfile path
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/springboot/devfile-with-missing-projectType-and-language-metadata.yaml')
+                                               '../examples/source/devfiles/springboot/devfile-with-missing-projectType-and-language-metadata.yaml')
 
             copy_and_create(source_devfile_path, "springboot/project", tmp_workspace, self.CONTEXT)
 

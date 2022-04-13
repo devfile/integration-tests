@@ -48,11 +48,11 @@ def match_string_in_file(file_name, search_string):
 
     return False
 
-# This function loads the given devfile
-def get_devfile(devfile_path = 'devfile.yaml'):
-    with open(devfile_path, 'r') as file:
-        devfile_data = yaml.safe_load(file)
-    return devfile_data
+# This function loads the given yaml
+def get_yaml(yaml_file_path):
+    with open(yaml_file_path, 'r') as file:
+        yaml_data = yaml.safe_load(file)
+    return yaml_data
 
 # This function loads the given schema available
 def get_schema_json():
@@ -62,7 +62,7 @@ def get_schema_json():
 
 def validate_json():
     execute_api_schema = get_schema_json()
-    json_data = get_devfile()
+    json_data = get_yaml()
 
     try:
         validate(instance=json_data, schema=execute_api_schema)
@@ -94,17 +94,17 @@ def set_default_devfile_registry():
 def random_string(size=8, chars=string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
-def query_yaml(devfile_path: str, param_1, param_2, param_3):
+def query_yaml(yaml_path: str, param_1, param_2, param_3):
     try:
-        devfile_data = get_devfile(devfile_path)
-        print('devfile_data content:', devfile_data)
+        yaml_data = get_yaml(yaml_path)
+        print('yaml_data content:', yaml_data)
 
         if param_2 == -1:
-            return devfile_data[param_1]
+            return yaml_data[param_1]
         elif param_3 == -1:
-            return devfile_data[param_1][param_2]
+            return yaml_data[param_1][param_2]
         else:
-            return devfile_data[param_1][param_2][param_3]
+            return yaml_data[param_1][param_2][param_3]
     except yaml.YAMLError as e:
         print(e)
 

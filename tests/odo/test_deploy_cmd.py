@@ -30,7 +30,7 @@ class TestDeployCmd:
 
             # example devfile path
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/nodejs/devfile-deploy.yaml')
+                                               '../examples/source/devfiles/nodejs/devfile-deploy.yaml')
 
             copy_and_create(source_devfile_path, "nodejs/project", tmp_workspace, self.CONTEXT)
 
@@ -62,7 +62,7 @@ class TestDeployCmd:
 
             # example devfile path
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/nodejs/devfile-outerloop-project_source-in-docker-build-context.yaml')
+                                               '../examples/source/devfiles/nodejs/devfile-outerloop-project_source-in-docker-build-context.yaml')
 
             copy_and_create(source_devfile_path, "nodejs/project", tmp_workspace, self.CONTEXT)
 
@@ -100,7 +100,7 @@ class TestDeployCmd:
     #
     #         # example devfile path
     #         source_devfile_path = os.path.join(os.path.dirname(__file__),
-    #                                            'examples/source/devfiles/nodejs/devfile-with-two-deploy-commands.yaml')
+    #                                            '../examples/source/devfiles/nodejs/devfile-with-two-deploy-commands.yaml')
     #
     #         copy_and_create(source_devfile_path, "nodejs/project", tmp_workspace, self.CONTEXT)
     #

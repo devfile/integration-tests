@@ -18,18 +18,18 @@ All related issues are being tracked under the main devfile API repo https://git
 
 | OCP version   |      Prow Test Status    |
 |----------|:-------------:|
+| 4.11 | [devfile-integration-tests-main-v4.11.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.11.odo-integration-devfile-odo-periodic) |
 | 4.10 | [devfile-integration-tests-main-v4.10.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.10.odo-integration-devfile-odo-periodic) |
 | 4.9 | [devfile-integration-tests-main-v4.9.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.9.odo-integration-devfile-odo-periodic) |
-| 4.8 | [devfile-integration-tests-main-v4.8.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.8.odo-integration-devfile-odo-periodic) |
 
 ## ODC tests on OpenShift CI
 [ODC integration test cases](./scripts/console/frontend/packages/dev-console/integration-tests/features/addFlow/create-from-devfile.feature)
 
 | OCP version   |      Prow Test Status    |
 |----------|:-------------:|
+| 4.11 | [devfile-integration-tests-main-v4.11.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.11.console-e2e-gcp-console-periodic) |
 | 4.10 | [devfile-integration-tests-main-v4.10.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.10.console-e2e-gcp-console-periodic) |
 | 4.9 | [devfile-integration-tests-main-v4.9.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.9.console-e2e-gcp-console-periodic) |
-| 4.8 | [devfile-integration-tests-main-v4.8.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.8.console-e2e-gcp-console-periodic) |
 
 # How to run integration tests on a local machine
 **NOTE**: This section covers the required test environment for macOS specifically, however the similar steps can be used for other OSes.
@@ -47,7 +47,10 @@ All related issues are being tracked under the main devfile API repo https://git
 2. cd integration-tests
 3. run `pipenv install --dev`
 4. Start Minikube or OpenShift (e.g. crc)
-5. run `pipenv run pytest tests -v` to test all, or `pipenv run pytest tests/<target test>.py -v` to test the target test cases.
+5. run `pipenv run pytest tests/odo -v` to test all, or `pipenv run pytest tests/odo/<target test>.py -v` to test target test cases.
+6. [Optional] In order run integration tests with the latest Odo build
+   1. Build and install by following [the instruction](https://odo.dev/docs/getting-started/installation#installing-from-source-code) on 'odo.dev'
+   2. run `pipenv run pytest tests/odo_300 -v` to test all, or `pipenv run pytest tests/odo_300/<target test>.py -v` to test target test cases.
 
 ## How to run OpenShift CI ODO tests on a local machine
 [ODO integration tests](https://github.com/openshift/odo/blob/main/docs/dev/test-architecture.adoc#integration-and-e2e-tests) 

@@ -29,7 +29,7 @@ class TestBuildImagesCmd:
 
             # example devfile path
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/nodejs/devfile-outerloop.yaml')
+                                               '../examples/source/devfiles/nodejs/devfile-outerloop.yaml')
 
             copy_and_create(source_devfile_path, "nodejs/project", tmp_workspace, self.CONTEXT)
 
@@ -55,7 +55,7 @@ class TestBuildImagesCmd:
 
             # example devfile path
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/nodejs/devfile-outerloop-args.yaml')
+                                               '../examples/source/devfiles/nodejs/devfile-outerloop-args.yaml')
 
             copy_and_create(source_devfile_path, "nodejs/project", tmp_workspace, self.CONTEXT)
 

@@ -31,7 +31,7 @@ class TestPushCmd:
 
             # example devfile path
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/nodejs/devfile-registry.yaml')
+                                               '../examples/source/devfiles/nodejs/devfile-registry.yaml')
 
             copy_and_create(source_devfile_path, "nodejs/project", tmp_workspace, self.CONTEXT)
 
@@ -62,7 +62,7 @@ class TestPushCmd:
 
             # example devfile path
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/nodejs/devfile.yaml')
+                                               '../examples/source/devfiles/nodejs/devfile.yaml')
 
             copy_and_create(source_devfile_path, "nodejs/project", tmp_workspace, self.CONTEXT)
 
@@ -88,7 +88,7 @@ class TestPushCmd:
 
             # example devfile path
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/nodejs/devfile-variables.yaml')
+                                               '../examples/source/devfiles/nodejs/devfile-variables.yaml')
 
             copy_and_create(source_devfile_path, "nodejs/project", tmp_workspace, self.CONTEXT)
 
@@ -119,7 +119,7 @@ class TestPushCmd:
 
             # example devfile path
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/nodejs/devfileSourceMapping.yaml')
+                                               '../examples/source/devfiles/nodejs/devfileSourceMapping.yaml')
 
             copy_and_create(source_devfile_path, "nodejs/project", tmp_workspace, self.CONTEXT)
 
@@ -164,7 +164,7 @@ class TestPushCmd:
 
             # example devfile path
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/nodejs/devfile-with-projects.yaml')
+                                               '../examples/source/devfiles/nodejs/devfile-with-projects.yaml')
             copy_example_devfile(source_devfile_path, tmp_workspace)
 
             result = subprocess.run(["odo", "push", "--v", "5"],
@@ -210,7 +210,7 @@ class TestPushCmd:
 
             # example devfile path
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/nodejs/devfile-with-projects.yaml')
+                                               '../examples/source/devfiles/nodejs/devfile-with-projects.yaml')
             copy_example_devfile(source_devfile_path, tmp_workspace)
             replace_string_in_a_file("devfile.yaml", "clonePath: webapp/", "# clonePath: webapp/")
             result = subprocess.run(["odo", "push"],

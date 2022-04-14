@@ -29,7 +29,7 @@ class TestConfigCmd:
 
             # example devfile path
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/nodejs/devfile-registry.yaml')
+                                               '../examples/source/devfiles/nodejs/devfile-registry.yaml')
             shutil.copyfile(source_devfile_path, devfile_path)
             subprocess.check_call(["odo", "create", "nodejs", "--devfile", "./devfile.yaml"])
 
@@ -63,7 +63,7 @@ class TestConfigCmd:
 
             # example devfile path
             source_devfile_path = os.path.join(os.path.dirname(__file__),
-                                               'examples/source/devfiles/nodejs/devfile-registry.yaml')
+                                               '../examples/source/devfiles/nodejs/devfile-registry.yaml')
             shutil.copyfile(source_devfile_path, devfile_path)
             subprocess.check_call(["odo", "create", "nodejs", "--devfile", "./devfile.yaml"])
 

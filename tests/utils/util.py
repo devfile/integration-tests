@@ -31,11 +31,28 @@ def unmatch_all(input, list_not_expected):
             return False
     return True
 
-# This function loads the given devfile
-def get_devfile(devfile_path = 'devfile.yaml'):
-    with open(devfile_path, 'r') as file:
-        devfile_data = yaml.safe_load(file)
-    return devfile_data
+# check if multiple strings in list_expected are found in a file
+def match_strings_in_file(file_name, list_expected):
+    for search_string in list_expected:
+        if not match_string_in_file(file_name, search_string):
+            return False
+
+    return True
+
+# check if a single search_string is found in a file
+def match_string_in_file(file_name, search_string):
+    with open(file_name, 'r') as read_file:
+        for line in read_file:
+            if contains(line, search_string):
+                return True
+
+    return False
+
+# This function loads the given yaml
+def get_yaml(yaml_file_path):
+    with open(yaml_file_path, 'r') as file:
+        yaml_data = yaml.safe_load(file)
+    return yaml_data
 
 # This function loads the given schema available
 def get_schema_json():
@@ -45,7 +62,7 @@ def get_schema_json():
 
 def validate_json():
     execute_api_schema = get_schema_json()
-    json_data = get_devfile()
+    json_data = get_yaml()
 
     try:
         validate(instance=json_data, schema=execute_api_schema)
@@ -77,17 +94,17 @@ def set_default_devfile_registry():
 def random_string(size=8, chars=string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
-def query_yaml(devfile_path: str, param_1, param_2, param_3):
+def query_yaml(yaml_path: str, param_1, param_2, param_3):
     try:
-        devfile_data = get_devfile(devfile_path)
-        print('devfile_data content:', devfile_data)
+        yaml_data = get_yaml(yaml_path)
+        print('yaml_data content:', yaml_data)
 
         if param_2 == -1:
-            return devfile_data[param_1]
+            return yaml_data[param_1]
         elif param_3 == -1:
-            return devfile_data[param_1][param_2]
+            return yaml_data[param_1][param_2]
         else:
-            return devfile_data[param_1][param_2][param_3]
+            return yaml_data[param_1][param_2][param_3]
     except yaml.YAMLError as e:
         print(e)
 
@@ -100,6 +117,10 @@ def check_files_exist(context, list_files):
             continue
         return False
     return True
+
+# check if file exist in the context
+def check_file_exist(context, a_file):
+    return os.path.exists(os.path.join(context, a_file))
 
 # wait until the file exists
 # def wait_for_file(source_dir, filename, timeout = 20):

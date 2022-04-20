@@ -118,7 +118,6 @@ class TestInitCmd:
 
 
     def test_init_with_starter(self):
-
         print("Test case : should pass and keep the devfile in starter")
 
         with tempfile.TemporaryDirectory() as tmp_workspace:
@@ -144,7 +143,6 @@ class TestInitCmd:
 
 
     def test_init_with_starter_subdir(self):
-
         print("Test case : should successfully extract the project in the specified subDir path")
 
         with tempfile.TemporaryDirectory() as tmp_workspace:
@@ -166,7 +164,6 @@ class TestInitCmd:
 
 
     def test_init_with_starter_and_branch(self):
-
         print("Test case : should successfully run odo init for devfile with starter project from the specified branch")
 
         with tempfile.TemporaryDirectory() as tmp_workspace:
@@ -187,7 +184,6 @@ class TestInitCmd:
 
 
     def test_init_with_starter_and_tag(self):
-
         print("Test case : should successfully run odo init for devfile with starter project from the specified tag")
 
         with tempfile.TemporaryDirectory() as tmp_workspace:
@@ -208,7 +204,6 @@ class TestInitCmd:
 
 
     def test_init_with_sources(self):
-
         print("Test case : running odo init from a directory with sources")
 
         with tempfile.TemporaryDirectory() as tmp_workspace:

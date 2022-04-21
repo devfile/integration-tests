@@ -121,7 +121,7 @@ class TestCreateCmd:
                 "devfile.yaml"
             ]
 
-            assert check_files_exist(context, list_files)
+            assert check_files_exist(list_files, context)
 
 
     def test_create_component_with_starter_project_git_branch(self):
@@ -142,7 +142,7 @@ class TestCreateCmd:
                 "README.md",
                 "devfile.yaml"
             ]
-            assert check_files_exist(tmp_workspace, list_files)
+            assert check_files_exist(list_files, tmp_workspace)
 
 
     def test_create_component_with_devfile_flag(self):

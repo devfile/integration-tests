@@ -109,7 +109,7 @@ def query_yaml(yaml_path: str, param_1, param_2, param_3):
         print(e)
 
 # check if files exist in the context
-def check_files_exist(context, list_files):
+def check_files_exist(list_files, context = '.'):
 
     for expected in list_files:
         path_to_file = os.path.join(context, expected)
@@ -119,8 +119,9 @@ def check_files_exist(context, list_files):
     return True
 
 # check if file exist in the context
-def check_file_exist(context, a_file):
+def check_file_exist(a_file, context = '.'):
     return os.path.exists(os.path.join(context, a_file))
+
 
 # wait until the file exists
 # def wait_for_file(source_dir, filename, timeout = 20):
@@ -164,3 +165,9 @@ def copy_and_create(source_devfile, example_name, workspace_dir, context_dir = '
     copy_example(example_name, workspace_dir, context_dir)
     copy_example_devfile(source_devfile, workspace_dir, context_dir)
     subprocess.run(["odo", "create", "--context", os.path.join(workspace_dir, context_dir)])
+
+# Get source devfile path
+def get_source_devfile_path(source_devfile):
+    return os.path.abspath(os.path.join(os.path.dirname(__file__),
+                            '../examples/source/devfiles',
+                            source_devfile))

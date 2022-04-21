@@ -5,7 +5,7 @@
 #
 # SPDX-License-Identifier: EPL-2.0
 #
-name: Devfile integration tests (latest Odo release)
+name: Devfile integration tests (Odo v2.5.0 release)
 
 on:
   push:
@@ -36,8 +36,8 @@ jobs:
       - name: Install ODO
         uses: redhat-actions/openshift-tools-installer@v1
         with:
-            # Installs the latest release of odo
-            odo: "latest"
+            # Installs odo v2.5.0
+            odo: "2.5.0"
 
       # Setup Python
       - name: Install Python, pipenv and Pipfile packages

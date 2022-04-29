@@ -60,9 +60,15 @@ class TestCreateCmd:
             os.chdir(tmp_workspace)
             component_namespace = random_string()
             subprocess.run(["odo", "create", "java-openliberty", "--project", component_namespace])
-            time.sleep(5)
-
             envfile_path = os.path.abspath(os.path.join(tmp_workspace, '.odo/env/env.yaml'))
+
+            time_out = 30
+            time_counter = 0
+            while not os.path.exists(envfile_path):
+                time.sleep(1)
+                time_counter += 1
+                if time_counter > time_out:
+                    break
 
             if os.path.isfile(envfile_path):
                 assert query_yaml(envfile_path, "ComponentSettings", "Project", -1) == component_namespace

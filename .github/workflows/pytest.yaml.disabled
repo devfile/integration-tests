@@ -1,0 +1,51 @@
+# Copyright (c) 2021 Red Hat, Inc.
+# This program and the accompanying materials are made
+# available under the terms of the Eclipse Public License 2.0
+# which is available at https://www.eclipse.org/legal/epl-2.0/
+#
+# SPDX-License-Identifier: EPL-2.0
+#
+name: Devfile integration tests (latest Odo release)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # every day at 9am EST
+    - cron: 0 1 * * *
+
+jobs:
+  test_with_minikube:
+    name: Run tests
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-10.15 ]
+    runs-on: ${{ matrix.os }}
+    continue-on-error: true
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Start minikube
+        uses: medyagh/setup-minikube@latest
+
+      - name: Install ODO
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+            # Installs the latest release of odo
+            odo: "latest"
+
+      # Setup Python
+      - name: Install Python, pipenv and Pipfile packages
+        uses: palewire/install-python-pipenv-pipfile@v2
+        with:
+          python-version: "3.9.10"
+
+      - name: Run test with pipenv and pytest
+        run: |
+          odo version
+          pipenv run pytest tests/odo -v

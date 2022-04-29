@@ -10,7 +10,8 @@ class TestUrlCmd:
     CONTAINER_NAME = "test-container"
     CONTEXT = "test-context"
     HOST = "test.host.com"
-    PORT_1 = "3000"
+    PORT = "3000"
+    PORT_1 = "3001"
     PORT_2 = "5000"
     ENDPOINT_1 = "url-1"
     ENDPOINT_2 = "url-2"
@@ -50,15 +51,15 @@ class TestUrlCmd:
                                      "--host", self.HOST, "--secure", "--ingress"],
                                     capture_output=True, text=True, check=False)
             assert contains(result.stderr,
-                            "url {} already exist in devfile endpoint entry under container runtime".format(self.ENDPOINT))
+                            "url {} already exists in devfile endpoint entry under container".format(self.ENDPOINT))
 
             # should not allow to create URL with duplicate port
-            result = subprocess.run(["odo", "url", "create", self.ENDPOINT_1, "--port", self.PORT_1,
+            result = subprocess.run(["odo", "url", "create", self.ENDPOINT_1, "--port", self.PORT,
                                      "--host", self.HOST, "--secure", "--ingress"],
                                     capture_output=True, text=True, check=False)
 
-            # Todo: potential bug - it's not blocked by the odo used in the test. Need to verify if it's fixed in more recent release
-            # assert contains(result.stdout, "port 3000 already exists in devfile endpoint entry")
+            assert contains(result.stderr, "URL creation failed")
+            assert contains(result.stderr, "port {} already exists in devfile endpoint entry".format(self.PORT))
 
     def test_url_invalid_container(self):
         print("Test case : should not allow creating under an invalid container")
@@ -141,7 +142,7 @@ class TestUrlCmd:
                             "--host", self.HOST, "--secure", "--ingress"])
 
             list_components_after_url1 = [
-                self.ENDPOINT,
+                "nodejs-" + self.PORT_1,
                 self.PORT_1,
                 "Not Pushed",
                 "true",
@@ -184,6 +185,6 @@ class TestUrlCmd:
                            capture_output=True, text=True, check=True)
 
             result = subprocess.run(["odo", "url", "list"],
-                                    capture_output=True, text=True, check=False)
+                                    capture_output=True, text=True, check=True)
 
-            assert contains(result.stderr, "no URLs found for component nodejs")
+            assert contains(result.stdout, self.ENDPOINT_2) == False

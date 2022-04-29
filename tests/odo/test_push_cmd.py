@@ -44,7 +44,7 @@ class TestPushCmd:
             # MacOS: reuse the existing kubectl inside minikube
             result = subprocess.run(
                 ["minikube", "kubectl", "--", "get", "deployment",
-                 "-o", "jsonpath='{.items[0].spec.template.spec.containers[0].ports[?(@.name=='3000-tcp')].containerPort}'"],
+                 "-o", "jsonpath='{.items[0].spec.template.spec.containers[0].ports[?(@.name=='http-3000')].containerPort}'"],
                 capture_output=True, text=True, check=True)
             assert contains(result.stdout, "3000")
 

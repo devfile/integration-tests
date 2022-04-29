@@ -1,5 +1,6 @@
 import tempfile
 import jmespath
+import time
 
 from utils.config import *
 from utils.util import *
@@ -59,9 +60,14 @@ class TestCreateCmd:
             os.chdir(tmp_workspace)
             component_namespace = random_string()
             subprocess.run(["odo", "create", "java-openliberty", "--project", component_namespace])
+            time.sleep(5)
 
             envfile_path = os.path.abspath(os.path.join(tmp_workspace, '.odo/env/env.yaml'))
-            assert query_yaml(envfile_path, "ComponentSettings", "Project", -1) == component_namespace
+
+            if os.path.isfile(envfile_path):
+                assert query_yaml(envfile_path, "ComponentSettings", "Project", -1) == component_namespace
+            else:
+                raise ValueError("Failed: %s is not created yet." % file_path)
 
 
     def test_create_with_context_flag(self):

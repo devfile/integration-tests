@@ -5,17 +5,16 @@
 #
 # SPDX-License-Identifier: EPL-2.0
 #
-name: Devfile integration tests (Odo v2.5.0 release)
+name: Devfile integration tests (Odo v2.5.1 release)
 
 on:
-# NOTE: Currently disabled
   push:
-#    branches: [ main ]
+    branches: [ main ]
   pull_request:
-#    branches: [ main ]
-#  schedule:
-#    # every day at 9am EST
-#    - cron: 0 1 * * *
+    branches: [ main ]
+  schedule:
+    # every day at 9am EST
+    - cron: 0 1 * * *
 
 jobs:
   test_with_minikube:
@@ -31,14 +30,31 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
+      - name: Check out the latest odo repository code
+        uses: actions/checkout@v2
+        with:
+          repository: redhat-developer/odo
+          ref: v2.5.1
+          path: odo
+
       - name: Start minikube
         uses: medyagh/setup-minikube@latest
 
-      - name: Install ODO
-        uses: redhat-actions/openshift-tools-installer@v1
+      - name: Setup go
+        uses: actions/setup-go@v3
         with:
-            # Installs odo v2.5.0
-            odo: "2.5.0"
+          go-version: '1.16.1'
+      - run: go version
+
+      # Build and installs odo from source code
+      - name: Build and Install ODO
+        run: |
+          cd odo
+          make goget-tools
+          make bin
+          mv ./odo /usr/local/bin/odo
+          cd ..
+          rm -rf odo
 
       # Setup Python
       - name: Install Python, pipenv and Pipfile packages

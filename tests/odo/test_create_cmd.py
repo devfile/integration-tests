@@ -62,7 +62,7 @@ class TestCreateCmd:
             subprocess.run(["odo", "create", "java-openliberty", "--project", component_namespace])
             envfile_path = os.path.abspath(os.path.join(tmp_workspace, '.odo/env/env.yaml'))
 
-            time_out = 10
+            time_out = 30
             time_counter = 0
             while not os.path.exists(envfile_path):
                 time.sleep(1)

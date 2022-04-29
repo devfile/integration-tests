@@ -8,14 +8,13 @@
 name: Devfile integration tests (Odo v2.5.0 release)
 
 on:
-# NOTE: Currently disabled
   push:
-#    branches: [ main ]
+    branches: [ main ]
   pull_request:
-#    branches: [ main ]
-#  schedule:
-#    # every day at 9am EST
-#    - cron: 0 1 * * *
+    branches: [ main ]
+  schedule:
+    # every day at 9am EST
+    - cron: 0 1 * * *
 
 jobs:
   test_with_minikube:

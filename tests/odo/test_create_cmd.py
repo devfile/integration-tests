@@ -73,7 +73,7 @@ class TestCreateCmd:
             if os.path.isfile(envfile_path):
                 assert query_yaml(envfile_path, "ComponentSettings", "Project", -1) == component_namespace
             else:
-                raise ValueError("Failed: %s is not created yet." % file_path)
+                raise ValueError("Failed: %s is not created yet." % envfile_path)
 
 
     def test_create_with_context_flag(self):

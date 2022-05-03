@@ -118,7 +118,7 @@ class TestInitCmd:
 
 
     def test_init_with_starter(self):
-        print("Test case : should pass and keep the devfile in starter")
+        print("Test case : when a devfile is provided which has a starter that has its own devfile, it should pass and keep the devfile in starter")
 
         with tempfile.TemporaryDirectory() as tmp_workspace:
             os.chdir(tmp_workspace)
@@ -161,6 +161,12 @@ class TestInitCmd:
                 "resources/application.properties"
             ]
             assert check_files_exist(list_files, tmp_workspace)
+
+            list_exclue_files: list[str] = [
+                "src",
+                "main"
+            ]
+            assert not check_files_exist(list_exclue_files, tmp_workspace)
 
 
     def test_init_with_starter_and_branch(self):
@@ -223,3 +229,29 @@ class TestInitCmd:
 
             assert contains(result.stderr, "a devfile already exists in the current directory")
 
+
+    def test_init_check_output_message_without_deploy_instruction(self):
+        print("Test case : `odo init` command with devfile not containing deploy shouldn't show the deploy instruction in output message")
+
+        with tempfile.TemporaryDirectory() as tmp_workspace:
+
+            source_devfile_path = get_source_devfile_path("nodejs/devfile.yaml")
+            os.chdir(tmp_workspace)
+            result = subprocess.run(["odo", "init", "--name", self.COMPONENT, "--devfile-path", source_devfile_path],
+                                    capture_output=True, text=True, check=True)
+
+            assert contains(result.stdout, "To start editing your component, use \'odo dev\' and open this folder in your favorite IDE.")
+            assert not contains(result.stdout, "To deploy your component to a cluster use \"odo deploy\".")
+
+    def test_init_check_output_message_with_deploy_instruction(self):
+        print("Test case : `odo init` command with devfile containing deploy should show the deploy instruction in output message")
+
+        with tempfile.TemporaryDirectory() as tmp_workspace:
+
+            source_devfile_path = get_source_devfile_path("nodejs/devfile-deploy.yaml")
+            os.chdir(tmp_workspace)
+            result = subprocess.run(["odo", "init", "--name", self.COMPONENT, "--devfile-path", source_devfile_path],
+                                    capture_output=True, text=True, check=True)
+
+            assert contains(result.stdout, "To start editing your component, use \'odo dev\' and open this folder in your favorite IDE.")
+            assert contains(result.stdout, "To deploy your component to a cluster use \"odo deploy\".")

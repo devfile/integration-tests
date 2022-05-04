@@ -118,13 +118,6 @@ class TestDeleteCmd:
                 assert not contains(result.stdout, self.COMPONENT + "-app")
                 assert contains(result.stderr, "No resources found in " + self.PROJECT + " namespace.")
 
-                # run delete command again after deletion
-                result = subprocess.run(
-                    ["odo", "delete", "component", "--name", self.COMPONENT, "--namespace", self.PROJECT, "-f"],
-                    capture_output=True, text=True, check=True)
-                str_no_resource_found = "No resource found for component \"{}\" in namespace \"{}\"".format(self.COMPONENT, self.PROJECT)
-                assert contains(result.stdout, str_no_resource_found)
-
                 cmd_proc.terminate()
             except Exception as e:
                 raise e

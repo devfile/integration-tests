@@ -7,6 +7,7 @@ from utils.util import *
 
 @pytest.mark.usefixtures("use_test_registry")
 class TestCreateCmd:
+    COMPONENT = "acomponent"
     tmp_project_name = None
 
 
@@ -59,7 +60,7 @@ class TestCreateCmd:
         with tempfile.TemporaryDirectory() as tmp_workspace:
             os.chdir(tmp_workspace)
             component_namespace = random_string()
-            subprocess.run(["odo", "create", "java-openliberty", "--project", component_namespace])
+            subprocess.run(["odo", "create", "java-openliberty", self.COMPONENT, "--project", component_namespace])
             envfile_path = os.path.abspath(os.path.join(tmp_workspace, '.odo/env/env.yaml'))
 
             time_out = 30

@@ -7,6 +7,7 @@ from utils.util import *
 
 @pytest.mark.usefixtures("use_test_registry")
 class TestCreateCmd:
+    PROJECT = "intg-test-project"
     tmp_project_name = None
 
 
@@ -58,8 +59,7 @@ class TestCreateCmd:
 
         with tempfile.TemporaryDirectory() as tmp_workspace:
             os.chdir(tmp_workspace)
-            component_namespace = random_string()
-            subprocess.run(["odo", "create", "java-openliberty", "--project", component_namespace])
+            subprocess.run(["odo", "create", "java-openliberty", "--project", self.PROJECT])
             envfile_path = os.path.abspath(os.path.join(tmp_workspace, '.odo/env/env.yaml'))
 
             time_out = 30
@@ -71,7 +71,7 @@ class TestCreateCmd:
                     break
 
             if os.path.isfile(envfile_path):
-                assert query_yaml(envfile_path, "ComponentSettings", "Project", -1) == component_namespace
+                assert query_yaml(envfile_path, "ComponentSettings", "Project", -1) == self.PROJECT
             else:
                 raise ValueError("Failed: %s is not created yet." % envfile_path)
 

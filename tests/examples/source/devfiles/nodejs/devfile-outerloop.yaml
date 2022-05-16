@@ -47,7 +47,7 @@ components:
       uri: ./Dockerfile
       buildContext: ${PROJECTS_ROOT}
       rootRequired: false
-  name: component-built-from-dockerfile
+  name: deployed
 metadata:
   description: Stack with Node.js 14
   displayName: Node.js Runtime

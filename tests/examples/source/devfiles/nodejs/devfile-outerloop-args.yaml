@@ -50,7 +50,7 @@ components:
       args:
       - --unknown-flag
       - value
-  name: component-built-from-dockerfile
+  name: deployed
 metadata:
   description: Stack with Node.js 14
   displayName: Node.js Runtime

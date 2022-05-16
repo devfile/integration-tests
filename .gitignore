@@ -141,3 +141,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Test temp directory
+tests/v2/integrationTest/tmp/

@@ -19,7 +19,7 @@ bin:
 
 .PHONY: test
 test:
-	go test -v ./...
+	go test -v ./tests/v2/integrationTest
 #	go test -coverprofile tests/v2/lib-test-coverage.out -v ./...
 #	go tool cover -html=tests/v2/lib-test-coverage.out -o tests/v2/lib-test-coverage.html
 

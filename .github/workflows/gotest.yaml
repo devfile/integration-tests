@@ -33,6 +33,12 @@ jobs:
       - name: Check go mod status
         run: |
           make gomod_tidy
+          if [[ ! -z $(git status -s) ]]
+          then
+            echo "Go mod state is not clean"
+            git diff "$GITHUB_SHA"
+            exit 1
+          fi
 
       - name: Check format
         run: |
@@ -46,8 +52,8 @@ jobs:
       - name: Run Go Tests
         run: make test
 
-      - name: Upload Test Coverage results
-        uses: actions/upload-artifact@v2
-        with:
-          name: lib-test-coverage-html
-          path: tests/v2/lib-test-coverage.html
+#      - name: Upload Test Coverage results
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: lib-test-coverage-html
+#          path: tests/v2/lib-test-coverage.html

@@ -50,8 +50,8 @@ var _ = Describe("odo devfile create command tests", func() {
 		})
 
 		Measure("should successfully create the devfile component with valid component name", func(b Benchmarker) {
-			runtime := b.Time("========== Command: odo create java-openliberty " +
-							   cmpName + " ==========", func() {
+			runtime := b.Time("========== Command: odo create java-openliberty "+
+				cmpName+" ==========", func() {
 				helper.Cmd("odo", "create", "java-openliberty", cmpName).ShouldPass()
 			})
 			b.RecordValueWithPrecision("========== Execution time in ms ==========", float64(runtime.Milliseconds()), "ms", 2)

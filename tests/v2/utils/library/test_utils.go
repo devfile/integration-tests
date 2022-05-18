@@ -195,9 +195,6 @@ func validateDevfile(devfile *commonUtils.TestDevfile) error {
 	}
 
 	err = verifyEphemeralUnset(libraryObj)
-	if err != nil {
-		return err
-	}
 
 	return err
 }
@@ -224,24 +221,27 @@ func validateDevfileToFail(devfile *commonUtils.TestDevfile) error {
 
 // verifyEphemeralUnset  verifies volume.Ephemeral is not set on schema version 2.0.0
 func verifyEphemeralUnset(libraryObj parser.DevfileObj) error {
-	version := libraryObj.Data.GetSchemaVersion()
 
-	//verify volume.Ephemeral is not set on schema version 2.0.0
-	if version == string(devfileData.APISchemaVersion200) {
-		volumes, err := libraryObj.Data.GetComponents(common.DevfileOptions{
-			ComponentOptions: common.ComponentOptions{
-				ComponentType: schema.VolumeComponentType,
-			},
-		})
+	if libraryObj.Data != nil {
+		version := libraryObj.Data.GetSchemaVersion()
 
-		if err != nil {
-			return err
-		}
+		//verify volume.Ephemeral is not set on schema version 2.0.0
+		if version == string(devfileData.APISchemaVersion200) {
+			volumes, err := libraryObj.Data.GetComponents(common.DevfileOptions{
+				ComponentOptions: common.ComponentOptions{
+					ComponentType: schema.VolumeComponentType,
+				},
+			})
 
-		for i := range volumes {
-			volume := volumes[i].Volume
-			if volume != nil && volume.Ephemeral != nil {
-				return errors.New("ephemeral is not supported on schema version 2.0.0")
+			if err != nil {
+				return err
+			}
+
+			for i := range volumes {
+				volume := volumes[i].Volume
+				if volume != nil && volume.Ephemeral != nil {
+					return errors.New("ephemeral is not supported on schema version 2.0.0")
+				}
 			}
 		}
 	}

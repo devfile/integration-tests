@@ -23,6 +23,7 @@ func getInvalidNodeJSDevfileList() []string {
 		"devfile-with-multiple-defaults.yaml",
 		"devfile-with-no-default.yaml",
 		"devfile-with-preStart.yaml",
+		"devfile-with-subDir.yaml",
 		"devfileCompositeInvalidComponent.yaml",
 		"devfileCompositeNonExistent.yaml",
 		"devfileIndirectNesting.yaml",

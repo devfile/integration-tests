@@ -41,16 +41,6 @@ components:
     mountSources: true
     sourceMapping: /project
   name: runtime
-- image:
-    imageName: myimage
-    dockerfile:
-      uri: ./Dockerfile
-      buildContext: ${PROJECTS_ROOT}
-      rootRequired: false
-      args:
-      - --unknown-flag
-      - value
-  name: deployed
 metadata:
   description: Stack with Node.js 14
   displayName: Node.js Runtime
@@ -63,7 +53,7 @@ metadata:
   - Express
   - ubi8
   version: 1.0.1
-schemaVersion: 2.2.0
+schemaVersion: 2.1.0
 starterProjects:
 - git:
     remotes:

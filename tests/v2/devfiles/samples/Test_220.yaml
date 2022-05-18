@@ -5,6 +5,7 @@ commands:
     group:
       isDefault: true
       kind: build
+    hotReloadCapable: false
     workingDir: /project
   id: install
 - exec:
@@ -13,6 +14,7 @@ commands:
     group:
       isDefault: true
       kind: run
+    hotReloadCapable: false
     workingDir: /project
   id: run
 - exec:
@@ -21,6 +23,7 @@ commands:
     group:
       isDefault: true
       kind: debug
+    hotReloadCapable: false
     workingDir: /project
   id: debug
 - exec:
@@ -29,34 +32,43 @@ commands:
     group:
       isDefault: true
       kind: test
+    hotReloadCapable: false
     workingDir: /project
   id: test
 components:
+- name: outerloop-build
+  image:
+    imageName: nodejs-image:latest
+    dockerfile:
+      uri: Dockerfile
 - container:
+    dedicatedPod: true
     endpoints:
     - name: http-3000
+      secure: false
       targetPort: 3000
     image: registry.access.redhat.com/ubi8/nodejs-14:latest
     memoryLimit: 1024Mi
     mountSources: true
     sourceMapping: /project
+    volumeMounts:
+    - name: v1
+      path: /v1
+    - name: v2
+      path: /v2
   name: runtime
-- image:
-    imageName: myimage
-    dockerfile:
-      uri: ./Dockerfile
-      buildContext: ${PROJECTS_ROOT}
-      rootRequired: false
-      args:
-      - --unknown-flag
-      - value
-  name: deployed
+- name: v1
+  volume:
+    size: 1Gi
+- name: v2
+  volume:
+    size: 1Gi
 metadata:
   description: Stack with Node.js 14
   displayName: Node.js Runtime
   icon: https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg
   language: javascript
-  name: nodejs-prj1-api-abhz
+  name: nodejs-defect-pcbx
   projectType: nodejs
   tags:
   - NodeJS

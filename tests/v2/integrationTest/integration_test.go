@@ -23,7 +23,6 @@ func getInvalidNodeJSDevfileList() []string {
 		"devfile-with-multiple-defaults.yaml",
 		"devfile-with-no-default.yaml",
 		"devfile-with-preStart.yaml",
-		"devfile-with-subDir.yaml",
 		"devfileCompositeInvalidComponent.yaml",
 		"devfileCompositeNonExistent.yaml",
 		"devfileIndirectNesting.yaml",
@@ -41,13 +40,14 @@ func IsValidNodeJSDevFile(fileName string) bool {
 	return true
 }
 
-func getValidNodeJSDevfileList(path string) ([]string, error) {
+func getTestDevfileList(subdir string, testValid bool) ([]string, error) {
 
 	fileList := make([]string, 0)
-	files, err := ioutil.ReadDir(path)
+	subdirPath := "../../examples/source/devfiles/" + subdir + "/"
+	files, err := ioutil.ReadDir(subdirPath)
 
 	if err != nil {
-		commonUtils.LogErrorMessage(fmt.Sprintf("Error in getting file list from the directory: %s : %v", path, err))
+		commonUtils.LogErrorMessage(fmt.Sprintf("Error in getting file list from the directory: %s : %v", subdirPath, err))
 	}
 
 	for _, file := range files {
@@ -55,7 +55,18 @@ func getValidNodeJSDevfileList(path string) ([]string, error) {
 			r, err := regexp.MatchString("^devfile.+yaml$", file.Name())
 
 			if err == nil && r {
-				if IsValidNodeJSDevFile(file.Name()) {
+				if subdir == "nodejs" {
+					if testValid {
+						if IsValidNodeJSDevFile(file.Name()) {
+							fileList = append(fileList, file.Name())
+						}
+					} else {
+						if !IsValidNodeJSDevFile(file.Name()) {
+							fileList = append(fileList, file.Name())
+						}
+					}
+
+				} else {
 					fileList = append(fileList, file.Name())
 				}
 			}
@@ -64,111 +75,43 @@ func getValidNodeJSDevfileList(path string) ([]string, error) {
 	return fileList, err
 }
 
-func getValidDevfileList(path string) ([]string, error) {
+func testDevfile(t *testing.T, subdir string, testValid bool) {
+	testContent := commonUtils.TestContent{}
+	testContent.AddParent = false
+	testContent.EditContent = false
 
-	fileList := make([]string, 0)
-	files, err := ioutil.ReadDir(path)
+	fileNames, _ := getTestDevfileList(subdir, testValid)
 
-	if err != nil {
-		commonUtils.LogErrorMessage(fmt.Sprintf("Error in getting file list from the directory: %s : %v", path, err))
-	}
+	libraryUtils.CopyTestDevfile(t, subdir, fileNames)
 
-	for _, file := range files {
-		if !file.IsDir() {
-			r, err := regexp.MatchString("^devfile.+yaml$", file.Name())
-
-			if err == nil && r {
-				fileList = append(fileList, file.Name())
-			}
+	for _, fileName := range fileNames {
+		testContent.FileName = fileName
+		if testValid {
+			libraryUtils.RunStaticTest(testContent, t)
+		} else {
+			libraryUtils.RunStaticTestToFail(testContent, t)
 		}
 	}
-	return fileList, err
 }
 
 func Test_Valid_NodeJS_Devfiles(t *testing.T) {
-	testContent := commonUtils.TestContent{}
-	testContent.AddParent = false
-	testContent.EditContent = false
-
-	subDir := "nodejs"
-	srcDir := "../../examples/source/devfiles/" + subDir + "/"
-
-	fileNames, _ := getValidNodeJSDevfileList(srcDir)
-
-	libraryUtils.CopyTestDevfile(t, subDir, fileNames)
-
-	for _, fileName := range fileNames {
-		testContent.FileName = fileName
-		libraryUtils.RunStaticTest(testContent, t)
-	}
+	testDevfile(t, "nodejs", true)
 }
 
 func Test_Invalid_NodeJS_Devfiles(t *testing.T) {
-	testContent := commonUtils.TestContent{}
-	testContent.AddParent = false
-	testContent.EditContent = false
-
-	fileNames := getInvalidNodeJSDevfileList()
-	libraryUtils.CopyTestDevfile(t, "nodejs", fileNames)
-
-	for _, fileName := range fileNames {
-		testContent.FileName = fileName
-		libraryUtils.RunStaticTestToFail(testContent, t)
-	}
+	testDevfile(t, "nodejs", false)
 }
 
 func Test_Valid_OpenLiberty_Devfiles(t *testing.T) {
-	testContent := commonUtils.TestContent{}
-	testContent.AddParent = false
-	testContent.EditContent = false
-
-	subDir := "java-openliberty"
-	srcDir := "../../examples/source/devfiles/" + subDir + "/"
-
-	fileNames, _ := getValidDevfileList(srcDir)
-
-	libraryUtils.CopyTestDevfile(t, subDir, fileNames)
-
-	for _, fileName := range fileNames {
-		testContent.FileName = fileName
-		libraryUtils.RunStaticTest(testContent, t)
-	}
+	testDevfile(t, "java-openliberty", true)
 }
 
 func Test_Valid_Python_Devfiles(t *testing.T) {
-	testContent := commonUtils.TestContent{}
-	testContent.AddParent = false
-	testContent.EditContent = false
-
-	subDir := "python"
-	srcDir := "../../examples/source/devfiles/" + subDir + "/"
-
-	fileNames, _ := getValidDevfileList(srcDir)
-
-	libraryUtils.CopyTestDevfile(t, subDir, fileNames)
-
-	for _, fileName := range fileNames {
-		testContent.FileName = fileName
-		libraryUtils.RunStaticTest(testContent, t)
-	}
+	testDevfile(t, "python", true)
 }
 
 func Test_Valid_Springboot_Devfiles(t *testing.T) {
-	testContent := commonUtils.TestContent{}
-	testContent.AddParent = false
-	testContent.EditContent = false
-
-	subDir := "springboot"
-	srcDir := "../../examples/source/devfiles/" + subDir + "/"
-
-	fileNames, _ := getValidDevfileList(srcDir)
-
-	libraryUtils.CopyTestDevfile(t, subDir, fileNames)
-
-	for _, fileName := range fileNames {
-		testContent.FileName = fileName
-		libraryUtils.RunStaticTest(testContent, t)
-	}
+	testDevfile(t, "springboot", true)
 }
 
 func Test_Parent_Local_URI(t *testing.T) {

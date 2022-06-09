@@ -54,7 +54,7 @@ class TestInitCmd:
             dict = json.loads(result_json.stdout)
 
             assert contains(jmespath.search('devfilePath', dict), os.path.abspath(os.path.join(tmp_workspace, 'devfile.yaml')))
-            assert contains(jmespath.search('devfileData.devfile.schemaVersion', dict), "2.0.0")
+            assert contains(jmespath.search('devfileData.devfile.schemaVersion', dict), "2.1.0")
             assert jmespath.search('devfileData.supportedOdoFeatures.dev', dict)
             assert not jmespath.search('devfileData.supportedOdoFeatures.debug', dict)
             assert not jmespath.search('devfileData.supportedOdoFeatures.deploy', dict)

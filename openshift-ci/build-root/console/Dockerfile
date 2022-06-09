@@ -1,8 +1,8 @@
-FROM quay.io/coreos/tectonic-console-builder:v23 AS build
+FROM quay.io/coreos/tectonic-console-builder:v24 AS build
 
-RUN mkdir -p /go/src/github.com/openshift
+RUN mkdir -p /go/src/github.com/openshift/
 RUN cd /go/src/github.com/openshift && git clone https://github.com/openshift/console.git
-WORKDIR /go/src/github.com/openshift/console
+WORKDIR /go/src/github.com/openshift/console/
 RUN yarn config set ignore-engines true
 
 RUN ./build.sh

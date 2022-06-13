@@ -9,7 +9,7 @@ All related issues are being tracked under the main devfile API repo https://git
 # Daily CI integration tests
 
 - [Github actions workflows](https://github.com/devfile/integration-tests/actions) is configured to run nightly integration tests and also when a PR is opened against 'main' branch.
-   - [Devfile library/API Go tests](https://github.com/devfile/integration-tests/actions/workflows/gotest.yaml)
+  - [Devfile library/API Go tests](https://github.com/devfile/integration-tests/actions/workflows/gotest.yaml)
   - [Tests with the latest Odo](https://github.com/devfile/integration-tests/actions/workflows/pytest_odo.300.yaml) 
   - [Tests with Odo v2.5.1](https://github.com/devfile/integration-tests/actions/workflows/pytest_odo.251.yaml)
 - Additional integration tests are configured with [OpenShift CI system](https://docs.ci.openshift.org/docs/how-tos/onboarding-a-new-component/) to run ODO and ODC tests with devfile.
@@ -35,6 +35,20 @@ All related issues are being tracked under the main devfile API repo https://git
 
 # How to run integration tests on a local machine
 **NOTE**: This section covers the required test environment for macOS specifically, however the similar steps can be used for other OSes.
+
+## How to run Go ODO tests on a local machine
+**NOTE**: This test is based on [devfile library tests](https://github.com/devfile/library/tree/main/tests)
+1. clone the repository
+2. cd integration-tests
+3. Run ```Make test```
+4. The test creates the following files:
+   1. ```./tmp/test.log``` contains log output from the tests.
+   2. ```./tmp/library_test/Test_*.yaml``` and ```./tmp/integration_test/Test_*.yaml``` are the devfiles that are randomly generated at runtime. The file name matches the name of the test function which resulted in them being created.
+   3. If a test detects an error when comparing properties returned by the parser with expected properties
+       * ```./tmp/library_test/Test_*_<property id>_Parser.yaml``` - property as returned by the parser
+       * ```./tmp/library_test/Test_*_<property id>_Test.yaml``` - property as expected by the test
+
+Note: each run of the test removes the existing contents of the ```./tmp``` directory
 
 ## How to run Pytest-based ODO tests on a local machine
 

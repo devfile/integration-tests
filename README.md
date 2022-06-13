@@ -36,7 +36,7 @@ All related issues are being tracked under the main devfile API repo https://git
 # How to run integration tests on a local machine
 NOTE: This section covers the required test environment for macOS specifically, however the similar steps can be used for other OSes.
 
-## How to run Go ODO tests on a local machine
+## How to run library/API integration tests on a local machine
 NOTE: This test is based on [devfile library tests](https://github.com/devfile/library/tree/main/tests)
 1. clone the repository
 2. cd integration-tests

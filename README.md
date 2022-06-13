@@ -8,8 +8,10 @@ All related issues are being tracked under the main devfile API repo https://git
 
 # Daily CI integration tests
 
-- A [Github actions workflow](https://github.com/devfile/integration-tests/actions/workflows/pytest.yaml) is configured to run main integration tests (by using Pytest) and also when a PR is opened against 'main' branch.
-
+- [Github actions workflows](https://github.com/devfile/integration-tests/actions) is configured to run nightly integration tests and also when a PR is opened against 'main' branch.
+   - [Devfile library/API Go tests](https://github.com/devfile/integration-tests/actions/workflows/gotest.yaml)
+  - [Tests with the latest Odo](https://github.com/devfile/integration-tests/actions/workflows/pytest_odo.300.yaml) 
+  - [Tests with Odo v2.5.1](https://github.com/devfile/integration-tests/actions/workflows/pytest_odo.251.yaml)
 - Additional integration tests are configured with [OpenShift CI system](https://docs.ci.openshift.org/docs/how-tos/onboarding-a-new-component/) to run ODO and ODC tests with devfile.
 
 

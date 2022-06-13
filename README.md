@@ -1,9 +1,9 @@
 # integration-tests
-[![Devfile integration tests](https://github.com/devfile/integration-tests/actions/workflows/pytest.yaml/badge.svg)](https://github.com/devfile/integration-tests/actions/workflows/pytest.yaml)
+[![Devfile integration tests](https://github.com/devfile/integration-tests/actions/workflows/gotest.yaml/badge.svg)](https://github.com/devfile/integration-tests/actions/workflows/gotest.yaml)
 
 This repository contains files related to integration tests for devfile.  
 
-**NOTE:**  
+NOTE:
 All related issues are being tracked under the main devfile API repo https://github.com/devfile/api with the label `area/integration-tests`
 
 # Daily CI integration tests
@@ -34,10 +34,10 @@ All related issues are being tracked under the main devfile API repo https://git
 | 4.9 | [devfile-integration-tests-main-v4.9.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.9.console-e2e-gcp-console-periodic) |
 
 # How to run integration tests on a local machine
-**NOTE**: This section covers the required test environment for macOS specifically, however the similar steps can be used for other OSes.
+NOTE: This section covers the required test environment for macOS specifically, however the similar steps can be used for other OSes.
 
 ## How to run Go ODO tests on a local machine
-**NOTE**: This test is based on [devfile library tests](https://github.com/devfile/library/tree/main/tests)
+NOTE: This test is based on [devfile library tests](https://github.com/devfile/library/tree/main/tests)
 1. clone the repository
 2. cd integration-tests
 3. Run ```Make test```
@@ -48,7 +48,7 @@ All related issues are being tracked under the main devfile API repo https://git
        * ```./tmp/library_test/Test_*_<property id>_Parser.yaml``` - property as returned by the parser
        * ```./tmp/library_test/Test_*_<property id>_Test.yaml``` - property as expected by the test
 
-Note: each run of the test removes the existing contents of the ```./tmp``` directory
+NOTE: each run of the test removes the existing contents of the ```./tmp``` directory
 
 ## How to run Pytest-based ODO tests on a local machine
 

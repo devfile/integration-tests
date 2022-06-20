@@ -5,9 +5,9 @@ set -e
 # show commands
 set -x
 
-git clone --depth=1 https://github.com/openshift/odo $GOPATH/src/github.com/openshift/odo
-cp scripts/openshiftci-presubmit-devfiles-odo-tests.sh $GOPATH/src/github.com/openshift/odo/scripts/
-cd $GOPATH/src/github.com/openshift/odo
+git clone --depth=1 https://github.com/redhat-developer/odo $GOPATH/src/github.com/redhat-developer/odo
+cp scripts/openshiftci-presubmit-devfiles-odo-tests.sh $GOPATH/src/github.com/redhat-developer/odo/scripts/
+cd $GOPATH/src/github.com/redhat-developer/odo
 
 export CI="openshift"
 make configure-installer-tests-cluster
@@ -32,6 +32,6 @@ oc whoami
 
 make test-integration-devfile
 
-cp -r $GOPATH/src/github.com/openshift/odo/tests/integration/reports $ARTIFACT_DIR
+cp -r $GOPATH/src/github.com/redhat-developer/odo/tests/integration/reports $ARTIFACT_DIR
 
 oc logout

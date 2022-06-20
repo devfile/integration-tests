@@ -6,20 +6,20 @@ set -e
 set -x
 
 # refresh odo source files
-rm -rf $GOPATH/src/github.com/openshift/odo
+rm -rf $GOPATH/src/github.com/redhat-developer/odo
 
 # shallow clone only the target branch or tag to test
-# e.g. git clone --depth=1 --branch=v2.2.2 https://github.com/openshift/odo $GOPATH/src/github.com/openshift/odo
-git clone --depth=1 https://github.com/openshift/odo $GOPATH/src/github.com/openshift/odo
+# e.g. git clone --depth=1 --branch=v2.2.2 https://github.com/redhat-developer/odo $GOPATH/src/github.com/redhat-developer/odo
+git clone --depth=1 https://github.com/redhat-developer/odo $GOPATH/src/github.com/redhat-developer/odo
 
 # overwrite with devfile/integration-tests Makefile
-cp ./Makefile $GOPATH/src/github.com/openshift/odo/Makefile
+cp ./Makefile $GOPATH/src/github.com/redhat-developer/odo/Makefile
 
 # overwrite with devfile/integration-tests/*
-# rm -rf $GOPATH/src/github.com/openshift/odo/tests/integration/devfile/*
-cp -r tests/integration/devfile/* $GOPATH/src/github.com/openshift/odo/tests/integration/devfile/
+# rm -rf $GOPATH/src/github.com/redhat-developer/odo/tests/integration/devfile/*
+# cp -r tests/integration/devfile/* $GOPATH/src/github.com/redhat-developer/odo/tests/integration/devfile/
 
-cd $GOPATH/src/github.com/openshift/odo
+cd $GOPATH/src/github.com/redhat-developer/odo
 
 make bin
 
@@ -28,7 +28,7 @@ mkdir -p $GOPATH/bin
 # add $GOPATH/bin if it's not set
 # export PATH="$PATH:$GOPATH/bin"
 
-export REPORTS_DIR=$GOPATH/src/github.com/openshift/odo/tests/reports
+export REPORTS_DIR=$GOPATH/src/github.com/redhat-developer/odo/tests/reports
 
 # clean test reports directory
 rm -rf $REPORTS_DIR
@@ -53,23 +53,29 @@ oc whoami
 # make test-integration-devfile
 
 # 2. run individual integration test for ODO commands
-# make test-cmd-devfile-app
-make test-cmd-devfile-catalog
-# make test-cmd-devfile-config
-# make test-cmd-devfile-create
-# make test-cmd-devfile-debug
-# make test-cmd-devfile-delete
-# make test-cmd-devfile-describe
-# make test-cmd-devfile-env
-# make test-cmd-devfile-exec
-# make test-cmd-devfile-log
+# make test-cmd-login-logout
+# make test-cmd-link-unlink-4-cluster
+ make test-cmd-project
+# make test-cmd-pref-config
+# make test-cmd-devfile-list
+# make test-cmd-devfile-init
 # make test-cmd-devfile-push
-# make test-cmd-devfile-registry
+# make test-cmd-devfile-exec
 # make test-cmd-devfile-status
-# make test-cmd-devfile-storage
-# make test-cmd-devfile-test
-# make test-cmd-devfile-url
 # make test-cmd-devfile-watch
+# make test-cmd-devfile-app
+# make test-cmd-delete
+# make test-cmd-devfile-registry
+# make test-cmd-devfile-test
+# make test-cmd-devfile-debug
+# make test-cmd-devfile-storage
+# make test-cmd-devfile-log
+# make test-cmd-devfile-env
+# make test-cmd-devfile-config
+# make test-cmd-watch
+# make test-cmd-debug
+# make test-integration
+# make test-interactive
 
 # 3. run end-to-end devfile test
 # make test-e2e-devfile

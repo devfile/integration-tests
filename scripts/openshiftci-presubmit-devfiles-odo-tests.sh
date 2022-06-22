@@ -6,7 +6,6 @@ set -e
 set -x
 
 git clone --depth=1 https://github.com/redhat-developer/odo $GOPATH/src/github.com/redhat-developer/odo
-
 cp scripts/openshiftci-presubmit-devfiles-odo-tests.sh $GOPATH/src/github.com/redhat-developer/odo/scripts/
 cd $GOPATH/src/github.com/redhat-developer/odo
 

@@ -9,9 +9,6 @@ git clone --depth=1 https://github.com/redhat-developer/odo $GOPATH/src/github.c
 cp scripts/openshiftci-presubmit-devfiles-odo-tests.sh $GOPATH/src/github.com/redhat-developer/odo/scripts/
 cd $GOPATH/src/github.com/redhat-developer/odo
 
-# temporarily disable problematic tests
-rm tests/integration/cmd_add_binding_test.go tests/integration/cmd_describe_list_binding_test.go tests/integration/cmd_dev_test.go
-
 export CI="openshift"
 make configure-installer-tests-cluster
 make bin

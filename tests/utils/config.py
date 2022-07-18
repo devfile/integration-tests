@@ -40,18 +40,17 @@ def use_test_registry_v300():
 
     print('Check if', test_registry_name, 'exists and update URL if needed.')
 
-    result = subprocess.run(["odo", "preference", "registry", "list"],
+    result = subprocess.run(["odo", "registry", "list"],
                             capture_output=True, text=True, check=True)
 
     if contains(result.stdout, test_registry_name):
-        print('Updating', test_registry_name, '...')
+        print('Removing', test_registry_name, '...')
+        subprocess.run(["odo", "preference", "remove", "registry", test_registry_name, "-f"],
+                       capture_output=True, text=True, check=True)
 
-        subprocess.run(["odo", "preference", "registry", "update", test_registry_name, test_registry_url, '-f'],
-                       capture_output=True, text=True, check=True)
-    else:
-        print('Creating', test_registry_name, '...')
-        subprocess.run(["odo", "preference", "registry", "add", test_registry_name, test_registry_url],
-                       capture_output=True, text=True, check=True)
+    print('Adding', test_registry_name, '...')
+    subprocess.run(["odo", "preference", "add", "registry", test_registry_name, test_registry_url],
+                   capture_output=True, text=True, check=True)
 
     print('Using', test_registry_name, ':', test_registry_url)
 

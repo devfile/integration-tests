@@ -36,10 +36,10 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Check out the latest odo repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: redhat-developer/odo
           ref: main
@@ -51,7 +51,7 @@ jobs:
       - name: Setup go
         uses: actions/setup-go@v3
         with:
-          go-version: '1.16.1'
+          go-version: '1.17.3'
       - run: go version
 
       # Build and installs odo from source code

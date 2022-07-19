@@ -30,7 +30,12 @@ oc login -u developer -p password@123
 # Check login user name for debugging purpose
 oc whoami
 
-make test-integration-devfile
+# Integration tests
+make test-integration || error=true
+
+if [ $error ]; then
+    exit -1
+fi
 
 cp -r $GOPATH/src/github.com/redhat-developer/odo/tests/integration/reports $ARTIFACT_DIR
 

@@ -5,21 +5,22 @@ set -e
 # show commands
 set -x
 
-# refresh odo source files
-rm -rf $GOPATH/src/github.com/redhat-developer/odo
+export ODO_DIRPATH=$GOPATH/src/github.com/redhat-developer/odo
 
-# shallow clone only the target branch or tag to test
-# e.g. git clone --depth=1 --branch=v2.2.2 https://github.com/redhat-developer/odo $GOPATH/src/github.com/redhat-developer/odo
-git clone --depth=1 https://github.com/redhat-developer/odo $GOPATH/src/github.com/redhat-developer/odo
+# refresh odo source files
+rm -rf $ODO_DIRPATH
+
+## shallow clone only the target branch or tag to test
+## e.g. git clone --depth=1 --branch=v2.2.2 https://github.com/redhat-developer/odo $ODO_DIRPATH
+git clone --depth=1 https://github.com/redhat-developer/odo $ODO_DIRPATH
 
 # overwrite with devfile/integration-tests Makefile
-cp ./Makefile $GOPATH/src/github.com/redhat-developer/odo/Makefile
+cp ./Makefile $ODO_DIRPATH/Makefile
 
 # overwrite with devfile/integration-tests/*
-# rm -rf $GOPATH/src/github.com/redhat-developer/odo/tests/integration/devfile/*
-# cp -r tests/integration/devfile/* $GOPATH/src/github.com/redhat-developer/odo/tests/integration/devfile/
-
-cd $GOPATH/src/github.com/redhat-developer/odo
+rm -rf $ODO_DIRPATH/tests/integration/*
+cp -r tests/integration/devfile/* $ODO_DIRPATH/tests/integration
+cd $ODO_DIRPATH
 
 make bin
 
@@ -28,7 +29,7 @@ mkdir -p $GOPATH/bin
 # add $GOPATH/bin if it's not set
 # export PATH="$PATH:$GOPATH/bin"
 
-export REPORTS_DIR=$GOPATH/src/github.com/redhat-developer/odo/tests/reports
+export REPORTS_DIR=$ODO_DIRPATH/tests/reports
 
 # clean test reports directory
 rm -rf $REPORTS_DIR
@@ -50,14 +51,10 @@ oc whoami
 ### Test options. Uncomment one of tests below
 
 # 1. run all devfile integration tests.
-# make test-integration-devfile
+make test-integration || error=true
 
 # 2. run individual integration test for ODO commands
-# make test-cmd-login-logout
-# make test-cmd-link-unlink-4-cluster
- make test-cmd-project
-# make test-cmd-pref-config
-# make test-cmd-devfile-list
+ make test-cmd-devfile-list
 # make test-cmd-devfile-init
 # make test-cmd-devfile-push
 # make test-cmd-devfile-exec
@@ -74,7 +71,6 @@ oc whoami
 # make test-cmd-devfile-config
 # make test-cmd-watch
 # make test-cmd-debug
-# make test-integration
 # make test-interactive
 
 # 3. run end-to-end devfile test
@@ -85,5 +81,9 @@ oc whoami
 # jrm $REPORTS_DIR/junit_combined.xml "$REPORTS_DIR/junit*.xml"
 # convert test results from junit*.xml into HTML format
 # xunit-viewer -r $REPORTS_DIR/junit_combined.xml -o $REPORTS_DIR/junit_combined.html -b https://raw.githubusercontent.com/josephca/devfile-icon/main/docs/icons/2021_Devfile_logo_DevLoop_Icon.png -t "Devfile performance test"
+
+if [ $error ]; then
+    exit -1
+fi
 
 oc logout

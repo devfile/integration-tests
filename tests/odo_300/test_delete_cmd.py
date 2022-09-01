@@ -22,6 +22,7 @@ class TestDeleteCmd:
         '''Runs at end of class'''
         subprocess.run(["odo", "project", "delete", cls.tmp_project_name, "-f", "-w"])
 
+    @pytest.mark.skip(reason="This testcase is deprecated as it's covered in Odo integration tests")
     def test_delete(self):
         print("Test case : the component is deployed in DEV mode and it is deleted using its name and namespace")
 
@@ -67,6 +68,7 @@ class TestDeleteCmd:
             except Exception as e:
                 raise e
 
+    @pytest.mark.skip(reason="This testcase is deprecated as it's covered in Odo integration tests")
     def test_delete_from_other_directory(self):
         print("Test case : the component is deployed in DEV mode and it is deleted using its name and namespace from another directory")
 
@@ -122,6 +124,7 @@ class TestDeleteCmd:
             except Exception as e:
                 raise e
 
+    @pytest.mark.skip(reason="This testcase is deprecated as it's covered in Odo integration tests")
     def test_delete_with_devfile_present(self):
         print("Test case : the component is deployed in DEV mode and it is deleted when devfile present")
 

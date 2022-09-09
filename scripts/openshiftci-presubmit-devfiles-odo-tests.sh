@@ -17,6 +17,12 @@ cp $ODO_DIRPATH/tests/devfile-tests/cmd_devfile*.go $ODO_DIRPATH/tests/integrati
 rm -rf $ODO_DIRPATH/tests/devfile-tests
 cd $ODO_DIRPATH
 
+# Update with the latest devfile library for tests
+go get -d github.com/devfile/library@main
+go mod tidy
+go mod vendor
+go install github.com/devfile/library
+
 export CI="openshift"
 make configure-installer-tests-cluster
 make bin

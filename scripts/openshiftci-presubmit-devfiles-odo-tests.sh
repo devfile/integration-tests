@@ -21,7 +21,6 @@ cd $ODO_DIRPATH
 go get -d github.com/devfile/library@main
 go mod tidy -compat=1.17
 go mod vendor
-go install github.com/devfile/library
 
 export CI="openshift"
 make configure-installer-tests-cluster

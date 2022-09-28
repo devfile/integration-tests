@@ -1,3 +1,18 @@
+//
+// Copyright 2022 Red Hat, Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package parser
 
 import (
@@ -35,6 +50,9 @@ type DevfileCtx struct {
 
 	// filesystem for devfile
 	fs filesystem.Filesystem
+
+	// devfile kubernetes components has been coverted from uri to inlined in memory
+	convertUriToInlined bool
 }
 
 // NewDevfileCtx returns a new DevfileCtx type object
@@ -142,4 +160,14 @@ func (d *DevfileCtx) SetAbsPath() (err error) {
 
 	return nil
 
+}
+
+// GetConvertUriToInlined func returns if the devfile kubernetes comp has been converted from uri to inlined
+func (d *DevfileCtx) GetConvertUriToInlined() bool {
+	return d.convertUriToInlined
+}
+
+// SetConvertUriToInlined sets if the devfile kubernetes comp has been converted from uri to inlined
+func (d *DevfileCtx) SetConvertUriToInlined(value bool) {
+	d.convertUriToInlined = value
 }

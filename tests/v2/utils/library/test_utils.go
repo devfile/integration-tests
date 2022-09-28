@@ -305,6 +305,26 @@ func CopyDevfileSamples(t *testing.T, testDevfiles []string) {
 	}
 }
 
+// CopyTestDevfile : Copies existing artifacts from the devfiles/samples directory to the tmp/library_test directory.  Used in parent tests
+func CopyTestDevfile(t *testing.T, subDir string, testDevfiles []string) {
+
+	srcDir := "../../examples/source/devfiles/" + subDir + "/"
+	dstDir := commonUtils.CreateTempDir("library_test")
+
+	for i := range testDevfiles {
+		srcPath := srcDir + testDevfiles[i]
+		destPath := dstDir + testDevfiles[i]
+
+		file, err := os.Stat(srcPath)
+		if err != nil {
+			t.Fatalf(commonUtils.LogErrorMessage(fmt.Sprintf("Error locating testDevfile %v ", err)))
+		} else {
+			commonUtils.LogMessage(fmt.Sprintf("copy file from %s to %s ", srcPath, destPath))
+			util.CopyFile(srcPath, destPath, file)
+		}
+	}
+}
+
 //duplicateDevfileSample: Makes a copy of the parent devfile test artifact that is expected to exist in the tmp/library_test directory.
 //This is used in the multi-threaded parent test scenarios
 func duplicateDevfileSample(t *testing.T, src string, dst string) {
@@ -387,6 +407,22 @@ func RunStaticTest(testContent commonUtils.TestContent, t *testing.T) {
 	err := validateDevfile(&testDevfile)
 	if err != nil {
 		t.Fatalf(commonUtils.LogErrorMessage(fmt.Sprintf("Error validating testDevfile %v ", err)))
+	}
+}
+
+//RunStaticTestToFail : Runs fixed tests based on pre-existing artifacts and expects a failure
+func RunStaticTestToFail(testContent commonUtils.TestContent, t *testing.T) {
+	commonUtils.LogMessage(fmt.Sprintf("Start test for %s", testContent.FileName))
+	follower := DevfileFollower{}
+	validator := DevfileValidator{}
+	testfileName := destDir + testContent.FileName
+	testDevfile, _ := commonUtils.GetDevfile(testfileName, follower, validator)
+	testDevfile.SchemaDevFile.Parent = &schema.Parent{}
+	err := validateDevfileToFail(&testDevfile)
+	if err == nil {
+		t.Fatalf(commonUtils.LogErrorMessage(fmt.Sprintf("Error invalid testDevfile %s is wrongfully validated.", testContent.FileName)))
+	} else {
+		commonUtils.LogInfoMessage(fmt.Sprintf("Expected error was occurred in validating %s : %v", testContent.FileName, err))
 	}
 }
 

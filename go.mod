@@ -1,4 +1,4 @@
-module github.com/devfile/integration-tests
+module github.com/devfile/library
 
 go 1.15
 

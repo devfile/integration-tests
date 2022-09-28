@@ -9,7 +9,7 @@ class TestDescribeCmd:
 
     APP_NAME = "test-app"
     COMP_NAME = "cmp-django"
-    COMP_TYPE = "django"
+    COMP_TYPE = "Django"
     CONTEXT = "test-context"
     PORT_1 = "3000"
     PORT_2 = "4000"

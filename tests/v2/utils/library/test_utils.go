@@ -1,18 +1,3 @@
-//
-// Copyright 2022 Red Hat, Inc.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package utils
 
 import (
@@ -194,9 +179,8 @@ func validateDevfile(devfile *commonUtils.TestDevfile) error {
 	var err error
 
 	commonUtils.LogInfoMessage(fmt.Sprintf("Parse and Validate %s : ", devfile.FileName))
-	parseK8sDefinitionFromURI := false
+
 	parserArgs.Path = devfile.FileName
-	parserArgs.ConvertKubernetesContentInUri = &parseK8sDefinitionFromURI
 	libraryObj, warning, err := devfilepkg.ParseDevfileAndValidate(parserArgs)
 
 	if len(warning.Commands) > 0 || len(warning.Components) > 0 || len(warning.Projects) > 0 || len(warning.StarterProjects) > 0 {
@@ -205,15 +189,31 @@ func validateDevfile(devfile *commonUtils.TestDevfile) error {
 
 	if err != nil {
 		commonUtils.LogErrorMessage(fmt.Sprintf("From ParseDevfileAndValidate %v : ", err))
-		return err
 	} else {
 		follower := devfile.Follower.(DevfileFollower)
 		follower.LibraryData = libraryObj.Data
 	}
 
 	err = verifyEphemeralUnset(libraryObj)
-	if err != nil {
-		return err
+
+	return err
+}
+
+// validateDevfileToFail uses the library to parse and validate a devfile on disk and expect error or failure
+func validateDevfileToFail(devfile *commonUtils.TestDevfile) error {
+	var err error
+
+	commonUtils.LogInfoMessage(fmt.Sprintf("Parse and Validate %s and expects a failure: ", devfile.FileName))
+
+	parserArgs.Path = devfile.FileName
+	_, warning, err := devfilepkg.ParseDevfileAndValidate(parserArgs)
+
+	if len(warning.Commands) > 0 || len(warning.Components) > 0 || len(warning.Projects) > 0 || len(warning.StarterProjects) > 0 {
+		commonUtils.LogWarningMessage(fmt.Sprintf("top-level variables were not substituted successfully %+v\n", warning))
+	}
+
+	if err == nil {
+		commonUtils.LogErrorMessage(fmt.Sprintf("From ParseDevfileAndValidate, expected error is not found."))
 	}
 
 	return err
@@ -221,24 +221,27 @@ func validateDevfile(devfile *commonUtils.TestDevfile) error {
 
 // verifyEphemeralUnset  verifies volume.Ephemeral is not set on schema version 2.0.0
 func verifyEphemeralUnset(libraryObj parser.DevfileObj) error {
-	version := libraryObj.Data.GetSchemaVersion()
 
-	//verify volume.Ephemeral is not set on schema version 2.0.0
-	if version == string(devfileData.APISchemaVersion200) {
-		volumes, err := libraryObj.Data.GetComponents(common.DevfileOptions{
-			ComponentOptions: common.ComponentOptions{
-				ComponentType: schema.VolumeComponentType,
-			},
-		})
+	if libraryObj.Data != nil {
+		version := libraryObj.Data.GetSchemaVersion()
 
-		if err != nil {
-			return err
-		}
+		//verify volume.Ephemeral is not set on schema version 2.0.0
+		if version == string(devfileData.APISchemaVersion200) {
+			volumes, err := libraryObj.Data.GetComponents(common.DevfileOptions{
+				ComponentOptions: common.ComponentOptions{
+					ComponentType: schema.VolumeComponentType,
+				},
+			})
 
-		for i := range volumes {
-			volume := volumes[i].Volume
-			if volume != nil && volume.Ephemeral != nil {
-				return errors.New("ephemeral is not supported on schema version 2.0.0")
+			if err != nil {
+				return err
+			}
+
+			for i := range volumes {
+				volume := volumes[i].Volume
+				if volume != nil && volume.Ephemeral != nil {
+					return errors.New("ephemeral is not supported on schema version 2.0.0")
+				}
 			}
 		}
 	}

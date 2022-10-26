@@ -25,7 +25,7 @@ class TestCreateCmd:
 
     @pytest.mark.parametrize(
        "value, param_1, param_2, param_3", [pytest.param("2.1.0", "schemaVersion", -1,         -1, id = "check-schema-version"),
-                                            pytest.param("java",  "metadata",   "language",    -1, id = "check-metadata-language"),
+                                            pytest.param("Java",  "metadata",   "language",    -1, id = "check-metadata-language"),
                                             pytest.param("dev",   "components",      0,    "name", id = "check-open-liberty-comp-name")])
     def test_create_component(self, value, param_1, param_2, param_3):
 

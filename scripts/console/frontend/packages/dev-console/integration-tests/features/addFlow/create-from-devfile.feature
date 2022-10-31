@@ -24,16 +24,6 @@ Feature: Create Application from Devfile
         @regression
         Scenario: Create the workload from dev file: A-04-TC02
             Given user is at Import from Git form
-             When user enters Git Repo URL as "https://github.com/devfile-samples/devfile-sample-java-springboot-basic"
-              And user enters workload name as "devfile-sample-java-springboot-basic"
-              And user clicks Create button on Add page
-             Then user will be redirected to Topology page
-              And user is able to see workload "devfile-sample-java-springboot-basic" in topology page
-
-
-        @regression @to-do
-        Scenario: Create the workload from dev file: A-04-TC03
-            Given user is at Import from Git form
              When user enters Git Repo URL as "https://github.com/nodeshift-starters/devfile-sample"
               And user enters workload name as "node-bulletin-board"
               And user clicks Create button on Add page
@@ -41,44 +31,6 @@ Feature: Create Application from Devfile
               And user is able to see workload "node-bulletin-board" in topology page
 
 
-        @regression @to-do
-        Scenario: Create the workload from dev file: A-04-TC04
-            Given user is at Import from Git form
-             When user enters Git Repo URL as "https://github.com/devfile-samples/devfile-sample-code-with-quarkus"
-              And user enters workload name as "devfile-sample-code-with-quarkus"
-              And user clicks Create button on Add page
-             Then user will be redirected to Topology page
-              And user is able to see workload "devfile-sample-code-with-quarkus" in topology page
-
-
-        @regression @to-do
-        Scenario: Create the workload from dev file: A-04-TC05
-            Given user is at Import from Git form
-             When user enters Git Repo URL as "https://github.com/devfile-samples/devfile-sample-python-basic"
-              And user enters workload name as "devfile-sample-python-basic"
-              And user clicks Create button on Add page
-             Then user will be redirected to Topology page
-              And user is able to see workload "devfile-sample-python-basic" in topology page
-
-
-        @regression @to-do
-        Scenario: Create the workload from dev file: A-04-TC06
-            Given user is at Import from Git form
-             When user enters Git Repo URL as "https://github.com/devfile-samples/devfile-stacks-nodejs-react"
-              And user enters workload name as "devfile-stacks-nodejs-react"
-              And user clicks Create button on Add page
-             Then user will be redirected to Topology page
-              And user is able to see workload "devfile-stacks-nodejs-react" in topology page
-
-        @regression @to-do
-        Scenario: Create the workload from dev file: A-04-TC07
-            Given user is at Import from Git form
-             When user enters Git Repo URL as "https://github.com/devfile-samples/devfile-sample-dotnet60-basic"
-              And user enters workload name as "devfile-sample-dotnet60-basic"
-              And user clicks Create button on Add page
-             Then user will be redirected to Topology page
-              And user is able to see workload "devfile-sample-dotnet60-basic" in topology page
-          
         # Below scenario to be removed after the tests are are updated
         # @smoke
         # Scenario: Create the sample workload from dev file: A-04-TC03

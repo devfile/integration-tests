@@ -106,7 +106,7 @@ class TestInitCmd:
             os.chdir(tmp_workspace)
 
             result = subprocess.run(["odo", "init", "--name", self.COMPONENT, "--devfile", "go",
-                                     "--devfile-registry", "DefaultDevfileRegistry"],
+                                     "--devfile-registry", "TestDevfileRegistry"],
                                     capture_output=True, text=True, check=True)
 
             assert check_file_exist("devfile.yaml", tmp_workspace)

@@ -19,7 +19,7 @@ cd $ODO_DIRPATH
 
 # Update with the latest devfile library for tests
 go get -d github.com/devfile/library@main
-go mod tidy -compat=1.17
+go mod tidy
 go mod vendor
 
 export CI="openshift"

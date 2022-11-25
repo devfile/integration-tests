@@ -10,8 +10,6 @@ All related issues are being tracked under the main devfile API repo https://git
 
 - [Github actions workflows](https://github.com/devfile/integration-tests/actions) is configured to run nightly integration tests and also when a PR is opened against 'main' branch.
   - [Devfile library/API Go tests](https://github.com/devfile/integration-tests/actions/workflows/gotest.yaml)
-  - [Tests with the latest Odo](https://github.com/devfile/integration-tests/actions/workflows/pytest_odo.300.yaml) 
-  - [Tests with Odo v2.5.1](https://github.com/devfile/integration-tests/actions/workflows/pytest_odo.251.yaml)
 - Additional integration tests are configured with [OpenShift CI system](https://docs.ci.openshift.org/docs/how-tos/onboarding-a-new-component/) to run ODO and ODC tests with devfile.
 
 
@@ -20,18 +18,18 @@ All related issues are being tracked under the main devfile API repo https://git
 
 | OCP version   |      Prow Test Status    |
 |----------|:-------------:|
+| 4.12 | [devfile-integration-tests-main-v4.12.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.12.odo-integration-devfile-odo-periodic) |
 | 4.11 | [devfile-integration-tests-main-v4.11.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.11.odo-integration-devfile-odo-periodic) |
 | 4.10 | [devfile-integration-tests-main-v4.10.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.10.odo-integration-devfile-odo-periodic) |
-| 4.9 | [devfile-integration-tests-main-v4.9.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.9.odo-integration-devfile-odo-periodic) |
 
 ## ODC tests on OpenShift CI
 [ODC integration test cases](./scripts/console/frontend/packages/dev-console/integration-tests/features/addFlow/create-from-devfile.feature)
 
 | OCP version   |      Prow Test Status    |
 |----------|:-------------:|
+| 4.12 | [devfile-integration-tests-main-v4.12.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.12.console-e2e-gcp-console-periodic) |
 | 4.11 | [devfile-integration-tests-main-v4.11.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.11.console-e2e-gcp-console-periodic) |
 | 4.10 | [devfile-integration-tests-main-v4.10.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.10.console-e2e-gcp-console-periodic) |
-| 4.9 | [devfile-integration-tests-main-v4.9.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.9.console-e2e-gcp-console-periodic) |
 
 # How to run integration tests on a local machine
 NOTE: This section covers the required test environment for macOS specifically, however the similar steps can be used for other OSes.
@@ -50,7 +48,7 @@ NOTE: This test is based on [devfile library tests](https://github.com/devfile/l
 
 NOTE: each run of the test removes the existing contents of the ```./tmp``` directory
 
-## How to run Pytest-based ODO tests on a local machine
+## [Deprecated] How to run Pytest-based ODO tests on a local machine
 
 ### Prerequisites
 - Python 3.9.10

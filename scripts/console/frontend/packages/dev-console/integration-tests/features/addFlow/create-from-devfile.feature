@@ -24,11 +24,11 @@ Feature: Create Application from Devfile
         @regression
         Scenario: Create the workload from dev file: A-04-TC02
             Given user is at Import from Git form
-             When user enters Git Repo URL as "https://github.com/devfile-samples/devfile-sample-java-springboot-basic"
-              And user enters workload name as "devfile-sample-java-springboot-basic"
+             When user enters Git Repo URL as "https://github.com/nodeshift-starters/devfile-sample"
+              And user enters workload name as "node-example"
               And user clicks Create button on Add page
              Then user will be redirected to Topology page
-              And user is able to see workload "devfile-sample-java-springboot-basic" in topology page
+              And user is able to see workload "node-example" in topology page
 
 
         # Below scenario to be removed after the tests are are updated

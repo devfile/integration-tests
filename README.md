@@ -70,7 +70,7 @@ NOTE: each run of the test removes the existing contents of the ```./tmp``` dire
 [ODO integration tests](https://github.com/openshift/odo/blob/main/docs/dev/test-architecture.adoc#integration-and-e2e-tests) 
 
 ### Prerequisites
-- Go 1.16 and Ginkgo latest version
+- Go 1.19 and Ginkgo latest version
 - git
 - [OpenShift Cluster](https://github.com/openshift/odo/blob/main/docs/dev/test-architecture.adoc#integration-and-e2e-tests).  e.g. crc environment for 4.* local cluster 
 - [Optional] [xunit-viewer](https://www.npmjs.com/package/xunit-viewer)
@@ -99,7 +99,7 @@ Tests in this repository are based on [ODC integration tests](https://github.com
 
 ### Prerequisites
 1. [node.js](https://nodejs.org/) >= 14 & [yarn](https://yarnpkg.com/en/docs/install) >= 1.20
-2. [go](https://golang.org/) >= 1.16+
+2. [go](https://golang.org/) >= 1.19+
 3. [oc](https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.4/) or [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) and an OpenShift or Kubernetes cluster. In this document, [CRC](https://cloud.redhat.com/openshift/create/local) is used.
 4. [jq](https://stedolan.github.io/jq/download/) (for `contrib/environment.sh`)
 5. Google Chrome/Chromium or Firefox for integration tests

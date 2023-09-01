@@ -4607,7 +4607,7 @@ func getUnsetBooleanDevfileTestData(apiVersion string) (devfileData data.Devfile
 
 }
 
-//getBooleanDevfileTestData returns a DevfileData object that contains set values for the boolean properties.  If setDefault is true, an object with the default boolean values will be returned
+// getBooleanDevfileTestData returns a DevfileData object that contains set values for the boolean properties.  If setDefault is true, an object with the default boolean values will be returned
 func getBooleanDevfileTestData(apiVersion string, setDefault bool) (devfileData data.DevfileData, err error) {
 
 	type boolValues struct {

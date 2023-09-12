@@ -9,6 +9,8 @@ approvers:
 - michael-valdron
 - thepetk
 - yangcao77
+- feloy
+- rm3l
 
 options: {}
 reviewers:
@@ -19,3 +21,5 @@ reviewers:
 - michael-valdron
 - thepetk
 - yangcao77
+- feloy
+- rm3l

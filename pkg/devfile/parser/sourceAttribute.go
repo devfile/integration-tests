@@ -29,7 +29,8 @@ const (
 )
 
 // addSourceAttributesForParentOverride adds an attribute 'api.devfile.io/imported-from=<source reference>'
-//  to all elements of template spec content that support attributes.
+//
+//	to all elements of template spec content that support attributes.
 func addSourceAttributesForTemplateSpecContent(sourceImportReference v1.ImportReference, template *v1.DevWorkspaceTemplateSpecContent) {
 	for idx, component := range template.Components {
 		if component.Attributes == nil {
@@ -58,7 +59,8 @@ func addSourceAttributesForTemplateSpecContent(sourceImportReference v1.ImportRe
 }
 
 // addSourceAttributesForParentOverride adds an attribute 'api.devfile.io/parent-override-from=<source reference>'
-//  to all elements of parent override that support attributes.
+//
+//	to all elements of parent override that support attributes.
 func addSourceAttributesForParentOverride(sourceImportReference v1.ImportReference, parentOverrides *v1.ParentOverrides) {
 	for idx, component := range parentOverrides.Components {
 		if component.Attributes == nil {
@@ -88,7 +90,8 @@ func addSourceAttributesForParentOverride(sourceImportReference v1.ImportReferen
 }
 
 // addSourceAttributesForPluginOverride adds an attribute 'api.devfile.io/plugin-override-from=<source reference>'
-//  to all elements of plugin override that support attributes.
+//
+//	to all elements of plugin override that support attributes.
 func addSourceAttributesForPluginOverride(sourceImportReference v1.ImportReference, pluginOverrides *v1.PluginOverrides) {
 	for idx, component := range pluginOverrides.Components {
 		if component.Attributes == nil {

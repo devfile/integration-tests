@@ -497,7 +497,7 @@ func convertDevWorskapceTemplateToDevObj(dwTemplate v1.DevWorkspaceTemplate) (d 
 
 }
 
-//setDefaults sets the default values for nil boolean properties after the merging of devWorkspaceTemplateSpec is complete
+// setDefaults sets the default values for nil boolean properties after the merging of devWorkspaceTemplateSpec is complete
 func setDefaults(d DevfileObj) (err error) {
 
 	var devfileVersion string
@@ -598,13 +598,13 @@ func setDefaults(d DevfileObj) (err error) {
 	return nil
 }
 
-///setIsDefault sets the default value of CommandGroup.IsDefault if nil
+// /setIsDefault sets the default value of CommandGroup.IsDefault if nil
 func setIsDefault(cmdGroup *v1.CommandGroup) {
 	val := cmdGroup.GetIsDefault()
 	cmdGroup.IsDefault = &val
 }
 
-//setEndpoints sets the default value of Endpoint.Secure if nil
+// setEndpoints sets the default value of Endpoint.Secure if nil
 func setEndpoints(endpoints []v1.Endpoint) {
 	for i := range endpoints {
 		val := endpoints[i].GetSecure()

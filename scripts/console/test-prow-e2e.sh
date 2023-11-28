@@ -50,8 +50,8 @@ BRIDGE_BASE_ADDRESS="$(oc get consoles.config.openshift.io cluster -o jsonpath='
 export BRIDGE_BASE_ADDRESS
 
 # Add htpasswd IDP
-oc apply -f ./frontend/integration-tests/data/htpasswd-secret.yaml
-oc patch oauths cluster --patch "$(cat ./frontend/integration-tests/data/patch-htpasswd.yaml)" --type=merge
+oc apply -f ./frontend/packages/console-shared/src/test-data/htpasswd-secret.yaml
+oc patch oauths cluster --patch "$(cat ./frontend/packages/console-shared/src/test-data/patch-htpasswd.yaml)" --type=merge
 set +x
 echo "waiting for authentication operator to start Progressing 'test' idp..."
 waitForAuthOperatorProgressing "True"

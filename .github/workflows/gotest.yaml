@@ -63,7 +63,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Status:* :red_circle: failure\n*Severity:* medium\n*Title:* Devfile go integration tests\n*Description:* run failed for ${{ github.ref }} - ${{ github.sha }}"
+                    "text": "*Status:* :red_circle: failure\n*Severity:* medium\n*Title:* Devfile go integration tests\n*Description:* run failed for `${{ github.ref }}` - `${{ github.sha }}`"
                   }
                 },
                 {

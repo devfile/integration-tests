@@ -12,10 +12,10 @@ jobs:
   build:
     name: Run Tests
     strategy:
+      fail-fast: true
       matrix:
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
-    continue-on-error: true
     timeout-minutes: 20
 
     steps:
@@ -49,9 +49,19 @@ jobs:
 
       - name: Run Go Tests
         run: make test
+    # - name: Upload Test Coverage results
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: lib-test-coverage-html
+    #     path: tests/v2/lib-test-coverage.html
 
-      - name: Send slack notification
-        if: ${{ failure() &&  github.event_name == 'schedule' }}
+  slack_notification:
+    name: Send slack notification
+    runs-on: ubuntu-latest
+    if: ${{ always() && contains(join(needs.*.result, ','), 'failure') &&  github.event_name == 'schedule' }}
+    needs: [build]
+    steps:
+      - name: notify
         uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
         with:
           channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
@@ -84,8 +94,3 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-#      - name: Upload Test Coverage results
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: lib-test-coverage-html
-#          path: tests/v2/lib-test-coverage.html

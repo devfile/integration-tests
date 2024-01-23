@@ -2,25 +2,23 @@ name: Devfile Go integration tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   schedule:
     # every day at 9am EST
     - cron: 0 1 * * *
 jobs:
-
   build:
     name: Run Tests
     strategy:
+      fail-fast: true
       matrix:
-        os: [ ubuntu-latest, macos-latest ]
+        os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
-    continue-on-error: true
     timeout-minutes: 20
 
     steps:
-
       - name: Setup Go environment
         uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
         with:
@@ -51,9 +49,48 @@ jobs:
 
       - name: Run Go Tests
         run: make test
+    # - name: Upload Test Coverage results
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: lib-test-coverage-html
+    #     path: tests/v2/lib-test-coverage.html
 
-#      - name: Upload Test Coverage results
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: lib-test-coverage-html
-#          path: tests/v2/lib-test-coverage.html
+  slack_notification:
+    name: Send slack notification
+    runs-on: ubuntu-latest
+    if: ${{ always() && contains(join(needs.*.result, ','), 'failure') &&  github.event_name == 'schedule' }}
+    needs: [build]
+    steps:
+      - name: notify
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
+        with:
+          channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
+          payload: |
+            {
+              "text": "GitHub Action failed",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Status:* :red_circle: failure\n*Severity:* medium\n*Title:* Devfile go integration tests\n*Description:* run failed for `${{ github.ref }}` - `${{ github.sha }}`"
+                  }
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": ":github: Failed action"
+                      },
+                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

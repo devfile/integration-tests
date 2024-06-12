@@ -1,4 +1,6 @@
 # integration-tests
+![Go](https://img.shields.io/badge/Go-1.21-blue)
+[![Apache2.0 License](https://img.shields.io/badge/license-Apache2.0-brightgreen.svg)](LICENSE)
 [![Devfile integration tests](https://github.com/devfile/integration-tests/actions/workflows/gotest.yaml/badge.svg)](https://github.com/devfile/integration-tests/actions/workflows/gotest.yaml)
 
 This repository contains files related to integration tests for devfile.  
@@ -18,6 +20,7 @@ All related issues are being tracked under the main devfile API repo https://git
 
 | OCP version   |      Prow Test Status    |
 |----------|:-------------:|
+| 4.15 | [devfile-integration-tests-main-v4.15.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.15.odo-integration-devfile-odo-periodic) |
 | 4.12 | [devfile-integration-tests-main-v4.12.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.12.odo-integration-devfile-odo-periodic) |
 | 4.11 | [devfile-integration-tests-main-v4.11.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.11.odo-integration-devfile-odo-periodic) |
 | 4.10 | [devfile-integration-tests-main-v4.10.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.10.odo-integration-devfile-odo-periodic) |
@@ -27,6 +30,7 @@ All related issues are being tracked under the main devfile API repo https://git
 
 | OCP version   |      Prow Test Status    |
 |----------|:-------------:|
+| 4.15 | [devfile-integration-tests-main-v4.15.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.15.console-e2e-gcp-console-periodic) |
 | 4.12 | [devfile-integration-tests-main-v4.12.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.12.console-e2e-gcp-console-periodic) |
 | 4.11 | [devfile-integration-tests-main-v4.11.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.11.console-e2e-gcp-console-periodic) |
 | 4.10 | [devfile-integration-tests-main-v4.10.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.10.console-e2e-gcp-console-periodic) |
@@ -70,7 +74,7 @@ NOTE: each run of the test removes the existing contents of the ```./tmp``` dire
 [ODO integration tests](https://github.com/openshift/odo/blob/main/docs/dev/test-architecture.adoc#integration-and-e2e-tests) 
 
 ### Prerequisites
-- Go 1.19 and Ginkgo latest version
+- Go 1.21 and Ginkgo latest version
 - git
 - [OpenShift Cluster](https://github.com/openshift/odo/blob/main/docs/dev/test-architecture.adoc#integration-and-e2e-tests).  e.g. crc environment for 4.* local cluster 
 - [Optional] [xunit-viewer](https://www.npmjs.com/package/xunit-viewer)

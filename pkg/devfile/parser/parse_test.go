@@ -18,6 +18,15 @@ package parser
 import (
 	"context"
 	"fmt"
+	"net"
+	"net/http"
+	"net/http/httptest"
+	"os"
+	"path"
+	"reflect"
+	"strings"
+	"testing"
+
 	v1 "github.com/devfile/api/v2/pkg/apis/workspaces/v1alpha2"
 	"github.com/devfile/api/v2/pkg/attributes"
 	devfilepkg "github.com/devfile/api/v2/pkg/devfile"
@@ -28,17 +37,8 @@ import (
 	"github.com/devfile/library/pkg/testingutil"
 	"github.com/kylelemons/godebug/pretty"
 	"github.com/stretchr/testify/assert"
-	"io/ioutil"
 	kubev1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"net"
-	"net/http"
-	"net/http/httptest"
-	"os"
-	"path"
-	"reflect"
 	"sigs.k8s.io/yaml"
-	"strings"
-	"testing"
 )
 
 const schemaVersion = string(data.APISchemaVersion220)
@@ -3861,7 +3861,7 @@ func Test_parseFromURI(t *testing.T) {
 	if err != nil {
 		fmt.Errorf("Test_parseFromURI() error: failed to marshall devfile data: %v", err)
 	}
-	err = ioutil.WriteFile(localRelativeURI, yamlData, 0644)
+	err = os.WriteFile(localRelativeURI, yamlData, 0644)
 	if err != nil {
 		fmt.Errorf("Test_parseFromURI() error: fail to write to file: %v", err)
 	}

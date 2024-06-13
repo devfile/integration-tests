@@ -16,12 +16,13 @@
 package generator
 
 import (
-	"github.com/hashicorp/go-multierror"
-	"github.com/stretchr/testify/assert"
 	"path/filepath"
 	"reflect"
 	"strings"
 	"testing"
+
+	"github.com/hashicorp/go-multierror"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/devfile/api/v2/pkg/attributes"
 	"github.com/devfile/library/pkg/devfile/parser"

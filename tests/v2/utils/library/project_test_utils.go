@@ -18,7 +18,7 @@ package utils
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"os"
 
 	"github.com/google/go-cmp/cmp"
 	"sigs.k8s.io/yaml"
@@ -105,7 +105,7 @@ func VerifyProjects(devfile *commonUtils.TestDevfile, parserProjects []schema.Pr
 					if err != nil {
 						errorString = append(errorString, commonUtils.LogErrorMessage(fmt.Sprintf(".......marshall devfile %s", parserFilename)))
 					} else {
-						err = ioutil.WriteFile(parserFilename, c, 0644)
+						err = os.WriteFile(parserFilename, c, 0644)
 						if err != nil {
 							errorString = append(errorString, commonUtils.LogErrorMessage(fmt.Sprintf(".......write devfile %s", parserFilename)))
 						}
@@ -115,7 +115,7 @@ func VerifyProjects(devfile *commonUtils.TestDevfile, parserProjects []schema.Pr
 					if err != nil {
 						errorString = append(errorString, commonUtils.LogErrorMessage(fmt.Sprintf(".......marshall devfile %s", testFilename)))
 					} else {
-						err = ioutil.WriteFile(testFilename, c, 0644)
+						err = os.WriteFile(testFilename, c, 0644)
 						if err != nil {
 							errorString = append(errorString, commonUtils.LogErrorMessage(fmt.Sprintf(".......write devfile %s", testFilename)))
 						}
@@ -166,7 +166,7 @@ func VerifyStarterProjects(devfile *commonUtils.TestDevfile, parserStarterProjec
 					if err != nil {
 						errorString = append(errorString, commonUtils.LogErrorMessage(fmt.Sprintf(".......marshall devfile %s", parserFilename)))
 					} else {
-						err = ioutil.WriteFile(parserFilename, c, 0644)
+						err = os.WriteFile(parserFilename, c, 0644)
 						if err != nil {
 							errorString = append(errorString, commonUtils.LogErrorMessage(fmt.Sprintf(".......write devfile %s", parserFilename)))
 						}
@@ -176,7 +176,7 @@ func VerifyStarterProjects(devfile *commonUtils.TestDevfile, parserStarterProjec
 					if err != nil {
 						errorString = append(errorString, commonUtils.LogErrorMessage(fmt.Sprintf(".......marshall devfile %s", testFilename)))
 					} else {
-						err = ioutil.WriteFile(testFilename, c, 0644)
+						err = os.WriteFile(testFilename, c, 0644)
 						if err != nil {
 							errorString = append(errorString, commonUtils.LogErrorMessage(fmt.Sprintf(".......write devfile %s", testFilename)))
 						}

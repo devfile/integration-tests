@@ -16,7 +16,6 @@
 package util
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"time"
@@ -26,9 +25,21 @@ import (
 
 // cleanHttpCache checks cacheDir and deletes all files that were modified more than cacheTime back
 func cleanHttpCache(cacheDir string, cacheTime time.Duration) error {
-	cacheFiles, err := ioutil.ReadDir(cacheDir)
+	dirEntries, err := os.ReadDir(cacheDir)
+
 	if err != nil {
 		return err
+	}
+
+	cacheFiles := make([]os.FileInfo, 0, len(dirEntries))
+	for _, dirEntry := range dirEntries {
+		info, err := dirEntry.Info()
+
+		if err != nil {
+			return err
+		}
+
+		cacheFiles = append(cacheFiles, info)
 	}
 
 	for _, f := range cacheFiles {

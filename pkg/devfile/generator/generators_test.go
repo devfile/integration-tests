@@ -17,14 +17,15 @@ package generator
 
 import (
 	"fmt"
+	"reflect"
+	"strings"
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	appsv1 "k8s.io/api/apps/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/intstr"
-	"k8s.io/utils/pointer"
-	"reflect"
-	"strings"
-	"testing"
+	"k8s.io/utils/ptr"
 
 	v1 "github.com/devfile/api/v2/pkg/apis/workspaces/v1alpha2"
 	"github.com/devfile/api/v2/pkg/attributes"
@@ -1066,7 +1067,7 @@ func TestGetDeployment(t *testing.T) {
 					},
 				},
 				Containers: containers,
-				Replicas:   pointer.Int32Ptr(1),
+				Replicas:   ptr.To(int32(1)),
 			},
 			expected: appsv1.Deployment{
 				ObjectMeta: objectMetaDedicatedPod,
@@ -1083,7 +1084,7 @@ func TestGetDeployment(t *testing.T) {
 							Containers: containers,
 						},
 					},
-					Replicas: pointer.Int32Ptr(1),
+					Replicas: ptr.To(int32(1)),
 				},
 			},
 		},

@@ -3,7 +3,7 @@ package api
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"regexp"
 	"testing"
 
@@ -44,10 +44,21 @@ func getTestDevfileList(subdir string, testValid bool) ([]string, error) {
 
 	fileList := make([]string, 0)
 	subdirPath := "../../examples/source/devfiles/" + subdir + "/"
-	files, err := ioutil.ReadDir(subdirPath)
+	dirEntries, err := os.ReadDir(subdirPath)
 
 	if err != nil {
 		commonUtils.LogErrorMessage(fmt.Sprintf("Error in getting file list from the directory: %s : %v", subdirPath, err))
+	}
+
+	files := make([]os.FileInfo, 0, len(dirEntries))
+	for _, dirEntry := range dirEntries {
+		info, err := dirEntry.Info()
+
+		if err != nil {
+			commonUtils.LogErrorMessage(fmt.Sprintf("Error in getting file information from file list in: %s : %v", subdirPath, err))
+		}
+
+		files = append(files, info)
 	}
 
 	for _, file := range files {

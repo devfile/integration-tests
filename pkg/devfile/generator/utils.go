@@ -17,10 +17,11 @@ package generator
 
 import (
 	"fmt"
-	"github.com/hashicorp/go-multierror"
 	"path/filepath"
 	"reflect"
 	"strings"
+
+	"github.com/hashicorp/go-multierror"
 
 	v1 "github.com/devfile/api/v2/pkg/apis/workspaces/v1alpha2"
 	"github.com/devfile/library/pkg/devfile/parser"
@@ -488,7 +489,7 @@ func getRouteSpec(routeParams RouteSpecParams) *routev1.RouteSpec {
 func getPVCSpec(quantity resource.Quantity) *corev1.PersistentVolumeClaimSpec {
 
 	pvcSpec := &corev1.PersistentVolumeClaimSpec{
-		Resources: corev1.ResourceRequirements{
+		Resources: corev1.VolumeResourceRequirements{
 			Requests: corev1.ResourceList{
 				corev1.ResourceStorage: quantity,
 			},

@@ -2,6 +2,4 @@
 
 FROM registry.ci.openshift.org/openshift/release:rhel-9-release-golang-1.24-openshift-4.20
 
-RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Base.repo && \
-    sed -i 's|mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/CentOS-Base.repo && \
-    yum -y install make wget gcc git httpd-tools
+RUN yum -y install make wget gcc git httpd-tools

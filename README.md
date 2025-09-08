@@ -20,18 +20,18 @@ All related issues are being tracked under the main devfile API repo https://git
 
 | OCP version   |      Prow Test Status    |
 |----------|:-------------:|
-| 4.15 | [devfile-integration-tests-main-v4.15.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.15.odo-integration-devfile-odo-periodic) |
-| 4.12 | [devfile-integration-tests-main-v4.12.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.12.odo-integration-devfile-odo-periodic) |
-| 4.11 | [devfile-integration-tests-main-v4.11.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.11.odo-integration-devfile-odo-periodic) |
+| 4.18 | [devfile-integration-tests-main-v4.18.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.18.odo-integration-devfile-odo-periodic) |
+| 4.17 | [devfile-integration-tests-main-v4.17.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.17.odo-integration-devfile-odo-periodic) |
+| 4.16 | [devfile-integration-tests-main-v4.16.odo](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.16.odo-integration-devfile-odo-periodic) |
 
 ## ODC tests on OpenShift CI
 [ODC integration test cases](./scripts/console/frontend/packages/dev-console/integration-tests/features/addFlow/create-from-devfile.feature)
 
 | OCP version   |      Prow Test Status    |
 |----------|:-------------:|
-| 4.15 | [devfile-integration-tests-main-v4.15.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.15.console-e2e-gcp-console-periodic) |
-| 4.12 | [devfile-integration-tests-main-v4.12.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.12.console-e2e-gcp-console-periodic) |
-| 4.11 | [devfile-integration-tests-main-v4.11.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.11.console-e2e-gcp-console-periodic) |
+| 4.18 | [devfile-integration-tests-main-v4.18.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.18.console-e2e-gcp-console-periodic) |
+| 4.17 | [devfile-integration-tests-main-v4.17.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.17.console-e2e-gcp-console-periodic) |
+| 4.16 | [devfile-integration-tests-main-v4.16.console](https://prow.ci.openshift.org/job-history/gs/origin-ci-test/logs/periodic-ci-devfile-integration-tests-main-v4.16.console-e2e-gcp-console-periodic) |
 
 # How to run integration tests on a local machine
 NOTE: This section covers the required test environment for macOS specifically, however the similar steps can be used for other OSes.
